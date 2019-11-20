@@ -25,16 +25,18 @@
 .HomePageHeader a {
   display: flex;
   align-items: center;
-  color:  white;
+  color: black;
   text-decoration: none;
   padding: 5px;
   align-self: center;
   border-radius: 10px;
+  margin-bottom: -10px;
 }
 
 .HomePageHeader a.active {
 
   background-color: red;
+  color: white;
   transition: .5s;
 
 }

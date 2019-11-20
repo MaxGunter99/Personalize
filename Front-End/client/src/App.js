@@ -8,6 +8,9 @@ import Home from './Components/Home';
 import Jobs from './Components/Jobs';
 import ToDos from './Components/ToDos';
 import Calendar from './Components/Calendar';
+import AddJobForm from './Components/AddJobForm';
+import Job from './Components/Job';
+import EditJob from './Components/EditJob';
 
 function App() {
   return (
@@ -31,6 +34,9 @@ function App() {
       <Route exact path = '/Jobs' component = { Jobs } />
       <Route exact path = '/Todos' component = { ToDos } />
       <Route exact path = '/Schedule' component = { Calendar } />
+      <Route exact path = '/AddJob' component = { AddJobForm } />
+      <Route exact path = '/Job/:id' component = { Job } />
+      <Route exact path = '/Job/Edit/:id' component = { EditJob } />
 
     </div>
 

@@ -18,7 +18,7 @@ class Time extends React.Component {
     updateCurrentTime() {
 
         // Update redux state every minute
-        if ( this.state.reduxUpdate === 60 ) {
+        if ( this.state.reduxUpdate === 59 ) {
 
             this.setState({
 

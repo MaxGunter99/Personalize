@@ -6,25 +6,307 @@
     flex-direction: column;
     justify-content: center;
     border-top: 3px solid black;
+    background: url('https://images.pexels.com/photos/2733862/pexels-photo-2733862.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 100%;
 }
 
 .Jobs nav {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     width: 100%;
     align-items: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.123);
+    top: 0;
+    height: 100px;
+}
+
+.Jobs nav a {
+    color: white;
+    width: 175px;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: 2px solid white;
+    background-color: rgb(0, 0, 0);
 }
 
 .Jobs nav p {
-    width: 250px;
+    color: white;
+    width: 175px;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: 2px solid white;
+    background-color: rgb(0, 0, 0);
 }
 
 .Jobs nav h1 {
     width: 250px;
+    font-family: 'Lobster', cursive;
+    font-size: 60px;
+    text-decoration: underline;
+    text-decoration-color: red;
 }
 
 .Statistics {
     display: flex;
     width: 100%;
     justify-content: space-evenly;
+}
+
+/* ADD JOB FORM */
+
+.AddJobForm {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('https://images.pexels.com/photos/963278/pexels-photo-963278.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-position: center;
+}
+
+.AddJobForm form {
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.61);
+    background-attachment: blur( 10px );
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    width: 80%;
+    margin: 0 auto;
+
+}
+
+form label {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    color: white;
+}
+
+.section {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 100px;
+    padding: 20px;
+}
+
+.section .pair {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    background-color: rgba(0, 0, 0, 0.712);
+    background-attachment: blur( 5px );
+    padding: 20px;
+}
+
+.section .pair:hover {
+    transition: .1s;
+    background-color: rgb(0, 0, 0);
+}
+
+.AddJobForm form input {
+    width: 100%;
+    margin: 0 auto;
+    /* align-self: baseline; */
+}
+
+div.react-datepicker__input-container {
+    top: -11px
+}
+
+.AddJobForm form .ActionButton {
+    width: 100px;
+    margin: 10px;
+    align-self: center;
+    height: 40px;
+    background-color: black;
+    transition: .1s;
+    color: white;
+    font-size: 20px;
+}
+
+.AddJobForm form .ActionButton:hover {
+    width: 150px;
+    transition: .1s;
+}
+
+/* JOBS ADDED */
+
+.ToggleMessageActive {
+    transition: .5s;
+    color: white;
+    background-color: rgb(250, 181, 32);
+    height: 50px;
+    width: 40%;
+    margin: 0 auto;
+}
+
+.ToggleMessageInactive {
+    transition: .5s;
+    color: rgba(0, 0, 0, 0);
+    height: 0px;
+    background-color: rgba(46, 145, 170, 0);
+    height: 50px;
+    width: 40%;
+    margin: 0 auto;
+}
+
+a.updateActive {
+    display: flex;
+    justify-content: center;
+    transition: .5s;
+    width: 25%;
+    background-color: rgb(250, 181, 32);
+    border: none;
+    margin: 0 auto;
+    padding: 0px;
+    margin-top: 10px;
+    height: 25px;
+    color: white;
+    font-size: 17px;
+    outline: none;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+a.updateInactive {
+    display: flex;
+    justify-content: center;
+    transition: .5s;
+    width: 25%;
+    color: rgba(0, 0, 0, 0);
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    margin: 0 auto;
+    margin-bottom: 10px;
+    height: 25px;
+    font-size: 17px;
+    outline: none;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.JobContainer {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    
+}
+
+.Job {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+    min-width: 45%;
+    border: 3px solid black;
+    background-color: rgba(255, 255, 255, 0.411);
+    backdrop-filter: blur(4px);
+}
+
+.Job .Header{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    align-items: center;
+    height: 75px;
+}
+
+.CompanyName {
+    margin-bottom: 5px;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.Role {
+    margin-top: 5px;
+    font-size: 17px;
+    color: rgb(53, 53, 53);
+}
+
+.Applied {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.Applied p {
+    margin-bottom: 0px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.Applied .Date {
+    font-weight: bold;
+}
+
+.Job .a {
+    color: white;
+    background-color: black;
+    text-decoration: none;
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid white;
+    width: 25%;
+    margin: 0 auto;
+    transition: .3s;
+    border-radius: 5px;
+}
+
+.Job .a:hover {
+    color: black;
+    background-color: white;
+    transition: .3s;
+}
+
+.Stats {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+}
+
+.Stats div {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 10px;
+    color: white;
+}
+
+.Stats div p {
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur( 5px );
+    border: 3px solid white;
+    /* min-height: 100px; */
+    padding: 40px;
+}
+
+div.rv-xy-plot {
+    background-color: rgba(255, 255, 255, 0.452);
+    backdrop-filter: blur( 5px );
+    margin: 0 auto;
+    height: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    color: black;
+}
+
+text.rv-xy-plot__axis__tick__text {
+    fill: rgb(0, 0, 0);
 }
