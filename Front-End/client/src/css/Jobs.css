@@ -20,7 +20,7 @@
     color: white;
     background-color: rgba(0, 0, 0, 0.123);
     top: 0;
-    height: 100px;
+    height: 70px;
 }
 
 .Jobs nav a {
@@ -44,7 +44,8 @@
 }
 
 .Jobs nav h1 {
-    width: 250px;
+    width: 175px;
+    text-align: center;
     font-family: 'Lobster', cursive;
     font-size: 60px;
     text-decoration: underline;
@@ -143,7 +144,6 @@ div.react-datepicker__input-container {
     color: white;
     background-color: rgb(250, 181, 32);
     height: 50px;
-    width: 40%;
     margin: 0 auto;
 }
 
@@ -153,7 +153,6 @@ div.react-datepicker__input-container {
     height: 0px;
     background-color: rgba(46, 145, 170, 0);
     height: 50px;
-    width: 40%;
     margin: 0 auto;
 }
 
@@ -206,7 +205,8 @@ a.updateInactive {
     flex-direction: column;
     margin: 10px;
     padding: 10px;
-    min-width: 45%;
+    width: 21%;
+    /* max-width: 33%; */
     border: 3px solid black;
     background-color: rgba(255, 255, 255, 0.411);
     backdrop-filter: blur(4px);
@@ -221,19 +221,21 @@ a.updateInactive {
 }
 
 .CompanyName {
+    font-size: 20px;
     margin-bottom: 5px;
     text-decoration: underline;
     text-decoration-color: red;
 }
 
 .Role {
+    font-size: 15px;
     margin-top: 5px;
-    font-size: 17px;
     color: rgb(53, 53, 53);
 }
 
 .Applied {
     display: flex;
+    font-size: 15px;
     justify-content: space-between;
     flex-direction: column;
     margin: 0 auto;
@@ -309,4 +311,19 @@ div.rv-xy-plot {
 
 text.rv-xy-plot__axis__tick__text {
     fill: rgb(0, 0, 0);
+}
+
+nav.category {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 3px solid white;
+}
+
+nav.category input {
+    /* margin: 0px; */
+    width: 150px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
 }

@@ -40,6 +40,7 @@ export default class Job extends React.Component {
 
                     <h2>-= Outreach =-</h2>
                     <p><strong>Applied Through:</strong> {this.state.job.AppliedThrough}</p>
+                    <button onClick = { () => window.location = `${this.state.job.URL}`}>Job Description</button>
                     { this.state.job.ReplyRecieved === 'Yes' ? <p><strong>Reply Recieved:</strong> {this.state.job.ReplyRecieved}</p> : <p><strong>. . . No Reply yet . . .</strong></p> }
                     { this.state.job.Details !== '' ? <p><strong>Details:</strong> { this.state.job.Details }</p> : null }
 

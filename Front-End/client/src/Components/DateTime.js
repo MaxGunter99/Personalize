@@ -58,7 +58,6 @@ class Time extends React.Component {
 
             <div className = 'TimeContainer'>
                 <h3>{ this.state.time.toLocaleDateString() }</h3>
-                <h3>{ this.state.time.toLocaleTimeString() }</h3>
             </div>
 
         )

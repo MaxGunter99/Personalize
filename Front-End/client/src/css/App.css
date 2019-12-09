@@ -31,6 +31,8 @@
   align-self: center;
   border-radius: 10px;
   margin-bottom: -10px;
+  width: 110px;
+  justify-content: center;
 }
 
 .HomePageHeader a.active {
@@ -38,6 +40,7 @@
   background-color: red;
   color: white;
   transition: .5s;
+  width: 110px;
 
 }
 

@@ -10,6 +10,7 @@
     justify-content: space-between;
     background-attachment: fixed;
     align-items: center;
+    margin: 0 auto;
 }
 
 .Container header {
@@ -65,4 +66,34 @@ a {
     background-color: white;
     border-radius: 5px;
     border: 3px solid black;
+}
+
+.Process {
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.37);
+    margin: 0 auto;
+}
+
+.Process h1 {
+    font-family: 'Lobster', cursive;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+.EditJobForm {
+    width: 100%;
+    margin: 0 auto;
+    background-image: url('https://images.unsplash.com/photo-1561454260-8559bd155736?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80');
+    background-size: 100%;
+    background-position: center;
+    border-top: 3px solid black;
+    min-height: 92vh;
+    background-attachment: fixed;
+}
+
+button {
+    color: white;
+    background-color: black;
+    margin: 10px;
+    padding: 5px;
 }

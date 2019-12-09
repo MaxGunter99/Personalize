@@ -27,6 +27,7 @@ class JobForm extends React.Component {
     // Update State When Entering Info
     changeHandler = event => {
         event.preventDefault();
+        console.log( this.state.job )
         this.setState({
             job: {
                 ...this.state.job,
@@ -39,15 +40,18 @@ class JobForm extends React.Component {
     handleChange = date => {
 
         this.setState({
+            startDate: date
+        });
+
+        this.setState({
             job: {
-                startDate: date.toLocaleDateString()
+                DateApplied: date.toLocaleString().split(',')[0]
             }
         });
 
     };
 
     submitDataHandler = event => {
-
         event.preventDefault();
         axios
             .post( 'http://localhost:3000/jobs/' , this.state.job )
