@@ -12,7 +12,10 @@ import {
     GET_ONE_JOB_ERROR,
     DELETE_JOB_FAIL,
     DELETE_JOB_SUCCESS,
-    DELETE_JOB
+    DELETE_JOB,
+    UPDATE_JOB,
+    UPDATE_JOB_SUCCESS,
+    UPDATE_JOB_ERROR
 
 } from '../Actions/index';
 
@@ -29,6 +32,9 @@ const initialState = {
     getOneJob: false,
     getOneJobSuccess: false,
     getOneJobError: false,
+    updateJob: false,
+    updateJobSuccess: false,
+    updateJobError: false,
     error: null
 }
 
@@ -158,6 +164,36 @@ export default function reducer(state = initialState, action) {
                 deleteJobFail: false,
                 deleteJobSuccess: true
             }
+
+        case UPDATE_JOB:
+            return {
+                ...state,
+                loading: true,
+                updateJob: true,
+                updateJobSuccess: false,
+                updateJobError: false,
+                error: null
+            }
+
+        case UPDATE_JOB_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                updateJob: false,
+                updateJobError: true,
+                updateJobSuccess: false,
+                error: false
+            }
+
+        case UPDATE_JOB_ERROR:
+            return {
+                ...state,
+                updateJob: false,
+                updateJobError: true,
+                updateJobSuccess: false,
+                error: action.payload
+
+        }
 
         // ! Return inital state as a default or the client recieves undefined !
         default:

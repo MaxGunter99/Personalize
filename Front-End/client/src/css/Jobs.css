@@ -4,7 +4,7 @@
     min-height: 90vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     border-top: 3px solid black;
     background: url('https://images.pexels.com/photos/2733862/pexels-photo-2733862.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
     background-attachment: fixed;
@@ -95,6 +95,7 @@ form label {
     width: 100%;
     height: 100px;
     padding: 20px;
+    transition: .1s;
 }
 
 .section .pair {
@@ -104,6 +105,7 @@ form label {
     background-color: rgba(0, 0, 0, 0.712);
     background-attachment: blur( 5px );
     padding: 20px;
+    transition: .1s;
 }
 
 .section .pair:hover {
@@ -337,6 +339,32 @@ nav.category input {
 
 }
 
+.FilterNav {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.575);
+    padding: 5px;
+}
+
+.FilterNav h2 {
+    text-decoration: underline;
+    color: white;
+    text-decoration-color: red;
+    padding: 5px;
+}
+
+.FilterNav button {
+    padding: 5px;
+    background-color: red;
+    color: 'white';
+    min-width: 100px;
+    align-items: center;
+}
+
 .Filters {
     width: 100%;
     display: flex;
@@ -372,4 +400,16 @@ nav.category input {
 
 .More {
     height: 40px;
+}
+
+.SearchTitle {
+    background-color: rgba(0, 0, 0, 0.479);
+    color: white;
+    font-family: 'Lobster' , 'cursive';
+    width: 100%;
+    top: 0;
+}
+
+.JobContainer.Search {
+    padding-bottom: 50px;
 }

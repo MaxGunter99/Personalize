@@ -31,13 +31,13 @@ class Job extends React.Component {
 
         return(
 
-            <div className = 'Container'>
+            <div>
 
                 { this.props.loading === true ?
                     <h1>Loading</h1>
 
                 :
-                    <div>
+                    <div className = 'Container'>
 
                         <header>
                             <h1>{this.props.job.CompanyName}</h1>
@@ -48,7 +48,7 @@ class Job extends React.Component {
 
                             <h2>-= Outreach =-</h2>
                             <p><strong>Applied Through:</strong> {this.props.job.AppliedThrough}</p>
-                            <button onClick = { () => window.location = `${this.props.job.URL}`}>Job Description</button>
+                            <button onClick = { () => window.open(`${this.props.job.URL}`)}>Job Description</button>
                             { this.props.job.ReplyRecieved === 'Yes' ? <p><strong>Reply Recieved:</strong> {this.props.job.ReplyRecieved}</p> : <p><strong>. . . No Reply yet . . .</strong></p> }
                             { this.props.job.Details !== '' ? <p><strong>Details:</strong> { this.props.job.Details }</p> : null }
 

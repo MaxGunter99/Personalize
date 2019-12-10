@@ -5,12 +5,9 @@ import { NavLink } from 'react-router-dom';
 import Stats from './Stats';
 import { GetAllJobs } from '../Actions/index';
 import { connect } from 'react-redux';
+import WOW from "wow.js";
 
 class Jobs extends React.Component {
-
-    componentDidMount() {
-        this.props.GetAllJobs()
-    }
 
     constructor(props) {
         super(props);
@@ -20,8 +17,14 @@ class Jobs extends React.Component {
             view: '',
             filterJobs: false,
             filter: [],
-            search: ''
+            search: '',
+            filteredJobResults: []
         }
+    }
+
+    componentDidMount() {
+        this.props.GetAllJobs()
+        new WOW().init()
     }
 
     // Update State When Entering Info
@@ -33,14 +36,12 @@ class Jobs extends React.Component {
             search: event.target.value
         });
 
-        // console.log( this.state.startDate )
-
     };
 
     // Toggles state of how many filters the user wants to be displayed
     toggleUpdate = () => {
 
-        if ( this.state.edit === 'Active' ) {
+        if (this.state.edit === 'Active') {
             return this.setState({ edit: 'Inactive' })
 
         } else {
@@ -50,9 +51,9 @@ class Jobs extends React.Component {
 
     }
 
-    filter = ( content ) => {
+    filter = (content) => {
 
-        if ( content === 'Clear' ) {
+        if (content === 'Clear') {
 
             this.setState({
                 jobs: [],
@@ -60,27 +61,68 @@ class Jobs extends React.Component {
                 view: '',
                 filterJobs: false,
                 filter: [],
-                search: ''
+                search: '',
+                filteredJobResults: []
             })
+            this.toggleUpdate()
 
-            this.componentDidMount()
+        } else if (this.state.filterJobs === true) {
 
-        } else if ( this.state.filterJobs === true ) {
-
-            if ( content !== this.state.filter[0] ) {
-
-                this.setState({ filterJobs: true })
+            if ( this.state.filter !== content ) {
+    
                 this.state.filter.pop()
                 this.state.filter.push( content )
-                this.componentDidMount()
+                this.filterResults()
 
             }
 
-        } else if ( this.state.filterJobs === false ) {
+        } else if (this.state.filterJobs === false) {
 
             this.setState({ filterJobs: true })
-            this.state.filter.push( content )
-            this.componentDidMount()
+            this.state.filter.push(content)
+            this.filterResults()
+
+        }
+
+    }
+
+    filterResults() {
+
+        if ( this.state.filter[0] === 'OnSite' ) {
+
+            for (var w = 0; w < this.props.jobs.length; w++) {
+
+                if (this.props.jobs[w].OnSite === 'Yes') {
+                    this.state.filteredJobResults.push(this.props.jobs[w])
+                }
+
+            }
+
+        } else if (this.state.filter[0] === 'Rejects') {
+            for (var x = 0; x < this.props.jobs.length; x++) {
+
+                if (this.props.jobs[x].FollowUpReply === 'Rejected') {
+                    this.state.filteredJobResults.push(this.props.jobs[x])
+                }
+
+            }
+
+        } else if (this.state.filter[0] === 'PhoneScreen') {
+            for (var y = 0; y < this.props.jobs.length; y++) {
+
+                if (this.props.jobs[y].PhoneScreen === 'Yes') {
+                    this.state.filteredJobResults.push(this.props.jobs[y])
+                }
+
+            }
+
+
+        } else if (this.state.filter[0] === 'Search') {
+            for (var z = 0; z < this.props.jobs.length; z++) {
+
+                console.log(this.props.jobs[z])
+
+            }
 
         }
 
@@ -90,92 +132,131 @@ class Jobs extends React.Component {
 
         return (
 
-            <div className = 'Jobs'>
+            <div className='Jobs'>
 
                 <nav>
                     <h1>Jobs</h1>
                 </nav>
 
-                <div className = 'Filters'>
+                {this.state.filteredJobResults.length == 0 ?
 
-                    <div>
-                        <NavLink exact to = '/AddJob' >Add Job</NavLink>
-                        <input
-                            id = 'Search'
-                            type = 'text'
-                            className = 'CompanySearch'
-                            placeholder = 'Search'
-                            onChange = { this.changeHandler }
-                            value = {this.state.search}></input>
-                        <button onClick = { () => this.filter( 'Search' ) }>Search</button>
-                    </div>
+                    <div className='Filters wow fadeIn'>
 
-                    <div>
-
-                        { this.state.filterJobs === true ? 
-                            <button onClick = { () => this.filter( 'Clear' ) } style = {{ backgroundColor: 'red' , color: 'white' }}>Clear Filter</button> 
-                        : 
-                            <button onClick = { () => this.filter( 'Clear' ) }>Clear Filter</button>
-                        }
-
-                        { this.state.edit === 'Inactive' ? 
-                            <button onClick = { () => this.toggleUpdate() }>More</button>
-                        : 
-                            <button onClick = { () => this.toggleUpdate() }>Less</button>
-                        }
-
-                    </div>
-
-                    { this.state.edit === 'Active' ? 
-                        <div className = 'More'>
-                            <button onClick = { () => this.filter( 'Pending' ) }>Pending</button>
-                            <button onClick = { () => this.filter( 'PhoneScreen' ) } >Phone Screens</button>
-                            <button onClick = { () => this.filter( 'Rejects' ) }>Rejects</button> 
+                        <div>
+                            <NavLink exact to='/AddJob' >Add Job</NavLink>
+                            <input
+                                id='Search'
+                                type='text'
+                                className='CompanySearch'
+                                placeholder='Search'
+                                onChange={this.changeHandler}
+                                value={this.state.search}></input>
+                            <button onClick={() => this.filter('Search')}>Search</button>
+                            {this.state.edit === 'Inactive' ?
+                                <button style = {{minWidth: '50px'}} onClick={() => this.toggleUpdate()}>More</button>
+                            :
+                                <button style = {{minWidth: '50px'}} onClick={() => this.toggleUpdate()}>Less</button>
+                            }
                         </div>
-                    : 
-                        <div className = 'More'></div>
-                    }
 
-                </div>
+                        {this.state.edit === 'Active' ?
+                            <div className='More'>
+                                <button onClick={() => this.filter('OnSite')}>On Sites</button>
+                                <button onClick={() => this.filter('PhoneScreen')} >Phone Screens</button>
+                                <button onClick={() => this.filter('Rejects')}>Rejects</button>
+                            </div>
+                        :
+                            <div className='More'></div>
+                        }
 
-                <Stats/>
-
-                { this.props.loading === true  ?
-
-                    // If there are no results, render ⬇︎
-                    <div className = 'JobContainer'>     
-                        <h1 style = {{ color: 'white' }}>Loading</h1>
                     </div>
 
                 :
+                    null
+                }
+
+                {this.state.filteredJobResults.length >= 1 ?
+                    <div className = 'FilterNav wow fadeIn'>
+                        <h2 style = {{ fontFamily: 'Lobster', height: '30px'}}>Filtered</h2>
+                        <button onClick={() => this.filter('Clear')}>Clear Filter</button>
+                    </div>
+                :
+                    <Stats/>
+                }
+
+                {this.props.loading === true ?
+
+                    // If there are no results, render ⬇︎
+                    <div className='JobContainer'>
+                        <h1 style={{ color: 'white' }}>Loading</h1>
+                    </div>
+
+                    :
 
                     // Map all the jobs out
-                    <div className = 'JobContainer'>
+                    <div>
 
-                        { this.props.jobs.map( ( x ) =>
+                        {this.state.filteredJobResults.length >= 1 ?
 
-                            <div className = 'Job' key = {x.id} onClick = { ()  => window.location = `/Job/${x.id}`}>
+                            <div className='JobContainer Search wow fadeIn' style ={{ border: '3px solid white' , width: '90%' }}>
 
-                                <div className = 'Header'>
+                            <h2 className = 'SearchTitle'>{`${this.state.filter[0]}s`}</h2>
 
-                                    <div>
+                                {this.state.filteredJobResults.map((x) =>
 
-                                        <h2 className = 'CompanyName'>{x.CompanyName}</h2>
-                                        <h4 className = 'Role'>{x.Role}</h4>
+                                    <div className='Job ' key={x.id} onClick={() => window.location = `/Job/${x.id}`}>
+
+                                        <div className='Header'>
+
+                                            <div>
+
+                                                <h2 className='CompanyName'>{x.CompanyName}</h2>
+                                                <h4 className='Role'>{x.Role}</h4>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div className='Applied'>
+
+                                            <p>{x.AppliedThrough}</p>
+                                            <p className="Date">{x.DateApplied}</p>
+
+                                        </div>
 
                                     </div>
-
-                                </div>
-
-                                <div className = 'Applied'>
-
-                                    <p>{x.AppliedThrough}</p>
-                                    <p className = "Date">{x.DateApplied}</p>
-
-                                </div>
-
+                                )}
                             </div>
-                        )}
+                        :
+
+                            <div className='JobContainer'>
+
+                                {this.props.jobs.map((x) =>
+
+                                    <div className='Job section--yellow wow fadeIn' key={x.id} onClick={() => window.location = `/Job/${x.id}`}>
+
+                                        <div className='Header'>
+
+                                            <div>
+
+                                                <h2 className='CompanyName'>{x.CompanyName}</h2>
+                                                <h4 className='Role'>{x.Role}</h4>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div className='Applied'>
+
+                                            <p>{x.AppliedThrough}</p>
+                                            <p className="Date">{x.DateApplied}</p>
+
+                                        </div>
+
+                                    </div>
+                                )}
+                            </div>
+                        }
                     </div>
                 }
 

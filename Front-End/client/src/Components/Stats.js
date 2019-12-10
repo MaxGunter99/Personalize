@@ -4,6 +4,7 @@ import '../../node_modules/react-vis/dist/style.css';
 import { XYPlot, LineSeries, VerticalGridLines, HorizontalGridLines, YAxis, XAxis } from 'react-vis';
 import { GetAllJobs } from '../Actions/index';
 import { connect } from 'react-redux';
+import WOW from "wow.js";
 
 class Stats extends React.Component {
 
@@ -27,12 +28,16 @@ class Stats extends React.Component {
     }
 
     componentDidMount() {
+        new WOW().init()
         this.props.GetAllJobs()
+        this.loadStats()
     }
 
     componentDidUpdate() {
+
         this.state.jobs = this.props.jobs
         this.loadStats()
+        
     }
 
     // Loads data for activity graph
@@ -104,8 +109,6 @@ class Stats extends React.Component {
         this.state.appliedToday = jobsAppliedToday.length
         this.state.appliedThisWeek = jobsAppliedThisWeek.length
 
-        console.log(this.state)
-
     }
 
     render() {
@@ -114,13 +117,13 @@ class Stats extends React.Component {
 
             <div className='Stats'>
 
-                <div>
+                <div className = 'wow zoomInRight'>
                     <p>Total: {this.state.jobs.length}</p>
                     <p>{Math.floor(this.state.replies / this.state.jobs.length * 100)}% replied to you. ( {this.state.replies} )</p>
                 </div>
 
 
-                <div className='Graph'>
+                <div className='Graph wow fadeIn'>
                     <XYPlot
                         height={300} 
                         width={300} 
@@ -135,7 +138,7 @@ class Stats extends React.Component {
                     </XYPlot>
                 </div>
 
-                <div>
+                <div className = 'wow zoomInLeft'>
                     <p>Today: {this.state.appliedToday}</p>
                     <p>This week: {this.state.appliedThisWeek}</p>
                 </div>

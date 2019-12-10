@@ -69,6 +69,27 @@ export const GetOneJob = ( id ) => dispatch => {
   
 }
 
+// UPDATE JOB
+export const UPDATE_JOB = 'UPDATE_JOB';
+export const UPDATE_JOB_SUCCESS = 'UPDATE_JOB_SUCCESS';
+export const UPDATE_JOB_ERROR = 'UPDATE_JOB_ERROR';
+
+export const UpdateJob = ( id , newInfo ) => dispatch => {
+
+    dispatch({ type: UPDATE_JOB });
+    console.log( newInfo )
+    axios
+        .put( `http://localhost:3000/jobs/${id}` , newInfo )
+        .then( res => {
+            console.log( res )
+            dispatch({ type: UPDATE_JOB_SUCCESS , payload: res.data })
+        })
+        .catch( error => {
+            dispatch({ type: UPDATE_JOB_ERROR , payload: error })
+        })
+
+} 
+
 
 //  DELETE JOB
 export const DELETE_JOB = 'DELETE_JOB';
