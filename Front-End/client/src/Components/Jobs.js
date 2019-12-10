@@ -2,7 +2,6 @@
 import React from 'react';
 import '../css/Jobs.css';
 import { NavLink } from 'react-router-dom';
-import '../../node_modules/react-vis/dist/style.css';
 import Stats from './Stats';
 import { GetAllJobs } from '../Actions/index';
 import { connect } from 'react-redux';
@@ -18,19 +17,6 @@ class Jobs extends React.Component {
         this.state = {
             jobs: props.jobs,
             edit: 'Inactive',
-            replies: 0,
-            appliedThisWeek: 0,
-            appliedToday: 0,
-            data:[
-                {x: 0, y: 0},
-                {x: 0, y: 0},
-                {x: 0, y: 0},
-                {x: 0, y: 0},
-                {x: 0, y: 0},
-                {x: 0, y: 0},
-                {x: 0, y: 0},
-                {x: 0, y: 0},
-            ],
             view: '',
             filterJobs: false,
             filter: [],
@@ -71,18 +57,6 @@ class Jobs extends React.Component {
             this.setState({
                 jobs: [],
                 replies: 0,
-                appliedThisWeek: 0,
-                appliedToday: 0,
-                data:[
-                    {x: 0, y: 0},
-                    {x: 0, y: 0},
-                    {x: 0, y: 0},
-                    {x: 0, y: 0},
-                    {x: 0, y: 0},
-                    {x: 0, y: 0},
-                    {x: 0, y: 0},
-                    {x: 0, y: 0},
-                ],
                 view: '',
                 filterJobs: false,
                 filter: [],

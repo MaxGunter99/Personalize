@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 
 class Stats extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            jobs: [],
+            jobs: [ ...props.jobs ],
             appliedThisWeek: 0,
             appliedToday: 0,
             data: [
@@ -23,14 +23,11 @@ class Stats extends React.Component {
                 { x: 0, y: 0 },
                 { x: 0, y: 0 },
             ]
-    
         }
     }
 
-    componentDidMount(){
-
+    componentDidMount() {
         this.props.GetAllJobs()
-
     }
 
     componentDidUpdate() {
@@ -40,8 +37,6 @@ class Stats extends React.Component {
 
     // Loads data for activity graph
     loadStats = () => {
-
-        console.log( this.props.jobs )
 
         const accepts = []
         const jobsAppliedToday = []
@@ -55,7 +50,7 @@ class Stats extends React.Component {
             const prev = new Date(today) - i
             const prevDay = new Date().setDate(prev)
             const thatDay = new Date(prevDay).toLocaleDateString()
-            this.state.data[i].x = thatDay.split('/')[1]
+            this.state.data[i].x = Number(thatDay.split('/')[1])
             lastWeekDates.push(thatDay)
 
         }
@@ -72,11 +67,12 @@ class Stats extends React.Component {
 
             const todayStr = new Date()
 
-            if (applied.split('/')[0] === todayStr.toLocaleDateString().split('/')[0] && applied.split('/')[1] === todayStr.toLocaleDateString().split('/')[1] && applied.split('/')[2] === todayStr.toLocaleDateString().split('/')[2]) {
+            if (applied.split('/')[0] === Number(todayStr.toLocaleDateString().split('/')[0]) && applied.split('/')[1] === Number(todayStr.toLocaleDateString().split('/')[1]) && applied.split('/')[2] === Number(todayStr.toLocaleDateString().split('/')[2])) {
                 jobsAppliedToday.push(1)
 
             }
 
+            // Finds jobs applied to this past week
             for (var x = 0; x < lastWeekDates.length; x++) {
 
                 if (lastWeekDates[x] === applied) {
@@ -88,13 +84,14 @@ class Stats extends React.Component {
 
         }
 
+        // Populates graph data with jobs applied this week
         for (var z = 0; z < jobsAppliedThisWeek.length; z++) {
 
             for (var q = 0; q < this.state.data.length; q++) {
 
                 const day = jobsAppliedThisWeek[z].split('/')
 
-                if (day[1] === this.state.data[q].x) {
+                if ( Number(day[1]) === this.state.data[q].x) {
                     this.state.data[q].y = this.state.data[q].y + 1
 
                 }
@@ -107,44 +104,41 @@ class Stats extends React.Component {
         this.state.appliedToday = jobsAppliedToday.length
         this.state.appliedThisWeek = jobsAppliedThisWeek.length
 
+        console.log(this.state)
+
     }
 
     render() {
 
         return (
 
-            <div>
+            <div className='Stats'>
 
-                { this.props.loading === true ?
-                    null
-                :
-                    <div className='Stats'>
-
-                        <div>
-                            <p>Total: {this.state.jobs.length}</p>
-                            <p>{Math.floor( this.state.replies / this.state.jobs.length * 100)}% replied to you. ( {this.state.replies} )</p>
-                        </div>
+                <div>
+                    <p>Total: {this.state.jobs.length}</p>
+                    <p>{Math.floor(this.state.replies / this.state.jobs.length * 100)}% replied to you. ( {this.state.replies} )</p>
+                </div>
 
 
-                        <div className='Graph'>
-                            <XYPlot height={300} width={300} stroke="red" >
+                <div className='Graph'>
+                    <XYPlot
+                        height={300} 
+                        width={300} 
+                        stroke="red" >
 
-                                <HorizontalGridLines />
-                                <VerticalGridLines />
-                                <XAxis color="red" />
-                                <YAxis />
-                                <LineSeries data={this.state.data} />
+                        {/* <HorizontalGridLines /> */}
+                        <VerticalGridLines />
+                        <XAxis color="red" />
+                        <YAxis />
+                        <LineSeries data={this.state.data} />
 
-                            </XYPlot>
-                        </div>
+                    </XYPlot>
+                </div>
 
-                        <div>
-                            <p>Today: {this.state.appliedToday}</p>
-                            <p>This week: {this.state.appliedThisWeek}</p>
-                        </div>
-                    </div>
-                }
-
+                <div>
+                    <p>Today: {this.state.appliedToday}</p>
+                    <p>This week: {this.state.appliedThisWeek}</p>
+                </div>
             </div>
         )
     }
