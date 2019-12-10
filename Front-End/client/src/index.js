@@ -9,10 +9,11 @@ import { BrowserRouter as Router , withRouter } from 'react-router-dom';
 
 //Redux
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './Reducers';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import Reducer from './Reducers';
 const RootElement = document.getElementById('root')
-const store = createStore( rootReducer );
+const store = createStore(Reducer, applyMiddleware(thunk));
 
 //Router
 const AppWithRouter = withRouter( App )

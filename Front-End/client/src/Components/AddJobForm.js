@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { AddJob } from '../Actions/index';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from 'axios'
 
 class JobForm extends React.Component {
 
@@ -27,14 +26,14 @@ class JobForm extends React.Component {
     // Update State When Entering Info
     changeHandler = event => {
         event.preventDefault();
-        console.log( this.state.job )
+        // console.log( this.state.job )
         this.setState({
             job: {
                 ...this.state.job,
-                [ event.target.name ]: event.target.value
+                [event.target.name]: event.target.value
             }
         });
-        console.log( this.state.startDate )
+        // console.log( this.state.startDate )
     };
 
     handleChange = date => {
@@ -51,126 +50,121 @@ class JobForm extends React.Component {
 
     };
 
-    submitDataHandler = event => {
-        event.preventDefault();
-        axios
-            .post( 'http://localhost:3000/jobs/' , this.state.job )
-            .then( response => {
-                console.log( 'Success' , response )
-                window.location.href = 'http://localhost:3001/Jobs';
-            })
-            .catch( error => {
-                console.log( error.message )
-            })
-        
+    submitDataHandler = () => {
+
+        this.props.AddJob( this.state.job )
+
+        console.log( this.state.props.jobReducer.addJobSuccess )
+
+
     };
 
     render() {
 
-        return(
+        return (
 
-            <div className = 'AddJobForm'>
+            <div className='AddJobForm'>
 
-                <form onSubmit = { this.submitDataHandler }>
+                <form onSubmit={() => this.submitDataHandler }>
 
-                    <div className = 'section'>
+                    <div className='section'>
 
-                        <div className = 'pair'>
+                        <div className='pair'>
                             <label>Company Name:</label>
                             <input
-                                id = "CompanyName"
-                                type = "text"
-                                name = "CompanyName"
-                                value = { this.state.job.CompanyName }
-                                className = 'input'
-                                placeholder = "Company Name"
-                                onChange = { this.changeHandler }
+                                id="CompanyName"
+                                type="text"
+                                name="CompanyName"
+                                value={this.state.job.CompanyName}
+                                className='input'
+                                placeholder="Company Name"
+                                onChange={this.changeHandler}
                             />
                         </div>
 
-                        <div className = 'pair'>
+                        <div className='pair'>
                             <label>Applied Through:</label>
                             <input
-                                id = "AppliedThrough"
-                                type = "text"
-                                name = "AppliedThrough"
-                                value = { this.state.job.AppliedThrough }
-                                className = 'input'
-                                placeholder = "Applied Through"
-                                onChange = { this.changeHandler }
+                                id="AppliedThrough"
+                                type="text"
+                                name="AppliedThrough"
+                                value={this.state.job.AppliedThrough}
+                                className='input'
+                                placeholder="Applied Through"
+                                onChange={this.changeHandler}
                             />
                         </div>
 
                     </div>
 
-                    <div className = 'section'>
+                    <div className='section'>
 
-                        <div className = 'pair'>
+                        <div className='pair'>
                             <label>Role:</label>
                             <input
-                                id = "Role"
-                                type = "text"
-                                name = "Role"
-                                value = { this.state.job.Role }
-                                className = 'input'
-                                placeholder = "Role"
-                                onChange = { this.changeHandler }
+                                id="Role"
+                                type="text"
+                                name="Role"
+                                value={this.state.job.Role}
+                                className='input'
+                                placeholder="Role"
+                                onChange={this.changeHandler}
                             />
                         </div>
 
-                        <div className = 'pair'>
+                        <div className='pair'>
                             <label>URL:</label>
                             <input
-                                id = "URL"
-                                type = "text"
-                                name = "URL"
-                                value = { this.state.job.URL }
-                                className = 'input'
-                                placeholder = "URL"
-                                onChange = { this.changeHandler }
+                                id="URL"
+                                type="text"
+                                name="URL"
+                                value={this.state.job.URL}
+                                className='input'
+                                placeholder="URL"
+                                onChange={this.changeHandler}
                             />
                         </div>
 
                     </div>
 
-                    <div className = 'section'>
+                    <div className='section'>
 
-                        <div className = 'pair'>
+                        <div className='pair'>
                             <label>Date Applied:</label>
                             <DatePicker
-                                className = 'Date'
+                                className='Date'
                                 selected={this.state.startDate}
                                 onChange={this.handleChange}
                             />
                         </div>
 
-                        <div className = 'pair'>
+                        <div className='pair'>
                             <label>Reply Recieved:</label>
                             <input
-                                id = "ReplyRecieved"
-                                type = "text"
-                                name = "ReplyRecieved"
-                                value = { this.state.job.ReplyRecieved }
-                                className = 'input'
-                                placeholder = "Reply Recieved"
-                                onChange = { this.changeHandler }
+                                id="ReplyRecieved"
+                                type="text"
+                                name="ReplyRecieved"
+                                value={this.state.job.ReplyRecieved}
+                                className='input'
+                                placeholder="Reply Recieved"
+                                onChange={this.changeHandler}
                             />
                         </div>
 
                     </div>
 
-                    <div className = 'section'>
+                    <div className='section'>
 
-                        <div className = 'pair'>
+                        <div className='pair'>
                             <label>Details:</label>
                             <input
-                                id = "Details"
-                                type = "text"
-                                name = "Details"
-                                value = { this.state.job.Details }
-                                className = 'input'
-                                placeholder = "Details"
-                                onChange = { this.changeHandler }
+                                id="Details"
+                                type="text"
+                                name="Details"
+                                value={this.state.job.Details}
+                                className='input'
+                                placeholder="Details"
+                                onChange={this.changeHandler}
                             />
                         </div>
 
@@ -181,13 +175,11 @@ class JobForm extends React.Component {
                 </form>
             </div>
 
+
         )
 
     }
 
 }
 
-export default connect(
-    null,
-    { AddJob }
-)(JobForm)
+export default connect( null , { AddJob })(JobForm)

@@ -1,28 +1,30 @@
 import React from 'react';
-import axios from 'axios';
 import '../css/Job.css';
 import { NavLink } from 'react-router-dom';
+import { DeleteJob , GetOneJob } from '../Actions/index';
+import { connect } from 'react-redux';
 
-export default class Job extends React.Component {
+class Job extends React.Component {
 
     state = {
         id: window.location.href.split('/')[4],
-        job: {}
+        // job: {}
     }
 
     componentDidMount() {
-        axios
-            .get( `http://localhost:3000/jobs/${this.state.id}` )
-            .then( res => {
-                console.log( res.data )
-                this.setState({
-                    job: res.data
-                })
-            })
-            .catch( error => {
-                console.log( error )
-            })
 
+        this.props.GetOneJob( this.state.id )
+        console.log( this.props.error )
+
+    }
+
+    deleteJob = ( id ) => {
+
+        this.props.DeleteJob( id )
+
+        if ( this.props.error !== null ) {
+            console.log( 'hi' , this.props.error )
+        }
     }
 
     render() {
@@ -31,52 +33,61 @@ export default class Job extends React.Component {
 
             <div className = 'Container'>
 
-                <header>
-                    <h1>{this.state.job.CompanyName}</h1>
-                    <h4>{ this.state.job.Role }</h4>
-                </header>
+                { this.props.loading === true ?
+                    <h1>Loading</h1>
 
-                <div className = 'part'>
+                :
+                    <div>
 
-                    <h2>-= Outreach =-</h2>
-                    <p><strong>Applied Through:</strong> {this.state.job.AppliedThrough}</p>
-                    <button onClick = { () => window.location = `${this.state.job.URL}`}>Job Description</button>
-                    { this.state.job.ReplyRecieved === 'Yes' ? <p><strong>Reply Recieved:</strong> {this.state.job.ReplyRecieved}</p> : <p><strong>. . . No Reply yet . . .</strong></p> }
-                    { this.state.job.Details !== '' ? <p><strong>Details:</strong> { this.state.job.Details }</p> : null }
+                        <header>
+                            <h1>{this.props.job.CompanyName}</h1>
+                            <h4>{ this.props.job.Role }</h4>
+                        </header>
 
-                </div>
+                        <div className = 'part'>
 
-                { this.state.job.PhoneScreen === 'Yes' ? 
+                            <h2>-= Outreach =-</h2>
+                            <p><strong>Applied Through:</strong> {this.props.job.AppliedThrough}</p>
+                            <button onClick = { () => window.location = `${this.props.job.URL}`}>Job Description</button>
+                            { this.props.job.ReplyRecieved === 'Yes' ? <p><strong>Reply Recieved:</strong> {this.props.job.ReplyRecieved}</p> : <p><strong>. . . No Reply yet . . .</strong></p> }
+                            { this.props.job.Details !== '' ? <p><strong>Details:</strong> { this.props.job.Details }</p> : null }
 
-                    <div className = 'part'>
+                        </div>
 
-                        <h2>-= Phone Screen =-</h2>
-                        <p><strong>Scheduled or Completed:</strong> { this.state.job.ScheduledOrCompleted }</p>
-                        <p><strong>Phone Screen Date:</strong> { this.state.job.PhoneScreenDate }</p>
-                        <p><strong>Follow Up:</strong> { this.state.job.FollowUp }</p>
-                        <p><strong>Follow Up Date:</strong> { this.state.job.FollowUpDate }</p>
-                        <p><strong>Follow Up Reply:</strong> { this.state.job.FollowUpReply }</p>
+                        { this.props.job.PhoneScreen === 'Yes' ? 
 
-                    </div> 
+                            <div className = 'part'>
 
-                : <h2 className = 'incomplete'>No Phone Screen Yet</h2> }
+                                <h2>-= Phone Screen =-</h2>
+                                <p><strong>Scheduled or Completed:</strong> { this.props.job.ScheduledOrCompleted }</p>
+                                <p><strong>Phone Screen Date:</strong> { this.props.job.PhoneScreenDate }</p>
+                                <p><strong>Follow Up:</strong> { this.props.job.FollowUp }</p>
+                                <p><strong>Follow Up Date:</strong> { this.props.job.FollowUpDate }</p>
+                                <p><strong>Follow Up Reply:</strong> { this.props.job.FollowUpReply }</p>
 
-                { this.state.job.OnSite === 'Yes' ? 
+                            </div> 
 
-                    <div className = 'part'>
+                        : <h2 className = 'incomplete'>No Phone Screen Yet</h2> }
 
-                        <h2>-= On Site =-</h2>
-                        <p><strong>Opportunity Type:</strong> { this.state.job.OpportunityType }</p>
-                        <p><strong>Initial Compensation $:</strong> { this.state.job.InitialCompensation }</p>
-                        <p><strong>Negotiated:</strong> { this.state.job.Negotiated }</p>
-                        <p><strong>Salary:</strong> { this.state.job.Salary }</p>
-                        <p><strong>Accepted Or Rejected:</strong> { this.state.job.AcceptedOrRejected }</p>
+                        { this.props.job.OnSite === 'Yes' ? 
 
-                    </div> 
+                            <div className = 'part'>
 
-                : <h2 className = 'incomplete'>No On Site Yet</h2> }
+                                <h2>-= On Site =-</h2>
+                                <p><strong>Opportunity Type:</strong> { this.props.job.OpportunityType }</p>
+                                <p><strong>Initial Compensation $:</strong> { this.props.job.InitialCompensation }</p>
+                                <p><strong>Negotiated:</strong> { this.props.job.Negotiated }</p>
+                                <p><strong>Salary:</strong> { this.props.job.Salary }</p>
+                                <p><strong>Accepted Or Rejected:</strong> { this.props.job.AcceptedOrRejected }</p>
 
-                <NavLink exact to = {`/Job/Edit/${this.state.id}`}>Edit</NavLink>
+                            </div> 
+
+                        : <h2 className = 'incomplete'>No On Site Yet</h2> }
+
+                        <NavLink exact to = {`/Job/Edit/${this.state.id}`}>Edit</NavLink>
+                        <button onClick ={ () => this.deleteJob( this.state.id ) }>Delete Job</button>
+                    </div>
+                }
 
             </div>
 
@@ -85,3 +96,15 @@ export default class Job extends React.Component {
     }
 
 }
+
+const mapStateToProps = state => {
+
+    return {
+        job: state.jobReducer.job,
+        loading: state.jobReducer.loading,
+        error: state.jobReducer.error
+    }
+
+}
+
+export default connect(mapStateToProps, { DeleteJob , GetOneJob })(Job);
