@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TimeUpdated } from '../Actions/index';
-import '../css/Time.css';
+import '../css/Nav.css';
 
 class Time extends React.Component {
 

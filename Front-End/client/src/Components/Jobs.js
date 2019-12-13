@@ -58,6 +58,7 @@ class Jobs extends React.Component {
             this.setState({
                 jobs: [],
                 replies: 0,
+                edit: 'Inactive',
                 view: '',
                 filterJobs: false,
                 filter: [],
@@ -120,7 +121,11 @@ class Jobs extends React.Component {
         } else if (this.state.filter[0] === 'Search') {
             for (var z = 0; z < this.props.jobs.length; z++) {
 
-                console.log(this.props.jobs[z])
+                const temp = this.props.jobs[z].CompanyName.slice( 0 , this.state.search.length )
+                if ( temp === this.state.search ) {
+                    console.log( 'MATCH' )
+                    this.state.filteredJobResults.push( this.props.jobs[z] )
+                }
 
             }
 
@@ -142,21 +147,36 @@ class Jobs extends React.Component {
 
                     <div className='Filters wow fadeIn'>
 
-                        <div>
-                            <NavLink exact to='/AddJob' >Add Job</NavLink>
-                            <input
-                                id='Search'
-                                type='text'
-                                className='CompanySearch'
-                                placeholder='Search'
-                                onChange={this.changeHandler}
-                                value={this.state.search}></input>
-                            <button onClick={() => this.filter('Search')}>Search</button>
-                            {this.state.edit === 'Inactive' ?
-                                <button style = {{minWidth: '50px'}} onClick={() => this.toggleUpdate()}>More</button>
-                            :
-                                <button style = {{minWidth: '50px'}} onClick={() => this.toggleUpdate()}>Less</button>
-                            }
+                        <div className = 'FiltersContainer'>
+
+                            <div>
+                                <NavLink exact to='/AddJob' >Add Job</NavLink>
+                            </div>
+
+                            <div>
+
+                                <input
+                                    id='Search'
+                                    type='text'
+                                    className='CompanySearch'
+                                    placeholder='Search'
+                                    onChange={this.changeHandler}
+                                    value={this.state.search}>
+                                </input>
+
+                            </div>
+
+                            <div>
+
+                                <button onClick={() => this.filter('Search')}>Search</button>
+                                {this.state.edit === 'Inactive' ?
+                                    <button style = {{minWidth: '50px'}} onClick={() => this.toggleUpdate()}>More</button>
+                                :
+                                    <button style = {{minWidth: '50px'}} onClick={() => this.toggleUpdate()}>Less</button>
+                                }
+
+                            </div>
+                            
                         </div>
 
                         {this.state.edit === 'Active' ?
@@ -176,10 +196,12 @@ class Jobs extends React.Component {
                 }
 
                 {this.state.filteredJobResults.length >= 1 ?
+
                     <div className = 'FilterNav wow fadeIn'>
                         <h2 style = {{ fontFamily: 'Lobster', height: '30px'}}>Filtered</h2>
                         <button onClick={() => this.filter('Clear')}>Clear Filter</button>
                     </div>
+
                 :
                     <Stats/>
                 }
@@ -191,7 +213,7 @@ class Jobs extends React.Component {
                         <h1 style={{ color: 'white' }}>Loading</h1>
                     </div>
 
-                    :
+                :
 
                     // Map all the jobs out
                     <div>
@@ -200,7 +222,7 @@ class Jobs extends React.Component {
 
                             <div className='JobContainer Search wow fadeIn' style ={{ border: '3px solid white' , width: '90%' }}>
 
-                            <h2 className = 'SearchTitle'>{`${this.state.filter[0]}s`}</h2>
+                                <h2 className = 'SearchTitle'>{this.state.filter[0]}</h2>
 
                                 {this.state.filteredJobResults.map((x) =>
 
@@ -226,6 +248,7 @@ class Jobs extends React.Component {
 
                                     </div>
                                 )}
+
                             </div>
                         :
 
@@ -254,14 +277,21 @@ class Jobs extends React.Component {
                                         </div>
 
                                     </div>
+
                                 )}
+
                             </div>
+
                         }
+
                     </div>
+
                 }
 
             </div>
+
         )
+
     };
 
 };

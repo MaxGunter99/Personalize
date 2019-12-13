@@ -4,15 +4,16 @@
     min-height: 90vh;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     border-top: 3px solid black;
     background: url('https://images.pexels.com/photos/2733862/pexels-photo-2733862.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
     background-attachment: fixed;
     background-position: center;
     background-size: 100%;
+
 }
 
 .Jobs nav {
+
     display: flex;
     justify-content: space-around;
     width: 100%;
@@ -21,9 +22,11 @@
     background-color: rgba(0, 0, 0, 0.123);
     top: 0;
     height: 70px;
+
 }
 
 .Jobs nav a {
+
     color: white;
     width: 175px;
     padding: 5px;
@@ -31,9 +34,11 @@
     text-decoration: none;
     border: 2px solid white;
     background-color: rgb(0, 0, 0);
+
 }
 
 .Jobs nav p {
+
     color: white;
     width: 175px;
     padding: 5px;
@@ -41,124 +46,53 @@
     text-decoration: none;
     border: 2px solid white;
     background-color: rgb(0, 0, 0);
+
 }
 
 .Jobs nav h1 {
-    width: 175px;
+
     text-align: center;
     font-family: 'Lobster', cursive;
     font-size: 60px;
+    margin: 0 auto;
     text-decoration: underline;
     text-decoration-color: red;
+
 }
 
 .Statistics {
+
     display: flex;
     width: 100%;
     justify-content: space-evenly;
-}
 
-/* ADD JOB FORM */
-
-.AddJobForm {
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-image: url('https://images.pexels.com/photos/963278/pexels-photo-963278.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
-    background-position: center;
-}
-
-.AddJobForm form {
-    margin: 50px;
-    background-color: rgba(255, 255, 255, 0.61);
-    background-attachment: blur( 10px );
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    border: 2px solid black;
-    width: 80%;
-    margin: 0 auto;
-
-}
-
-form label {
-    display: flex;
-    justify-content: flex-start;
-    padding: 10px;
-    color: white;
-}
-
-.section {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    height: 100px;
-    padding: 20px;
-    transition: .1s;
-}
-
-.section .pair {
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-    background-color: rgba(0, 0, 0, 0.712);
-    background-attachment: blur( 5px );
-    padding: 20px;
-    transition: .1s;
-}
-
-.section .pair:hover {
-    transition: .1s;
-    background-color: rgb(0, 0, 0);
-}
-
-.AddJobForm form input {
-    width: 100%;
-    margin: 0 auto;
-    /* align-self: baseline; */
-}
-
-div.react-datepicker__input-container {
-    top: -11px
-}
-
-.AddJobForm form .ActionButton {
-    width: 100px;
-    margin: 10px;
-    align-self: center;
-    height: 40px;
-    background-color: black;
-    transition: .1s;
-    color: white;
-    font-size: 20px;
-}
-
-.AddJobForm form .ActionButton:hover {
-    width: 150px;
-    transition: .1s;
 }
 
 /* JOBS ADDED */
 
 .ToggleMessageActive {
+
     transition: .5s;
     color: white;
     background-color: rgb(250, 181, 32);
     height: 50px;
     margin: 0 auto;
+
 }
 
 .ToggleMessageInactive {
+
     transition: .5s;
     color: rgba(0, 0, 0, 0);
     height: 0px;
     background-color: rgba(46, 145, 170, 0);
     height: 50px;
     margin: 0 auto;
+
 }
 
 a.updateActive {
+
     display: flex;
     justify-content: center;
     transition: .5s;
@@ -174,9 +108,11 @@ a.updateActive {
     outline: none;
     text-decoration: none;
     border-radius: 5px;
+
 }
 
 a.updateInactive {
+
     display: flex;
     justify-content: center;
     transition: .5s;
@@ -191,6 +127,7 @@ a.updateInactive {
     outline: none;
     text-decoration: none;
     border-radius: 5px;
+
 }
 
 .JobContainer {
@@ -205,6 +142,7 @@ a.updateInactive {
 }
 
 .Job {
+
     display: flex;
     flex-direction: column;
     margin: 10px;
@@ -214,56 +152,72 @@ a.updateInactive {
     background-color: rgba(255, 255, 255, 0.411);
     backdrop-filter: blur(4px);
     transition: .2s;
+
 }
 
 .Job:hover {
+
     border: 3px solid white;
     transition: .2s;
     cursor: pointer;
+
 }
 
 .Job .Header{
+
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
     align-items: center;
     height: 75px;
+
 }
 
 .CompanyName {
+
     font-size: 20px;
     margin-bottom: 5px;
     text-decoration: underline;
     text-decoration-color: red;
+
 }
 
 .Role {
+
     font-size: 15px;
     margin-top: 5px;
     color: rgb(53, 53, 53);
+
 }
 
 .Applied {
+
     display: flex;
     font-size: 15px;
     justify-content: space-between;
     flex-direction: column;
     margin: 0 auto;
     margin-bottom: 20px;
+
 }
 
 .Applied p {
+
     margin-bottom: 0px;
     display: flex;
     justify-content: center;
     flex-direction: column;
+
 }
 
 .Applied .Date {
+
     font-weight: bold;
+
 }
 
 .Job .a {
+
     color: white;
     background-color: black;
     text-decoration: none;
@@ -277,39 +231,48 @@ a.updateInactive {
     margin: 0 auto;
     transition: .3s;
     border-radius: 5px;
+
 }
 
 .Job .a:hover {
+
     color: black;
     background-color: white;
     transition: .3s;
+
 }
 
 .Stats {
+
     width: 90%;
     margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 30px;
+
 }
 
 .Stats div {
+
     display: flex;
     flex-direction: column;
     width: 50%;
     padding: 10px;
     color: white;
+
 }
 
 .Stats div p {
+
     background-color: rgba(0, 0, 0, 0);
     backdrop-filter: blur( 5px );
     border: 3px solid white;
-    /* min-height: 100px; */
     padding: 40px;
+
 }
 
 div.rv-xy-plot {
+
     background-color: rgba(255, 255, 255, 0.452);
     backdrop-filter: blur( 5px );
     margin: 0 auto;
@@ -317,99 +280,11 @@ div.rv-xy-plot {
     padding: 20px;
     border-radius: 10px;
     color: black;
+
 }
 
 text.rv-xy-plot__axis__tick__text {
+
     fill: rgb(0, 0, 0);
-}
-
-nav.category {
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    border-bottom: 3px solid white;
-}
-
-nav.category input {
-
-    width: 150px;
-    border-radius: 5px;
-    border: none;
-    padding: 5px;
-
-}
-
-.FilterNav {
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px;
-    margin: 0 auto;
-    background-color: rgba(0, 0, 0, 0.575);
-    padding: 5px;
-}
-
-.FilterNav h2 {
-    text-decoration: underline;
-    color: white;
-    text-decoration-color: red;
-    padding: 5px;
-}
-
-.FilterNav button {
-    padding: 5px;
-    background-color: red;
-    color: 'white';
-    min-width: 100px;
-    align-items: center;
-}
-
-.Filters {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-}
-
-.Filters a {
-    font-size: 12px;
-    margin: 10px;
-    background-color: black;
-    color: white;
-    padding: 5px;
-    border: 1px solid white;
-}
-
-.Filters input {
-    width: 200px;
-    font-size: 12px;
-    height: 20px;
-}
-
-.Filters button {
-    font-size: 12px;
-    border-radius: 5px;
-}
-
-.Filters button:hover {
-    color: black;
-    background-color: white;
-}
-
-.More {
-    height: 40px;
-}
-
-.SearchTitle {
-    background-color: rgba(0, 0, 0, 0.479);
-    color: white;
-    font-family: 'Lobster' , 'cursive';
-    width: 100%;
-    top: 0;
-}
-
-.JobContainer.Search {
-    padding-bottom: 50px;
+    
 }

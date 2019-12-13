@@ -1,8 +1,10 @@
 import React from 'react';
-import '../css/Job.css';
 import { NavLink } from 'react-router-dom';
+
 import { DeleteJob , GetOneJob } from '../Actions/index';
 import { connect } from 'react-redux';
+
+import '../css/Job.css';
 
 class Job extends React.Component {
 
@@ -14,7 +16,6 @@ class Job extends React.Component {
     componentDidMount() {
 
         this.props.GetOneJob( this.state.id )
-        console.log( this.props.error )
 
     }
 
@@ -25,6 +26,10 @@ class Job extends React.Component {
         if ( this.props.error !== null ) {
             console.log( 'hi' , this.props.error )
         }
+    }
+
+    back = () => {
+        this.props.history.push( '/Jobs' )
     }
 
     render() {
@@ -48,9 +53,9 @@ class Job extends React.Component {
 
                             <h2>-= Outreach =-</h2>
                             <p><strong>Applied Through:</strong> {this.props.job.AppliedThrough}</p>
-                            <button onClick = { () => window.open(`${this.props.job.URL}`)}>Job Description</button>
                             { this.props.job.ReplyRecieved === 'Yes' ? <p><strong>Reply Recieved:</strong> {this.props.job.ReplyRecieved}</p> : <p><strong>. . . No Reply yet . . .</strong></p> }
                             { this.props.job.Details !== '' ? <p><strong>Details:</strong> { this.props.job.Details }</p> : null }
+                            <button onClick = { () => window.open(`${this.props.job.URL}`)}>Job Description</button>
 
                         </div>
 
@@ -61,13 +66,13 @@ class Job extends React.Component {
                                 <h2>-= Phone Screen =-</h2>
                                 <p><strong>Scheduled or Completed:</strong> { this.props.job.ScheduledOrCompleted }</p>
                                 <p><strong>Phone Screen Date:</strong> { this.props.job.PhoneScreenDate }</p>
-                                <p><strong>Follow Up:</strong> { this.props.job.FollowUp }</p>
-                                <p><strong>Follow Up Date:</strong> { this.props.job.FollowUpDate }</p>
-                                <p><strong>Follow Up Reply:</strong> { this.props.job.FollowUpReply }</p>
+                                { this.props.job.FollowUp !== '' ? <p><strong>Follow Up:</strong> { this.props.job.FollowUp }</p> : null }
+                                { this.props.job.FollowUpDate !== '' ? <p><strong>Follow Up Date:</strong> { this.props.job.FollowUpDate }</p> : null }
+                                { this.props.job.FollowUpReply !== '' ? <p><strong>Follow Up Reply:</strong> { this.props.job.FollowUpReply }</p> : null }
 
                             </div> 
 
-                        : <h2 className = 'incomplete'>No Phone Screen Yet</h2> }
+                        : null }
 
                         { this.props.job.OnSite === 'Yes' ? 
 
@@ -82,10 +87,13 @@ class Job extends React.Component {
 
                             </div> 
 
-                        : <h2 className = 'incomplete'>No On Site Yet</h2> }
+                        : null }
 
-                        <NavLink exact to = {`/Job/Edit/${this.state.id}`}>Edit</NavLink>
-                        <button onClick ={ () => this.deleteJob( this.state.id ) }>Delete Job</button>
+                        <div calssName = 'buttons'>
+                            <button onClick ={ () => this.back() }>Back</button>
+                            <NavLink className = 'Edit' exact to = {`/Job/Edit/${this.state.id}`}>Edit</NavLink>
+                            <button onClick ={ () => this.deleteJob( this.state.id ) }>Delete Job</button>
+                        </div>
                     </div>
                 }
 

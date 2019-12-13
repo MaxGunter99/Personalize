@@ -1,10 +1,12 @@
 
 import React from 'react';
-import '../css/Jobs.css';
+import DatePicker from "react-datepicker";
+
 import { connect } from 'react-redux';
 import { AddJob } from '../Actions/index';
-import DatePicker from "react-datepicker";
+
 import "react-datepicker/dist/react-datepicker.css";
+import '../css/AddJobForm.css';
 
 class JobForm extends React.Component {
 
