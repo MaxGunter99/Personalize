@@ -8,6 +8,7 @@ const cors = require( 'cors' );
 
 // Routers
 const jobs = require( '../routes/jobsRouter' );
+const calendar = require( '../routes/calendarRouter' );
 
 // Apply Middleware
 server.use( express.json() );
@@ -17,6 +18,7 @@ server.use( cors() );
 
 // Router extensions
 server.use( '/jobs' , jobs );
+server.use( '/events' , calendar );
 
 // Sanity Check
 server.use( '/' , ( req , res ) => {

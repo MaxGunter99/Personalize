@@ -9,10 +9,15 @@ class Home extends React.Component {
 
             <div className = 'Calendar'>
                 <h1>Schedule / Calendar</h1>
-                <p>Todays activities</p>
-                <p>this weeks activities</p>
                 <p>visual calendar (Month)</p>
                 <p>Text reminders about scheduled events</p>
+
+                <h1>SCHEMA</h1>
+                <p>Category</p>
+                <p>Title</p>
+                <p>Date</p>
+                <p>Link</p>
+
             </div>
         )
     };
