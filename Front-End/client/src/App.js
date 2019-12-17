@@ -23,7 +23,7 @@ function App() {
 
         <NavLink exact to = '/' >Home</NavLink>
         <NavLink exact to = '/Jobs' >Jobs</NavLink>
-        <NavLink exact to = '/ToDos' >To-Do's</NavLink>
+        {/* <NavLink exact to = '/ToDos' >To-Do's</NavLink> */}
         <NavLink exact to = '/Schedule' >Schedule</NavLink>
 
         <Time/>
@@ -32,7 +32,7 @@ function App() {
 
       <Route exact path = '/' component = { Home } />
       <Route exact path = '/Jobs' component = { Jobs } />
-      <Route exact path = '/Todos' component = { ToDos } />
+      {/* <Route exact path = '/Todos' component = { ToDos } /> */}
       <Route exact path = '/Schedule' component = { Calendar } />
       <Route exact path = '/AddJob' component = { AddJobForm } />
       <Route exact path = '/Job/:id' component = { Job } />
