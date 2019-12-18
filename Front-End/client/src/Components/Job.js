@@ -24,8 +24,9 @@ class Job extends React.Component {
         this.props.DeleteJob( id )
 
         if ( this.props.error !== null ) {
-            console.log( 'hi' , this.props.error )
+            console.log( 'Error!' )            
         }
+
     }
 
     back = () => {

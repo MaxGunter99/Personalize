@@ -79,11 +79,8 @@ class Home extends React.Component {
         this.setState({ thisWeek: lastWeekDates, loading: false })
     }
 
-    asdf = () => {
-        console.log(this.state)
-    }
-
     render() {
+        
         return (
 
             <div className='Calendar'>
@@ -94,7 +91,7 @@ class Home extends React.Component {
                         <h1>Loading</h1>
                     </div>
 
-                    :
+                :
                     <div>
 
                         <h1>calendar</h1>
@@ -111,6 +108,7 @@ class Home extends React.Component {
                         {this.state.view === 'day' ?
 
                             <div>
+                                <h3>Day View</h3>
                                 <div className='day'>
                                     {this.state.events.map((x) =>
                                         <div key={x.id}>
@@ -118,12 +116,25 @@ class Home extends React.Component {
                                         </div>
                                     )}
                                 </div>
-                                <button onClick={() => this.asdf()}>State</button>
                             </div>
 
                         : this.state.view === 'week' ?
 
                             <div>
+                                <h3>Week View</h3>
+                                <div className='week'>
+                                    {this.state.thisWeek.map((x) =>
+                                        <div key={x}>
+                                            <p>{x}</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                        : this.state.view === 'month' ?
+
+                            <div>
+                                <h3>Month View</h3>
                                 <div className='week'>
                                     {this.state.thisWeek.map((x) =>
                                         <div key={x}>
@@ -132,9 +143,9 @@ class Home extends React.Component {
                                     )}
                                 </div>
                                 <button onClick={() => this.asdf()}>State</button>
-                            </div>
+                            </div> 
 
-                        : null}
+                        : null }
 
                     </div>
                 }

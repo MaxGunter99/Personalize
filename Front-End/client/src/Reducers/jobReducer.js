@@ -40,9 +40,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
 
-    console.log( action.type )
-
-    switch (action.type) {
+    switch ( action.type ) {
 
         case ADD_JOB:
             return {

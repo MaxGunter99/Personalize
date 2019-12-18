@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 export const TIME_UPDATED = 'TIME_UPDATED';
 
 // Pass on the new time to the reducer
@@ -17,12 +18,16 @@ export const ADD_JOB_FAIL = 'ADD_JOB_FAIL';
 export const AddJob = job => dispatch => {
 
     dispatch({ type: ADD_JOB });
+    console.log( job )
+
     axios
         .post( 'http://localhost:3000/jobs/' , job )
         .then( response => {
+            console.log( 'response' , response )
             dispatch({ type: ADD_JOB_SUCCESS, payload: response.data });
         })
         .catch( error => {
+            console.log( 'error' , error )
             dispatch({ type: ADD_JOB_FAIL, payload: error });
         })
   
@@ -102,7 +107,7 @@ export const DeleteJob = id => dispatch => {
     axios
         .delete( `http://localhost:3000/jobs/${id}` )
         .then( res => {
-            // console.log( 'Delete Job Success!' )
+            window.location.href = 'http://localhost:3001/Jobs';
             dispatch({ type: DELETE_JOB_SUCCESS, payload: res });
         })
         .catch( error => {

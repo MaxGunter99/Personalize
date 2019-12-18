@@ -89,7 +89,7 @@ class Jobs extends React.Component {
 
     filterResults() {
 
-        if ( this.state.filter[0] === 'OnSite' ) {
+        if ( this.state.filter[0] === 'On Sites' ) {
 
             for (var w = 0; w < this.props.jobs.length; w++) {
 
@@ -99,7 +99,7 @@ class Jobs extends React.Component {
 
             }
 
-        } else if (this.state.filter[0] === 'Rejects') {
+        } else if (this.state.filter[0] === 'Rejections') {
             for (var x = 0; x < this.props.jobs.length; x++) {
 
                 if (this.props.jobs[x].FollowUpReply === 'Rejected') {
@@ -108,7 +108,7 @@ class Jobs extends React.Component {
 
             }
 
-        } else if (this.state.filter[0] === 'PhoneScreen') {
+        } else if (this.state.filter[0] === 'Phone Screens') {
             for (var y = 0; y < this.props.jobs.length; y++) {
 
                 if (this.props.jobs[y].PhoneScreen === 'Yes') {
@@ -181,9 +181,9 @@ class Jobs extends React.Component {
 
                         {this.state.edit === 'Active' ?
                             <div className='More'>
-                                <button onClick={() => this.filter('OnSite')}>On Sites</button>
-                                <button onClick={() => this.filter('PhoneScreen')} >Phone Screens</button>
-                                <button onClick={() => this.filter('Rejects')}>Rejects</button>
+                                <button onClick={() => this.filter('On Sites')}>On Sites</button>
+                                <button onClick={() => this.filter('Phone Screens')} >Phone Screens</button>
+                                <button onClick={() => this.filter('Rejections')}>Rejections</button>
                             </div>
                         :
                             <div className='More'></div>

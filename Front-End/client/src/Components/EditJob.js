@@ -68,8 +68,6 @@ export default class EditJob extends React.Component {
             }
         });
 
-        console.log( this.state.job.DateApplied )
-
     };
 
     submitDataHandler = event => {
