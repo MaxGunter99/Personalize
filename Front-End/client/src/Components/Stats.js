@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Jobs.css';
 import '../../node_modules/react-vis/dist/style.css';
-import { XYPlot, LineSeries, VerticalGridLines, Crosshair, YAxis, XAxis } from 'react-vis';
+import { XYPlot, LineSeries, VerticalGridLines, YAxis, XAxis } from 'react-vis';
 import { GetAllJobs } from '../Actions/index';
 import { connect } from 'react-redux';
 import WOW from "wow.js";

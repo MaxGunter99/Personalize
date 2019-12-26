@@ -26,6 +26,9 @@ exports.up = function(knex) {
         // Notes
         tbl.string( 'notes' , 500 )
 
+        // Time
+        tbl.string( 'time' , 128 )
+
     })
 };
 

@@ -1,10 +1,153 @@
 .Calendar {
     
     background-color: white;
-    min-height: 90vh;
+    /* min-height: 90vh; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-top: 3px solid black;
     
+}
+
+.CalendarHeader {
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    background-color: black;
+    margin-top: 0px;
+    align-items: center;
+    height: 130px;
+
+}
+
+.CalendarHeader h3 {
+
+    background-color: white;
+    padding: 5px;
+    border: 3px solid white;
+    margin: 5px;
+    font-family: 'Lobster' , cursive;
+
+}
+
+.CalendarHeader button {
+
+    margin: 5px;
+    transition: .3s;
+
+}
+
+.CalendarHeader button:hover {
+
+    background-color: white;
+    color: black;
+    transition: .3s
+
+}
+
+/* DAY */
+.CalendarContainer.Day {
+
+    width: 90%;
+    padding: 20px;
+    margin: 0 auto;
+
+}
+
+.Day .Section {
+    border: 1px solid black;
+    margin-bottom: 15px;
+}
+
+.Day header {
+
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    color: white;
+    align-items: center;
+    padding: 10px;
+
+}
+
+.Day header h3 {
+    width: auto;
+    font-family: 'Lobster' , cursive;
+    font-size: 40px;
+}
+
+.Status {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.Incomplete {
+
+    color: red;
+    background-color: rgba(197, 34, 34, 0.616);
+
+}
+
+.Completed {
+
+    color: green;
+    background-color: rgba(57, 165, 57, 0.562);
+
+}
+
+/* WEEK */
+.CalendarContainer.Week {
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+div.week {
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+
+}
+
+.week div {
+
+    border: 1px solid black;
+    padding: 5px;
+
+}
+
+
+/* MONTH */
+
+.Month {
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.month {
+
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    border: 1px solid red;
+    padding: 5px;
+    margin: 0 auto;
+
+}
+
+.ind {
+    width: 13%;
+    border: 1px solid black;
 }

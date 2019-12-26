@@ -16,18 +16,20 @@ module.exports = {
 
 };
 
-// Add
+// Add event
 function add( event ) {
 
     db( 'calendar' )
         .insert( event )
         .then(([ id ]) => {
+
             return findById( id );
+
         });
 
 };
 
-// Find
+// Find all events
 function find() {
 
     return db( 'calendar' );
@@ -76,9 +78,11 @@ function findWeek() {
     // console.log( '\nLast week:' , lastWeekDays )
 
     return db( 'calendar' )
+
         .whereBetween( 'day' , [ lastWeekDays[6] , lastWeekDays[0] ] )
         .whereBetween( 'month' , [ lastWeekMonths[6] , lastWeekMonths[0] ] )
         .whereBetween( 'year' , [ lastWeekYear[6] , lastWeekYear[0] ] )
+        
 
 };
 
@@ -95,7 +99,7 @@ function findMonth() {
 
 };
 
-// FindById
+// Find event by id
 function findById( id ) {
 
     return db( 'calendar' )
@@ -103,7 +107,7 @@ function findById( id ) {
 
 };
 
-// Update
+// Update event
 function update( id , changes ) {
 
     return db( 'calendar' )
@@ -112,7 +116,7 @@ function update( id , changes ) {
 
 };
 
-// Remove
+// Remove event
 function remove( id ) {
 
     return db( 'calendar' )
