@@ -141,13 +141,28 @@ div.week {
     flex-direction: row;
     flex-wrap: wrap;
     text-align: center;
-    border: 1px solid red;
-    padding: 5px;
+    border: 1px solid black;
     margin: 0 auto;
+    background-color: black;
+    justify-content: center;
+    padding: 15px
 
 }
 
 .ind {
+
     width: 13%;
+    background-color: white;
     border: 1px solid black;
+    transition: .3s;
+
+}
+
+.ind:hover {
+
+    color: white;
+    background-color: black;
+    transition: .3s;
+    border: 1px solid white;
+
 }

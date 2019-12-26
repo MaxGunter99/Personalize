@@ -12,13 +12,15 @@ class Home extends React.Component {
         thisWeek: [].sort(( a , b ) => a - b ),
         thisMonth: [],
         loading: true,
+        select: 'Inactive',
+        selected: [],
         now: [ new Date().toLocaleTimeString().split(':')[0] , new Date().toLocaleTimeString().split(' ')[1] ].join().replace(',' , ' '),
         minute: new Date().toLocaleTimeString().split(':')[1]
     }
 
     componentDidMount() {
 
-        axios.get('http://localhost:3000/events/today')
+        axios.get('http://localhost:3000/events/Month')
             .then(res => {
                 this.setState({ events: res.data })
                 console.log(res.data)
@@ -67,7 +69,8 @@ class Home extends React.Component {
 
         const lastWeekDates = []
         const thisMonthDates = []
-        const today = new Date().getDate()
+        const today = 1
+        console.log( 'TODAY' , today )
 
         for (var i = 0; i < 7; i++) {
 
@@ -78,25 +81,45 @@ class Home extends React.Component {
 
         }
 
-        for (var z = 0; z < 30; z++) {
+        for (var z = 0; z < 32; z++) {
 
-            const prev = new Date(today) - z
+            const prev = new Date(z)
             const prevDay = new Date().setDate(prev)
             const thatDay = new Date(prevDay).toLocaleDateString()
-            thisMonthDates.push(thatDay)
+            if ( new Date().toLocaleDateString().split('/')[0] === thatDay.split('/')[0] ) {
+                thisMonthDates.push( thatDay)
+            }
 
         }
         
         this.setState({ thisWeek: lastWeekDates, thisMonth: thisMonthDates , loading: false })
 
+        console.log( thisMonthDates )
+
+    }
+
+    activehandler = x => {
+
+        if ( x !== 'None' ) {
+
+            let thatDaysEvents = []
+
+            for ( var e = 0; e < this.state.events.length; e++ ) {
+                let day = `${this.state.events[e].month}/${this.state.events[e].day}/${this.state.events[e].year}`
+                if ( x === day ) {
+                    thatDaysEvents.push( this.state.events[e] )
+                }
+
+            }
+
+            this.setState({ selected: thatDaysEvents , select: 'Active' })
+            console.log( thatDaysEvents )
+
+        }
+
     }
 
     render() {
-
-        let testingdate = '1:00 PM'
-        // console.log( this.state.now.split( ' ' )[1]  )
-        // console.log( '1:45 PM'.split(':')[1].split(' ')[0] )
-        // console.log( '1:00 PM'.split(':')[1].split(' ')[0] )
         
         return (
 
@@ -245,16 +268,34 @@ class Home extends React.Component {
                               
 
                                 <div className='month'>
+
                                     {this.state.thisMonth.map((x) =>
-                                        <div key={x} className = 'ind'>
+                                        <div key={x} className = 'ind' onClick ={ () => this.activehandler( x ) }>
                                             <p>{x}</p>
                                         </div>
                                     )}
+
                                 </div>
 
                             </div> 
 
                         : null }
+
+                        { this.state.select === 'Active' ?
+                        
+                            <div>
+                                { this.state.selected.map( (s) =>
+
+                                    <div key = {s.id}>
+                                        <p>{s}</p>
+                                    </div>
+
+                                ) }
+                            </div>
+
+                        :
+                            null
+                        }
 
                     </div>
                 }
