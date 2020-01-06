@@ -248,29 +248,29 @@ class Home extends React.Component {
 
                         : this.state.view === 'Week' ?
 
+                            // WEEK VIEW
                             <div className = 'CalendarContainer Week'>
 
                                 <div className='week'>
                                     {this.state.thisWeek.map((x) =>
-                                        <div key={x}>
+                                        <div key={x} onClick={() => console.log( x )}>
                                             <p>{x}</p>
                                         </div>
                                     )}
                                 </div>
 
-                                {/* { this. } */}
-
                             </div>
 
                         : this.state.view === 'Month' ?
 
+                            // MONTH VIEW
                             <div className = 'CalendarContainer Month'>
                               
 
                                 <div className='month'>
 
                                     {this.state.thisMonth.map((x) =>
-                                        <div key={x} className = 'ind' onClick ={ () => this.activehandler( x ) }>
+                                        <div key={x} className = 'ind' onClick ={ () => window.location = `Schedule/${x}` }>
                                             <p>{x}</p>
                                         </div>
                                     )}
@@ -284,7 +284,7 @@ class Home extends React.Component {
                         { this.state.select === 'Active' ?
                         
                             <div>
-                                { this.state.selected.map( (s) =>
+                                { this.state.selected.map( (s ) =>
 
                                     <div key = {s.id}>
                                         <p>{s}</p>
