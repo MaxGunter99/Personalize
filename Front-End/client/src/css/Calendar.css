@@ -4,8 +4,14 @@
     /* min-height: 90vh; */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     border-top: 3px solid black;
+    /* background-image: url('https://images.pexels.com/photos/2049422/pexels-photo-2049422.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'); */
+    background-image: url('https://images.pexels.com/photos/917494/pexels-photo-917494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-size: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 90vh;
     
 }
 
@@ -15,7 +21,7 @@
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    background-color: black;
+    background-color: rgba(94, 94, 94, 0.295);
     margin-top: 0px;
     align-items: center;
     height: 130px;
@@ -36,6 +42,7 @@
 
     margin: 5px;
     transition: .3s;
+    outline: none;
 
 }
 
@@ -59,6 +66,7 @@
 .Day .Section {
     border: 1px solid black;
     margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.507);
 }
 
 .Day header {
@@ -136,33 +144,50 @@ div.week {
 
 .month {
 
-    width: 95%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     text-align: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 0 auto;
-    background-color: black;
+    /* background-color: black; */
     justify-content: center;
-    padding: 15px
+    padding: 15px;
+
+}
+
+.ind.Today {
+
+    width: 12%;
+    background-color: rgba(252, 82, 82, 0.582);
+    border: 1px solid black;
+    color: white;
+    backdrop-filter: blur( 2px );
+    transition: .3s;
+    height: 75px;
+    margin: 5px;
 
 }
 
 .ind {
 
-    width: 13%;
-    background-color: white;
+    width: 12%;
+    background-color: rgba(255, 255, 255, 0.274);
     border: 1px solid black;
-    transition: .3s;
+    backdrop-filter: blur( 2px );
+    transition: .2s;
+    height: 75px;
+    margin: 5px;
+    border-radius: 10px;
 
 }
 
 .ind:hover {
 
     color: white;
-    background-color: black;
-    transition: .3s;
+    background-color: rgba(0, 0, 0, 0.438);
+    transition: .2s;
     border: 1px solid white;
 
 }

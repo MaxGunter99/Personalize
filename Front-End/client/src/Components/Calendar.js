@@ -9,6 +9,7 @@ class Home extends React.Component {
     state = {
         view: 'Month',
         events: [],
+        today: new Date().toLocaleDateString(),
         thisWeek: [].sort(( a , b ) => a - b ),
         thisMonth: [],
         loading: true,
@@ -48,7 +49,9 @@ class Home extends React.Component {
     }
 
     changeHandler = event => {
+
         event.preventDefault();
+
         this.setState({
             view: event.target.value
         });
@@ -120,6 +123,8 @@ class Home extends React.Component {
     }
 
     render() {
+
+        console.log( 'TODAY FAM' , this.state.today )
         
         return (
 
@@ -265,14 +270,21 @@ class Home extends React.Component {
 
                             // MONTH VIEW
                             <div className = 'CalendarContainer Month'>
-                              
 
                                 <div className='month'>
 
                                     {this.state.thisMonth.map((x) =>
-                                        <div key={x} className = 'ind' onClick ={ () => window.location = `Schedule/${x}` }>
-                                            <p>{x}</p>
-                                        </div>
+                                        <>
+                                            { x === this.state.today ? 
+                                                <div key={x} className = 'ind Today' onClick ={ () => window.location = `Schedule/${x}` }>
+                                                    <p>{x}</p>
+                                                </div> 
+                                            : 
+                                                <div key={x} className = 'ind' onClick ={ () => window.location = `Schedule/${x}` }>
+                                                    <p>{x}</p>
+                                                </div>
+                                            }
+                                        </>
                                     )}
 
                                 </div>
