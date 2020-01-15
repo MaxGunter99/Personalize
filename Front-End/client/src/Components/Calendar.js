@@ -1,6 +1,7 @@
 
 import React from 'react';
 import '../css/Calendar.css';
+import { NavLink } from 'react-router-dom';
 
 import axios from 'axios'
 
@@ -141,8 +142,6 @@ class Home extends React.Component {
 
                         {/* <h1>calendar</h1> */}
                         <header className = 'CalendarHeader'>
-
-                            <h3>{this.state.view} View</h3>
                             
                             {/* <form>
                                 <select value={this.state.view} onChange={this.changeHandler}>
@@ -154,6 +153,8 @@ class Home extends React.Component {
                             </form> */}
 
                             <div>
+
+                                <h3>{this.state.view} View</h3>
 
                                 { this.state.view === 'Day' ? 
                                     <button onClick = { this.changeHandler } value = 'Day' style = {{ backgroundColor: 'white', color: 'black' }}>Day</button> 
@@ -172,7 +173,11 @@ class Home extends React.Component {
                                 :
                                     <button onClick = { this.changeHandler } value = 'Month'>Month</button>
                                 }
+
+                                
                             </div>
+
+                            <NavLink exact to='/AddEvent' >Going to an Event?</NavLink>
 
                         </header>
 

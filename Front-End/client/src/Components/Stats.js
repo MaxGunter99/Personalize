@@ -72,7 +72,8 @@ class Stats extends React.Component {
 
             const todayStr = new Date()
 
-            if (applied.split('/')[0] === Number(todayStr.toLocaleDateString().split('/')[0]) && applied.split('/')[1] === Number(todayStr.toLocaleDateString().split('/')[1]) && applied.split('/')[2] === Number(todayStr.toLocaleDateString().split('/')[2])) {
+            // Jobs applied to Today
+            if ( Number( applied.split('/')[0] ) === Number( todayStr.toLocaleDateString().split('/')[0] ) && Number( applied.split('/')[1] ) === Number(todayStr.toLocaleDateString().split('/')[1]) && Number( applied.split('/')[2] ) === Number(todayStr.toLocaleDateString().split('/')[2])) {
                 jobsAppliedToday.push(1)
 
             }

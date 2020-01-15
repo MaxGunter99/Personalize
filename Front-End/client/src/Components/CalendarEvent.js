@@ -7,23 +7,25 @@ import '../css/Calendar.css'
 export default class CalendarEvent extends React.Component {
 
     state = {
+
         event: `${window.location.href.split('/')[4]}/${window.location.href.split('/')[5]}/${window.location.href.split('/')[6]}`,
         today: new Date().toLocaleDateString().split('/'),
         data: []
+
     }
 
     componentDidMount = () => {
 
         axios.get( 'http://localhost:3000/events' )
-        .then( res => {
 
-            let axiosEvent =  [ res.data ]
+        .then( res => {
 
             const data = res.data.filter( x => `${x.month}/${x.day}/${x.year}` === this.state.event );
 
             this.setState({ data: data })
 
         })
+
         .catch( error => {
 
             console.log( 'There was an error getting todays events!' , error )
@@ -34,12 +36,10 @@ export default class CalendarEvent extends React.Component {
 
     render() {
 
-        console.log( this.state.event )
-
         return(
 
             <div>
-                
+
                 <header>
                 <h1>{this.state.event}</h1>
                 </header>
