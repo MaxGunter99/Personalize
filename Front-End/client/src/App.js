@@ -12,7 +12,6 @@ import AddJobForm from './Components/AddJobForm';
 import Job from './Components/Job';
 import EditJob from './Components/EditJob';
 import CalendarEvent from './Components/CalendarEvent';
-import AddEvent from './Components/AddEvent';
 
 function App() {
   return (
@@ -40,7 +39,6 @@ function App() {
       <Route exact path = '/Job/:id' component = { Job } />
       <Route exact path = '/Job/Edit/:id' component = { EditJob } />
       <Route exact path = '/Schedule/:id/:id/:id' component = { CalendarEvent} />
-      <Route exact path = '/AddEvent' component = { AddEvent } />
 
     </div>
 

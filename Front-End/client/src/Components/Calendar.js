@@ -11,7 +11,7 @@ class Home extends React.Component {
         events: [],
         today: new Date().toDateString(),
         thisMonth: [],
-        loading: false,
+        loading: true,
         select: 'Inactive',
         selected: [],
         now: [ new Date().toLocaleTimeString().split(':')[0] , new Date().toLocaleTimeString().split(' ')[1] ].join().replace(',' , ' '),
@@ -36,7 +36,6 @@ class Home extends React.Component {
 
     loadCalendar = () => {
 
-        const lastWeekDates = [];
         const thisMonthDates = [];
         const today = 1;
 
@@ -59,7 +58,6 @@ class Home extends React.Component {
 
                     if ( Number( day ) === thisEvent.day && Number( month ) === thisEvent.month && Number( year ) === thisEvent.year ) {
 
-                        console.log( 'ITS A MATCH' )
                         MatchingEvent.push( thisEvent )
 
                     }
@@ -89,7 +87,7 @@ class Home extends React.Component {
             let count = week.indexOf( thisMonthDates[0].Day.split(' ')[0] )
             for ( var x = 0; x < count; x++ ) {
 
-                thisMonthDates.unshift('')
+                thisMonthDates.unshift({Day: '' , Event: null})
 
             }
         }
@@ -100,7 +98,7 @@ class Home extends React.Component {
 
             for ( var x = 0; x < EndCount; x++ ) {
 
-                thisMonthDates.push('')
+                thisMonthDates.push({Day: '' , Event: null})
 
             }
 
@@ -158,7 +156,7 @@ class Home extends React.Component {
 
                         <header className = 'CalendarHeader'>
 
-                            <h2>{ new Date().toDateString().split(' ')[1] }</h2>
+                            <h1 className = 'HeaderMonth'>{ new Date().toDateString().split(' ')[1] }</h1>
 
                             <NavLink exact to='/AddEvent' >Going to an Event?</NavLink>
 
@@ -184,24 +182,24 @@ class Home extends React.Component {
                                     <>
                                         { x.Day === this.state.today ? 
 
-                                            <div key={ x } className = 'ind Today' onClick ={ () => this.state.select = 'Active' }>
+                                            <div key={ x } className = 'ind Today' onClick ={ () => this.setState({ select: 'Active' , selected: x }) }>
 
-                                                { x ?  
-                                                    <p>Event</p>
+                                                { x.Event !== null ?  
+                                                    <p className = 'Event'>{ x.Day.split(' ')[2]}</p>
                                                 :
-                                                    <p>{ x.Day }</p>
+                                                    <p className = 'NoEvent'>{ x.Day.split(' ')[2] }</p>
                                                 }
 
                                             </div> 
 
                                         : 
 
-                                            <div key={x} className = 'ind' onClick ={ () => this.state.select = 'Active' }>
+                                            <div key={x} className = 'ind' onClick ={ () => this.setState({ select: 'Active' , selected: x }) }>
 
-                                                { x.length >= 2 ?  
-                                                    <p>Event</p>
+                                                { x.Event !== null ?  
+                                                    <p className = 'Event'>{ x.Day.split(' ')[2]}</p>
                                                 :
-                                                    <p>{ x.Day }</p>
+                                                    <p className = 'NoEvent'>{ x.Day.split(' ')[2] }</p>
                                                 }
 
                                             </div>
@@ -217,9 +215,27 @@ class Home extends React.Component {
                     {/* IF YOU SELECT AN EVENT */}
                     { this.state.select === 'Active' ?
                         
-                        <div>
-                            <h1>HEY THERE</h1>
-                        </div>
+                        <>
+
+                            { this.state.selected.Event === null ?
+                            
+                                null
+
+                            :
+                                <div className = 'EventModal'>
+
+                                    <p>{console.log( this.state.selected.Event )}</p>
+                                    <h1>{this.state.selected.Event.title}</h1>
+                                    <h1>{this.state.selected.Event.month}/{this.state.selected.Event.day}/{this.state.selected.Event.day}</h1>
+                                    <h1>{this.state.selected.Event.time}</h1>
+                                    <h1>{this.state.selected.Event.category}</h1>
+                                    <h1>{this.state.selected.Event.url}</h1>
+                                    <h1>{this.state.selected.Event.notes}</h1>
+
+                                </div>
+                            }
+
+                        </>
 
                     :
                         null

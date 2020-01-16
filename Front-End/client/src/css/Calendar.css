@@ -1,40 +1,37 @@
 .Calendar {
     
     background-color: white;
-    /* min-height: 90vh; */
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     border-top: 3px solid black;
-    /* background-image: url('https://images.pexels.com/photos/2049422/pexels-photo-2049422.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'); */
-    background-image: url('https://images.pexels.com/photos/917494/pexels-photo-917494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-image: url('https://images.pexels.com/photos/2049422/pexels-photo-2049422.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    /* background-image: url('https://images.pexels.com/photos/917494/pexels-photo-917494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'); */
     background-size: 100%;
     background-attachment: fixed;
     background-position: center;
-    min-height: 90vh;
+    min-height: 91vh;
+    align-items: center;
     
+}
+
+.HeaderMonth {
+
+    font-family: 'Lobster' , cursive;
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    text-decoration: underline;
+
 }
 
 .CalendarHeader {
 
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    background-color: rgba(94, 94, 94, 0.295);
-    margin-top: 0px;
+    justify-content: space-between;
+    width: 90%;
+    /* background-color: rgba(94, 94, 94, 0.295); */
+    margin: 0 auto;
     align-items: center;
-    /* height: 100px; */
-
-}
-
-.CalendarHeader h3 {
-
-    background-color: white;
-    padding: 5px;
-    border: 3px solid white;
-    margin: 5px;
-    font-family: 'Lobster' , cursive;
 
 }
 
@@ -56,17 +53,29 @@
 }
 
 .WeekDays {
+    background-color: rgba(255, 255, 255, 0.596);
     display: flex;
-    width: 90%;
+    width: 100%;
     justify-content: space-evenly;
 }
+
+.WeekDays h3 {
+
+    font-family: 'Lobster' , cursive;
+
+}
+
 /* MONTH */
 
 .Month {
 
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    background-color: rgba(173, 173, 173, 0.479);
+    backdrop-filter: blur( 5px );
 
 }
 
@@ -81,18 +90,17 @@
     margin: 0 auto;
     /* background-color: black; */
     justify-content: center;
-    padding: 15px;
 
 }
 
 .ind.Today {
 
-    width: 12%;
-    background-color: rgba(252, 82, 82, 0.582);
-    border: 1px solid black;
-    color: white;
-    backdrop-filter: blur( 2px );
-    transition: .3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    width: 13%;
+    transition: .2s;
     height: 75px;
     margin: 5px;
 
@@ -100,24 +108,53 @@
 
 .ind {
 
-    width: 12%;
-    background-color: rgba(255, 255, 255, 0.274);
-    border: 1px solid black;
-    backdrop-filter: blur( 2px );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 13%;
     transition: .2s;
     height: 75px;
     margin: 5px;
-    border-radius: 10px;
 
 }
 
-.ind:hover {
+.NoEvent {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.616);
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    transition: .3s;
+}
+
+.NoEvent:hover {
 
     color: white;
-    background-color: rgba(0, 0, 0, 0.438);
-    transition: .2s;
-    border: 1px solid white;
+    background-color: rgba(0, 0, 0, 0.445);
     cursor: pointer;
+    transition: .3s;
+}
+
+.Event {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 219, 121, 0.808);
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    transition: .3s;
+}
+
+.Event:hover {
+
+    cursor: pointer;
+    background-color: rgba(255, 187, 0, 0.808);
+    transition: .3s;
 
 }
 
