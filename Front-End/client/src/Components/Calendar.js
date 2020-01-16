@@ -8,12 +8,10 @@ import axios from 'axios'
 class Home extends React.Component {
 
     state = {
-        view: 'Month',
         events: [],
-        today: new Date().toLocaleDateString(),
-        thisWeek: [].sort(( a , b ) => a - b ),
+        today: new Date().toDateString(),
         thisMonth: [],
-        loading: true,
+        loading: false,
         select: 'Inactive',
         selected: [],
         now: [ new Date().toLocaleTimeString().split(':')[0] , new Date().toLocaleTimeString().split(' ')[1] ].join().replace(',' , ' '),
@@ -23,24 +21,11 @@ class Home extends React.Component {
     componentDidMount() {
 
         axios.get('http://localhost:3000/events/Month')
-            .then(res => {
-                this.setState({ events: res.data })
-                console.log(res.data)
-            })
-
-            .catch(err => {
-                console.log(err.message)
-            })
-
-        this.loadCalendar()
-    }
-
-    getTimespan = length => {
-
-        axios.get(`http://localhost:3000/events/${length}`)
 
             .then(res => {
+
                 this.setState({ events: res.data })
+                this.loadCalendar()
             })
 
             .catch(err => {
@@ -48,57 +33,83 @@ class Home extends React.Component {
             })
 
     }
-
-    changeHandler = event => {
-
-        event.preventDefault();
-
-        this.setState({
-            view: event.target.value
-        });
-
-        if (event.target.value === 'Day') {
-            this.getTimespan('Today')
-
-        } else if (event.target.value === 'Week') {
-            this.getTimespan('Week')
-
-        } else if (event.target.value === 'Month') {
-            this.getTimespan('Month')
-
-        }
-    };
 
     loadCalendar = () => {
 
-        const lastWeekDates = []
-        const thisMonthDates = []
-        const today = 1
-        console.log( 'TODAY' , today )
-
-        for (var i = 0; i < 7; i++) {
-
-            const prev = new Date(today) - i
-            const prevDay = new Date().setDate(prev)
-            const thatDay = new Date(prevDay).toLocaleDateString()
-            lastWeekDates.push(thatDay)
-
-        }
+        const lastWeekDates = [];
+        const thisMonthDates = [];
+        const today = 1;
 
         for (var z = 0; z < 32; z++) {
 
             const prev = new Date(z)
             const prevDay = new Date().setDate(prev)
             const thatDay = new Date(prevDay).toLocaleDateString()
+            let MatchingEvent = []
+
             if ( new Date().toLocaleDateString().split('/')[0] === thatDay.split('/')[0] ) {
-                thisMonthDates.push( thatDay)
+
+                let day = new Date( thatDay ).toLocaleDateString().split('/')[1]
+                let month = new Date( thatDay ).toLocaleDateString().split('/')[0] 
+                let year = new Date( thatDay ).toLocaleDateString().split('/')[2]
+
+                for ( var d = 0; d < this.state.events.length; d++ ) {
+
+                    let thisEvent = this.state.events[d]
+
+                    if ( Number( day ) === thisEvent.day && Number( month ) === thisEvent.month && Number( year ) === thisEvent.year ) {
+
+                        console.log( 'ITS A MATCH' )
+                        MatchingEvent.push( thisEvent )
+
+                    }
+                    
+                }
+
+                if ( MatchingEvent.length !== 0 ) {
+
+                    thisMonthDates.push( { Day: new Date( thatDay ).toDateString() , Event: MatchingEvent[0] } )
+                    MatchingEvent.pop()
+
+                } else {
+
+                    thisMonthDates.push( { Day: new Date( thatDay ).toDateString() , Event: null } )
+
+                }
+
+            }
+
+        }
+
+        let week = [ 'Sun' , 'Mon' , 'Tue' , 'Wed' , 'Thu' , 'Fri' , 'Sat' ]
+
+        // matching days to the map
+        if ( thisMonthDates[0].Day.split(' ')[0] !== 'Sun' ) {
+
+            let count = week.indexOf( thisMonthDates[0].Day.split(' ')[0] )
+            for ( var x = 0; x < count; x++ ) {
+
+                thisMonthDates.unshift('')
+
+            }
+        }
+
+        if ( thisMonthDates[ thisMonthDates.length - 1 ].Day.split(' ')[0] !== 'Sat' ) {
+
+            let EndCount = 6 - week.indexOf( thisMonthDates[ thisMonthDates.length - 1 ].Day.split(' ')[0] )
+
+            for ( var x = 0; x < EndCount; x++ ) {
+
+                thisMonthDates.push('')
+
             }
 
         }
         
-        this.setState({ thisWeek: lastWeekDates, thisMonth: thisMonthDates , loading: false })
-
-        console.log( thisMonthDates )
+        this.setState({  
+            thisMonth: thisMonthDates , 
+            loading: false 
+        })
 
     }
 
@@ -109,23 +120,26 @@ class Home extends React.Component {
             let thatDaysEvents = []
 
             for ( var e = 0; e < this.state.events.length; e++ ) {
+
                 let day = `${this.state.events[e].month}/${this.state.events[e].day}/${this.state.events[e].year}`
+
                 if ( x === day ) {
+
                     thatDaysEvents.push( this.state.events[e] )
+
                 }
 
             }
 
             this.setState({ selected: thatDaysEvents , select: 'Active' })
-            console.log( thatDaysEvents )
+
+            // console.log( thatDaysEvents )
 
         }
 
     }
 
     render() {
-
-        console.log( 'TODAY FAM' , this.state.today )
         
         return (
 
@@ -134,187 +148,84 @@ class Home extends React.Component {
                 {this.state.loading === true ?
 
                     <div>
+
                         <h1>Loading</h1>
+
                     </div>
 
                 :
                     <div>
 
-                        {/* <h1>calendar</h1> */}
                         <header className = 'CalendarHeader'>
-                            
-                            {/* <form>
-                                <select value={this.state.view} onChange={this.changeHandler}>
-                                    <option value="Day">Day</option>
-                                    <option value="Week">Week</option>
-                                    <option value="Month">Month</option>
-                                    <option value = "year">Year</option>
-                                </select>
-                            </form> */}
 
-                            <div>
-
-                                <h3>{this.state.view} View</h3>
-
-                                { this.state.view === 'Day' ? 
-                                    <button onClick = { this.changeHandler } value = 'Day' style = {{ backgroundColor: 'white', color: 'black' }}>Day</button> 
-                                :
-                                    <button onClick = { this.changeHandler } value = 'Day'>Day</button>
-                                }
-                                
-                                { this.state.view === 'Week' ? 
-                                    <button onClick = { this.changeHandler } value = 'Week' style = {{ backgroundColor: 'white', color: 'black' }}>Week</button> 
-                                :
-                                    <button onClick = { this.changeHandler } value = 'Week'>Week</button>
-                                }
-
-                                { this.state.view === 'Month' ? 
-                                    <button onClick = { this.changeHandler } value = 'Month' style = {{ backgroundColor: 'white', color: 'black' }}>Month</button> 
-                                :
-                                    <button onClick = { this.changeHandler } value = 'Month'>Month</button>
-                                }
-
-                                
-                            </div>
+                            <h2>{ new Date().toDateString().split(' ')[1] }</h2>
 
                             <NavLink exact to='/AddEvent' >Going to an Event?</NavLink>
 
                         </header>
 
-                        {/* DAY VIEW */}
-                        {this.state.view === 'Day' ?
+                        {/* // MONTH VIEW */}
+                        <div className = 'CalendarContainer Month'>
 
-                            <div className = 'CalendarContainer Day'>
+                            <div className='month'>
 
-                                <div className='day'>
+                                <div className = 'WeekDays'>
+                                    <h3>Sunday</h3>
+                                    <h3>Monday</h3>
+                                    <h3>Tuesday</h3>
+                                    <h3>Wednsday</h3>
+                                    <h3>Thursday</h3>
+                                    <h3>Friday</h3>
+                                    <h3>Saturday</h3>
+                                </div>
 
-                                    {this.state.events.map((x) =>
+                                {this.state.thisMonth.map( ( x )  =>
 
-                                        <div key={x.id} className = 'Section'>
+                                    <>
+                                        { x.Day === this.state.today ? 
 
-                                            <header>
+                                            <div key={ x } className = 'ind Today' onClick ={ () => this.state.select = 'Active' }>
 
-                                                <h3>{x.title}</h3>
-                                                <p>{x.time}</p>
-
-                                            </header>
-
-                                            <p>{x.category}</p>
-
-                                            { x.notes !== "" ?
-
-                                                <p>{x.notes}</p>
-
-                                            :
-                                                null
-                                            }
-
-                                            <p>{x.month}/{x.day}/{x.year}</p>
-
-                                            <div className = 'Status'>
-
-                                                { x.time.split( ' ' )[1] === 'PM' && this.state.now.split( ' ' )[1] === 'PM' ?
-
-                                                    <>
-
-                                                        {  x.time.split(':')[0] >= this.state.now.split(':')[0] && x.time.split(':')[1].split(' ')[0] >= this.state.minute ?
-                                                        
-                                                            <p className= 'Completed' >Completed</p>
-
-                                                        :
-
-                                                            <p className= 'Incomplete' >Incomplete</p>
-                                                        }
-                                                    </>
-
-                                                : x.time.split( ' ' )[1] === 'AM' && this.state.now.split( ' ' )[1] === 'AM' ?
-
-                                                    <>
-
-                                                        {  x.time.split(':')[0] >= this.state.minute ?
-                                                        
-                                                            <p className = 'Completed' >Completed</p>
-
-                                                        :
-
-                                                            <p className = 'Incomplete' >Incomplete</p>
-
-                                                        }
-
-                                                    </>
+                                                { x ?  
+                                                    <p>Event</p>
                                                 :
-                                                    null
+                                                    <p>{ x.Day }</p>
+                                                }
+
+                                            </div> 
+
+                                        : 
+
+                                            <div key={x} className = 'ind' onClick ={ () => this.state.select = 'Active' }>
+
+                                                { x.length >= 2 ?  
+                                                    <p>Event</p>
+                                                :
+                                                    <p>{ x.Day }</p>
                                                 }
 
                                             </div>
 
-                                        </div>
-
-                                    )}
-
-                                </div>
+                                        }
+                                    </>
+                                )}
 
                             </div>
 
-                        : this.state.view === 'Week' ?
+                        </div> 
 
-                            // WEEK VIEW
-                            <div className = 'CalendarContainer Week'>
-
-                                <div className='week'>
-                                    {this.state.thisWeek.map((x) =>
-                                        <div key={x} onClick={() => console.log( x )}>
-                                            <p>{x}</p>
-                                        </div>
-                                    )}
-                                </div>
-
-                            </div>
-
-                        : this.state.view === 'Month' ?
-
-                            // MONTH VIEW
-                            <div className = 'CalendarContainer Month'>
-
-                                <div className='month'>
-
-                                    {this.state.thisMonth.map((x) =>
-                                        <>
-                                            { x === this.state.today ? 
-                                                <div key={x} className = 'ind Today' onClick ={ () => window.location = `Schedule/${x}` }>
-                                                    <p>{x}</p>
-                                                </div> 
-                                            : 
-                                                <div key={x} className = 'ind' onClick ={ () => window.location = `Schedule/${x}` }>
-                                                    <p>{x}</p>
-                                                </div>
-                                            }
-                                        </>
-                                    )}
-
-                                </div>
-
-                            </div> 
-
-                        : null }
-
-                        { this.state.select === 'Active' ?
+                    {/* IF YOU SELECT AN EVENT */}
+                    { this.state.select === 'Active' ?
                         
-                            <div>
-                                { this.state.selected.map( (s ) =>
+                        <div>
+                            <h1>HEY THERE</h1>
+                        </div>
 
-                                    <div key = {s.id}>
-                                        <p>{s}</p>
-                                    </div>
+                    :
+                        null
+                    }
 
-                                ) }
-                            </div>
-
-                        :
-                            null
-                        }
-
-                    </div>
+                </div>
                 }
 
             </div>

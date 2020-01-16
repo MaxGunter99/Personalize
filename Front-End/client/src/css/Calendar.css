@@ -24,7 +24,7 @@
     background-color: rgba(94, 94, 94, 0.295);
     margin-top: 0px;
     align-items: center;
-    height: 160px;
+    /* height: 100px; */
 
 }
 
@@ -55,84 +55,11 @@
 
 }
 
-/* DAY */
-.CalendarContainer.Day {
-
+.WeekDays {
+    display: flex;
     width: 90%;
-    padding: 20px;
-    margin: 0 auto;
-
-}
-
-.Day .Section {
-    border: 1px solid black;
-    margin-bottom: 15px;
-    background-color: rgba(255, 255, 255, 0.507);
-}
-
-.Day header {
-
-    height: 100px;
-    display: flex;
-    justify-content: space-between;
-    background-color: black;
-    color: white;
-    align-items: center;
-    padding: 10px;
-
-}
-
-.Day header h3 {
-    width: auto;
-    font-family: 'Lobster' , cursive;
-    font-size: 40px;
-}
-
-.Status {
-    width: 50%;
-    margin: 0 auto;
-}
-
-.Incomplete {
-
-    color: red;
-    background-color: rgba(197, 34, 34, 0.616);
-
-}
-
-.Completed {
-
-    color: green;
-    background-color: rgba(57, 165, 57, 0.562);
-
-}
-
-/* WEEK */
-.CalendarContainer.Week {
-
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-
-}
-
-div.week {
-
-    display: flex;
-    flex-direction: row;
-    width: 100%;
     justify-content: space-evenly;
-
 }
-
-.week div {
-
-    border: 1px solid black;
-    padding: 5px;
-
-}
-
-
 /* MONTH */
 
 .Month {
