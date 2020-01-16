@@ -180,22 +180,51 @@
 
 }
 
-.EventModal.Active {
+.EventModal {
 
-    position: absolute;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.658);
     display: flex;
+    transition: .5s;
     flex-direction: column;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* transition: .5s; */
+    opacity: 1;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 10px;
 }
 
 .EventHeader {
 
     display: flex;
+    width: 95%;
+    margin: 0 auto;
     flex-direction: row;
     justify-content: space-between;
+
+}
+
+.EventHeader div {
+    display: flex;
+    width: 30%;
+    justify-content: space-around;
+}
+
+.EventHeader div .x {
+    color: red;
+}
+
+.EventHeader div .x:hover {
+    cursor: pointer;
+}
+
+.EventModal .info {
+
+    width: 100%;
+    margin: 0px;
+
+}
+
+.EventModal .info h2 {
+
+    margin: 0px;
 
 }

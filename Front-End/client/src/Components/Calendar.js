@@ -15,14 +15,14 @@ class Home extends React.Component {
         loading: true,
         select: 'Inactive',
         fade: 'wow fadeIn',
+        slide: 0,
+        eventSlide: -3000,
         selected: [],
         now: [ new Date().toLocaleTimeString().split(':')[0] , new Date().toLocaleTimeString().split(' ')[1] ].join().replace(',' , ' '),
         minute: new Date().toLocaleTimeString().split(':')[1]
     }
 
     componentDidMount() {
-
-        new WOW().init()
 
         axios.get('http://localhost:3000/events/Month')
 
@@ -35,6 +35,12 @@ class Home extends React.Component {
             .catch(err => {
                 console.log(err.message)
             })
+
+    }
+
+    componentDidUpdate = () => {
+
+        new WOW().init();
 
     }
 
@@ -135,8 +141,31 @@ class Home extends React.Component {
 
             this.setState({ selected: thatDaysEvents , select: 'Active' })
 
-            // console.log( thatDaysEvents )
+        }
 
+    }
+
+    toggleModal = event => {
+
+        if ( event.Event !== null ) {
+
+            if ( this.state.select === 'Inactive' ) {
+
+                this.setState({ select: 'Active' , selected: event, slide: 560 })
+
+                setTimeout( () => {
+                    this.setState({ eventSlide: -1000  })
+                } , 250 )
+
+            } else {
+
+                this.setState({ eventSlide: -3000 })
+
+                setTimeout( () => {
+                    this.setState({ select: 'Inactive' , slide: 0 })
+                } , 250 )
+
+            }
         }
 
     }
@@ -158,7 +187,7 @@ class Home extends React.Component {
                 :
                     <div>
 
-                        <header className = 'CalendarHeader'>
+                        <header className = 'CalendarHeader' style = {{ marginTop: `${this.state.slide}px` , transition: '1s' }}>
 
                             <h1 className = 'HeaderMonth'>{ new Date().toDateString().split(' ')[1] }</h1>
 
@@ -186,7 +215,7 @@ class Home extends React.Component {
                                     <>
                                         { x.Day === this.state.today ? 
 
-                                            <div key={ x } className = 'ind Today' onClick ={ () => this.setState({ select: 'Active' , selected: x, fade: 'wow zoomOut' }) }>
+                                            <div key={ x } className = 'ind Today' onClick ={ () => this.toggleModal( x ) }>
 
                                                 { x.Event !== null ?  
                                                     <p className = 'Event'>{ x.Day.split(' ')[2]}</p>
@@ -198,7 +227,7 @@ class Home extends React.Component {
 
                                         : 
 
-                                            <div key={x} className = 'ind' onClick ={ () => this.setState({ select: 'Active' , selected: x }) }>
+                                            <div key={x} className = 'ind' onClick ={ () => this.toggleModal( x ) }>
 
                                                 { x.Event !== null ?  
                                                     <p className = 'Event'>{ x.Day.split(' ')[2]}</p>
@@ -226,18 +255,21 @@ class Home extends React.Component {
                                 null
 
                             :
-                                <div className = {`EventModal ${this.state.select} ${this.state.fade}`}>
+                                <div className = 'EventModal' style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }}>
                                     <div className = 'EventHeader'>
                                         <h1>{this.state.selected.Event.title}</h1>
                                         {/* <h1>{this.state.selected.Event.month}/{this.state.selected.Event.day}/{this.state.selected.Event.day}</h1> */}
                                         <div>
                                             <h2>{this.state.selected.Event.time}</h2>
-                                            <h2 onClick = { () => this.setState({ select: null }) }>X</h2>
+                                            <h2 className = 'x' onClick = { () => this.toggleModal( this.state.selected.Event ) }>X</h2>
                                         </div>
                                     </div>
-                                    <h1>{this.state.selected.Event.category}</h1>
-                                    <h1>{this.state.selected.Event.url}</h1>
-                                    <h1>{this.state.selected.Event.notes}</h1>
+
+                                    <div className = 'info'>
+                                        <h2>{this.state.selected.Event.category}</h2>
+                                        <p>{this.state.selected.Event.notes}</p>
+                                        <h3>{this.state.selected.Event.URL}</h3>
+                                    </div>
 
                                 </div>
                             }
@@ -248,7 +280,7 @@ class Home extends React.Component {
                         null
                     }
 
-                </div>
+                    </div>
                 }
 
             </div>
