@@ -179,3 +179,23 @@
     cursor: pointer;
 
 }
+
+.EventModal.Active {
+
+    position: absolute;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* transition: .5s; */
+}
+
+.EventHeader {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}

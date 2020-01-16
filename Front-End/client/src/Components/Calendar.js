@@ -2,6 +2,7 @@
 import React from 'react';
 import '../css/Calendar.css';
 import { NavLink } from 'react-router-dom';
+import WOW from "wow.js";
 
 import axios from 'axios'
 
@@ -13,12 +14,15 @@ class Home extends React.Component {
         thisMonth: [],
         loading: true,
         select: 'Inactive',
+        fade: 'wow fadeIn',
         selected: [],
         now: [ new Date().toLocaleTimeString().split(':')[0] , new Date().toLocaleTimeString().split(' ')[1] ].join().replace(',' , ' '),
         minute: new Date().toLocaleTimeString().split(':')[1]
     }
 
     componentDidMount() {
+
+        new WOW().init()
 
         axios.get('http://localhost:3000/events/Month')
 
@@ -182,7 +186,7 @@ class Home extends React.Component {
                                     <>
                                         { x.Day === this.state.today ? 
 
-                                            <div key={ x } className = 'ind Today' onClick ={ () => this.setState({ select: 'Active' , selected: x }) }>
+                                            <div key={ x } className = 'ind Today' onClick ={ () => this.setState({ select: 'Active' , selected: x, fade: 'wow zoomOut' }) }>
 
                                                 { x.Event !== null ?  
                                                     <p className = 'Event'>{ x.Day.split(' ')[2]}</p>
@@ -222,12 +226,15 @@ class Home extends React.Component {
                                 null
 
                             :
-                                <div className = 'EventModal'>
-
-                                    <p>{console.log( this.state.selected.Event )}</p>
-                                    <h1>{this.state.selected.Event.title}</h1>
-                                    <h1>{this.state.selected.Event.month}/{this.state.selected.Event.day}/{this.state.selected.Event.day}</h1>
-                                    <h1>{this.state.selected.Event.time}</h1>
+                                <div className = {`EventModal ${this.state.select} ${this.state.fade}`}>
+                                    <div className = 'EventHeader'>
+                                        <h1>{this.state.selected.Event.title}</h1>
+                                        {/* <h1>{this.state.selected.Event.month}/{this.state.selected.Event.day}/{this.state.selected.Event.day}</h1> */}
+                                        <div>
+                                            <h2>{this.state.selected.Event.time}</h2>
+                                            <h2 onClick = { () => this.setState({ select: null }) }>X</h2>
+                                        </div>
+                                    </div>
                                     <h1>{this.state.selected.Event.category}</h1>
                                     <h1>{this.state.selected.Event.url}</h1>
                                     <h1>{this.state.selected.Event.notes}</h1>
