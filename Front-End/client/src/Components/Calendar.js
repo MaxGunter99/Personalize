@@ -1,8 +1,9 @@
 
 import React from 'react';
 import '../css/Calendar.css';
-import { NavLink } from 'react-router-dom';
 import WOW from "wow.js";
+import DatePicker from "react-datepicker";
+import TimePicker from 'react-time-picker';
 
 import axios from 'axios'
 
@@ -14,12 +15,24 @@ class Home extends React.Component {
         thisMonth: [],
         loading: true,
         select: 'Inactive',
-        fade: 'wow fadeIn',
-        slide: 0,
+        slide: 30,
+        AddEvent: false,
         eventSlide: -3000,
         selected: [],
         now: [ new Date().toLocaleTimeString().split(':')[0] , new Date().toLocaleTimeString().split(' ')[1] ].join().replace(',' , ' '),
-        minute: new Date().toLocaleTimeString().split(':')[1]
+        minute: new Date().toLocaleTimeString().split(':')[1],
+        CalendarDate: new Date(),
+        time: '11:00',
+        AddedEvent: {
+            title: '',
+            category: '',
+            notes: '',
+            URL: '',
+            time: '',
+            day: '',
+            month: '',
+            year: ''
+        }
     }
 
     componentDidMount() {
@@ -43,6 +56,42 @@ class Home extends React.Component {
         new WOW().init();
 
     }
+
+    // Update State When Entering Info
+    changeHandler = event => {
+
+        event.preventDefault();
+        this.setState({
+            AddedEvent: {
+                ...this.state.AddedEvent,
+                [ event.target.name ]: event.target.value
+            }
+        });
+
+        console.log( this.state.AddedEvent )
+
+    };
+
+    // Datepicker state update
+    handleChange = date => {
+
+        let month =  date.toLocaleDateString().split('/')[0]
+        let day = date.toLocaleDateString().split('/')[1]
+        let year = date.toLocaleDateString().split('/')[2]
+
+        this.setState({
+            CalendarDate: date,
+            AddedEvent: {
+                day: String( day ),
+                month: String( month ),
+                year: String( year )
+            }
+
+        });
+
+    };
+
+    onChange = time => this.setState({ time })
 
     loadCalendar = () => {
 
@@ -147,7 +196,7 @@ class Home extends React.Component {
 
     toggleModal = event => {
 
-        if ( event.Event !== null ) {
+        if ( event.Event !== null && event !== 'AddEvent' ) {
 
             if ( this.state.select === 'Inactive' ) {
 
@@ -162,7 +211,27 @@ class Home extends React.Component {
                 this.setState({ eventSlide: -3000 })
 
                 setTimeout( () => {
-                    this.setState({ select: 'Inactive' , slide: 0 })
+                    this.setState({ select: 'Inactive' , slide: 30 })
+                } , 250 )
+
+            }
+
+        } else {
+
+            if ( this.state.AddEvent === false ) {
+
+                this.setState({ select: 'Active' , AddEvent: true , slide: 560 })
+
+                setTimeout( () => {
+                    this.setState({ eventSlide: -1000  })
+                } , 250 )
+
+            } else {
+
+                this.setState({ eventSlide: -3000 })
+
+                setTimeout( () => {
+                    this.setState({ select: 'Inactive' , AddEvent: false , slide: 30 })
                 } , 250 )
 
             }
@@ -191,7 +260,7 @@ class Home extends React.Component {
 
                             <h1 className = 'HeaderMonth'>{ new Date().toDateString().split(' ')[1] }</h1>
 
-                            <NavLink exact to='/AddEvent' >Going to an Event?</NavLink>
+                            <button className = 'AddEventButton' onClick ={ () => this.toggleModal( 'AddEvent' ) }>Going to an Event?</button>
 
                         </header>
 
@@ -246,7 +315,7 @@ class Home extends React.Component {
                         </div> 
 
                     {/* IF YOU SELECT AN EVENT */}
-                    { this.state.select === 'Active' ?
+                    { this.state.select === 'Active' && this.state.AddEvent === false ?
                         
                         <>
 
@@ -255,7 +324,7 @@ class Home extends React.Component {
                                 null
 
                             :
-                                <div className = 'EventModal' style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }}>
+                                <div className = {`EventModal ${this.state.select}`} style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }} wow-duration = '4s'>
                                     <div className = 'EventHeader'>
                                         <h1>{this.state.selected.Event.title}</h1>
                                         {/* <h1>{this.state.selected.Event.month}/{this.state.selected.Event.day}/{this.state.selected.Event.day}</h1> */}
@@ -275,6 +344,81 @@ class Home extends React.Component {
                             }
 
                         </>
+
+                    :
+                        null
+                    }
+
+                    {/* IF YOU WANT TO ADD AN EVENT */}
+                    { this.state.select === 'Active' && this.state.AddEvent === true ?
+                        
+                        
+                        <div style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }}>
+
+                            <h2>Add an Event</h2>
+
+                            <form autocomplete="off">
+                                
+                                <div className = 'pair'>
+
+                                    <label>Title:</label>
+                                    <input
+                                        id = "title"
+                                        type = "text"
+                                        name = "title"
+                                        value = { this.state.AddedEvent.title }
+                                        className = 'input'
+                                        placeholder = "Title"
+                                        onChange = { this.changeHandler }
+                                    />
+
+                                    <label>What type of event are you going to?</label>
+                                    <input
+                                        id = "category"
+                                        type = "text"
+                                        name = "category"
+                                        value = { this.state.AddedEvent.category }
+                                        className = 'input'
+                                        placeholder = "Category"
+                                        onChange = { this.changeHandler }
+                                    />
+
+                                    <label>URL</label>
+                                    <input
+                                        id = "URL"
+                                        type = "text"
+                                        name = "URL"
+                                        value = { this.state.AddedEvent.URL }
+                                        className = 'input'
+                                        placeholder = "Link"
+                                        onChange = { this.changeHandler }
+                                    />
+
+                                </div>
+
+
+                                <div className = 'pair'>
+
+                                    <label>What Date is this event?</label>
+                                    <DatePicker
+                                        className = 'Date'
+                                        selected={this.state.CalendarDate}
+                                        onChange={this.handleChange}
+                                    />
+
+                                    <TimePicker
+                                        onChange={this.onChange}
+                                        value={this.state.time}
+                                    />
+                                    
+
+                                </div>
+
+                            </form>
+
+                            
+                            
+                        </div>
 
                     :
                         null

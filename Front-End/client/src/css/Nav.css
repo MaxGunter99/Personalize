@@ -17,13 +17,15 @@
 
 }
   
-.HomePageHeader {
+header.HomePageHeader {
   
     display: flex;
     justify-content: space-between;
     font-family: 'Lobster', cursive;
-    background-color: black;
-  
+    background-color: rgb(255, 255, 255);
+    z-index: 1;
+    width: 100%;
+    position: absolute;
 }
   
 .HomePageHeader a {
@@ -109,7 +111,7 @@ nav.category input {
     align-items: center;
     height: 80px;
     margin: 0 auto;
-    background-color: rgba(0, 0, 0, 0.575);
+    background-color: rgba(235, 235, 235, 0.575);
     padding: 5px;
     margin-top: 50px;
 

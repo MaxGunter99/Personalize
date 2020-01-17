@@ -11,6 +11,7 @@
     background-position: center;
     min-height: 91vh;
     align-items: center;
+    padding-top: 68px;
     
 }
 
@@ -35,18 +36,19 @@
 
 }
 
-.CalendarHeader button {
+header a.AddEventButton {
 
-    margin: 5px;
     transition: .3s;
     outline: none;
+    background-color: white;
+    color: black;
 
 }
 
-.CalendarHeader button:hover {
+header a.AddEventButton:hover {
 
-    background-color: white;
-    color: black;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     transition: .3s;
     cursor: pointer;
 
@@ -180,7 +182,9 @@
 
 }
 
-.EventModal {
+/* EVENT MODAL */
+
+.EventModal.Active {
 
     background-color: rgba(255, 255, 255, 0.658);
     display: flex;
@@ -190,6 +194,16 @@
     width: 90%;
     margin: 0 auto;
     border-radius: 10px;
+    z-index: -1;
+    backdrop-filter: blur( 5px );
+    opacity: 1;
+    animation: mymove 2.5s 1;
+
+}
+
+@keyframes mymove {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .EventHeader {
@@ -226,5 +240,15 @@
 .EventModal .info h2 {
 
     margin: 0px;
+
+}
+
+/* FORM */
+.Calendar form {
+
+    background-color: red;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
 
 }

@@ -13,36 +13,39 @@ import Job from './Components/Job';
 import EditJob from './Components/EditJob';
 import CalendarEvent from './Components/CalendarEvent';
 
-function App() {
-  return (
+class App extends React.Component {
 
-    <div className="App">
+  render() {
+    return (
 
-      <header className = 'HomePageHeader'>
+      <div className="App">
 
-        <h1 className = 'Title' >Personalize</h1>
+        <header className = 'HomePageHeader'>
 
-        <NavLink exact to = '/' >Home</NavLink>
-        <NavLink exact to = '/Jobs' >Jobs</NavLink>
-        {/* <NavLink exact to = '/ToDos' >To-Do's</NavLink> */}
-        <NavLink exact to = '/Schedule' >Schedule</NavLink>
+          <h1 className = 'Title' >Personalize</h1>
 
-        <Time/>
+          <NavLink exact to = '/' >Home</NavLink>
+          <NavLink exact to = '/Jobs' >Jobs</NavLink>
+          {/* <NavLink exact to = '/ToDos' >To-Do's</NavLink> */}
+          <NavLink exact to = '/Schedule' >Schedule</NavLink>
 
-      </header>
+          <Time/>
 
-      <Route exact path = '/' component = { Home } />
-      <Route exact path = '/Jobs' component = { Jobs } />
-      {/* <Route exact path = '/Todos' component = { ToDos } /> */}
-      <Route exact path = '/Schedule' component = { Calendar } />
-      <Route exact path = '/AddJob' component = { AddJobForm } />
-      <Route exact path = '/Job/:id' component = { Job } />
-      <Route exact path = '/Job/Edit/:id' component = { EditJob } />
-      <Route exact path = '/Schedule/:id/:id/:id' component = { CalendarEvent} />
+        </header>
 
-    </div>
+        <Route exact path = '/' component = { Home } />
+        <Route exact path = '/Jobs' component = { Jobs } />
+        {/* <Route exact path = '/Todos' component = { ToDos } /> */}
+        <Route exact path = '/Schedule' component = { Calendar } />
+        <Route exact path = '/AddJob' component = { AddJobForm } />
+        <Route exact path = '/Job/:id' component = { Job } />
+        <Route exact path = '/Job/Edit/:id' component = { EditJob } />
+        <Route exact path = '/Schedule/:id/:id/:id' component = { CalendarEvent} />
 
-  );
+      </div>
+
+    );
+  }
 }
 
 export default withRouter( App );
