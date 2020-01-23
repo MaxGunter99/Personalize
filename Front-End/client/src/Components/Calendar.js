@@ -10,6 +10,7 @@ import axios from 'axios'
 class Home extends React.Component {
 
     state = {
+
         events: [],
         today: new Date().toDateString(),
         thisMonth: [],
@@ -19,23 +20,22 @@ class Home extends React.Component {
         AddEvent: false,
         eventSlide: -3000,
         selected: [],
-        now: [ new Date().toLocaleTimeString().split(':')[0] , new Date().toLocaleTimeString().split(' ')[1] ].join().replace(',' , ' '),
-        minute: new Date().toLocaleTimeString().split(':')[1],
         CalendarDate: new Date(),
-        time: '11:00',
+        time: `${ new Date().toLocaleTimeString().split(':')[0] }:${ new Date().toLocaleTimeString().split(':')[1] }`,
         AddedEvent: {
             title: '',
             category: '',
-            notes: '',
-            URL: '',
-            time: '',
             day: '',
             month: '',
-            year: ''
+            year: '',
+            URL: '',
+            notes: '',
+            time: '',
         }
     }
 
     componentDidMount() {
+        console.log(`${ new Date().toLocaleTimeString().split(':')[0] }:${ new Date().toLocaleTimeString().split(':')[1] } ${ new Date().toLocaleTimeString().split(' ')[1] }`)
 
         axios.get('http://localhost:3000/events/Month')
 
@@ -61,37 +61,43 @@ class Home extends React.Component {
     changeHandler = event => {
 
         event.preventDefault();
+
         this.setState({
+
             AddedEvent: {
                 ...this.state.AddedEvent,
                 [ event.target.name ]: event.target.value
             }
+
         });
 
         console.log( this.state.AddedEvent )
 
     };
 
-    // Datepicker state update
-    handleChange = date => {
+    SubmitEvent = event => {
 
-        let month =  date.toLocaleDateString().split('/')[0]
-        let day = date.toLocaleDateString().split('/')[1]
-        let year = date.toLocaleDateString().split('/')[2]
+        event.preventDefault();
 
-        this.setState({
-            CalendarDate: date,
-            AddedEvent: {
-                day: String( day ),
-                month: String( month ),
-                year: String( year )
-            }
+        axios.post( 'http://localhost:3000/events' , this.state.AddedEvent )
+        .then( res => {
+            console.log( 'Add event Success!' , res.data )
+            this.setState({ eventSlide: -3000 })
 
-        });
+            setTimeout( () => {
+                this.setState({ slide: 30 })
+            } , 250 )
+
+            setTimeout( () => {
+                window.location = 'http://localhost:3001/Schedule'
+            } , 1000 )
+
+        })
+        .catch( err => {
+            console.log( 'Error adding Event!' , err )
+        })
 
     };
-
-    onChange = time => this.setState({ time })
 
     loadCalendar = () => {
 
@@ -222,9 +228,26 @@ class Home extends React.Component {
 
                 this.setState({ select: 'Active' , AddEvent: true , slide: 560 })
 
-                setTimeout( () => {
-                    this.setState({ eventSlide: -1000  })
-                } , 250 )
+                if ( !event.Day ) {
+
+                    setTimeout( () => {
+                        this.setState({ eventSlide: -1150  })
+                    } , 250 )
+
+                } else {
+
+                    setTimeout( () => {
+
+                        this.setState({ eventSlide: -1150  })
+                        this.setState({ AddedEvent: { 
+                            day: Number( event.Day.split(' ')[2] ),
+                            month: Number( new Date().toLocaleDateString()[0] ) ,
+                            year: Number( event.Day.split(' ')[3] ) } 
+                        })
+
+                    } , 250 )
+
+                };
 
             } else {
 
@@ -236,6 +259,28 @@ class Home extends React.Component {
 
             }
         }
+
+    }
+
+    DeleteEvent = event => {
+
+        axios.delete( `http://localhost:3000/events/${event.id}` )
+        .then( res => {
+            console.log( res )
+            this.setState({ eventSlide: -3000  })
+
+            setTimeout( () => {
+                this.setState({ slide: 30  })
+            } , 250 )
+
+            setTimeout( () => {
+                window.location = 'http://localhost:3001/Schedule'
+            } , 1000 )
+
+        })
+        .catch( err => {
+            console.log( err )
+        })
 
     }
 
@@ -265,11 +310,13 @@ class Home extends React.Component {
                         </header>
 
                         {/* // MONTH VIEW */}
+
                         <div className = 'CalendarContainer Month'>
 
                             <div className='month'>
 
                                 <div className = 'WeekDays'>
+
                                     <h3>Sunday</h3>
                                     <h3>Monday</h3>
                                     <h3>Tuesday</h3>
@@ -277,6 +324,7 @@ class Home extends React.Component {
                                     <h3>Thursday</h3>
                                     <h3>Friday</h3>
                                     <h3>Saturday</h3>
+
                                 </div>
 
                                 {this.state.thisMonth.map( ( x )  =>
@@ -287,7 +335,9 @@ class Home extends React.Component {
                                             <div key={ x } className = 'ind Today' onClick ={ () => this.toggleModal( x ) }>
 
                                                 { x.Event !== null ?  
+
                                                     <p className = 'Event'>{ x.Day.split(' ')[2]}</p>
+
                                                 :
                                                     <p className = 'NoEvent'>{ x.Day.split(' ')[2] }</p>
                                                 }
@@ -299,7 +349,9 @@ class Home extends React.Component {
                                             <div key={x} className = 'ind' onClick ={ () => this.toggleModal( x ) }>
 
                                                 { x.Event !== null ?  
+
                                                     <p className = 'Event'>{ x.Day.split(' ')[2]}</p>
+
                                                 :
                                                     <p className = 'NoEvent'>{ x.Day.split(' ')[2] }</p>
                                                 }
@@ -312,117 +364,198 @@ class Home extends React.Component {
 
                             </div>
 
-                        </div> 
-
-                    {/* IF YOU SELECT AN EVENT */}
-                    { this.state.select === 'Active' && this.state.AddEvent === false ?
-                        
-                        <>
-
-                            { this.state.selected.Event === null ?
-                            
-                                null
-
-                            :
-                                <div className = {`EventModal ${this.state.select}`} style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }} wow-duration = '4s'>
-                                    <div className = 'EventHeader'>
-                                        <h1>{this.state.selected.Event.title}</h1>
-                                        {/* <h1>{this.state.selected.Event.month}/{this.state.selected.Event.day}/{this.state.selected.Event.day}</h1> */}
-                                        <div>
-                                            <h2>{this.state.selected.Event.time}</h2>
-                                            <h2 className = 'x' onClick = { () => this.toggleModal( this.state.selected.Event ) }>X</h2>
-                                        </div>
-                                    </div>
-
-                                    <div className = 'info'>
-                                        <h2>{this.state.selected.Event.category}</h2>
-                                        <p>{this.state.selected.Event.notes}</p>
-                                        <h3>{this.state.selected.Event.URL}</h3>
-                                    </div>
-
-                                </div>
-                            }
-
-                        </>
-
-                    :
-                        null
-                    }
-
-                    {/* IF YOU WANT TO ADD AN EVENT */}
-                    { this.state.select === 'Active' && this.state.AddEvent === true ?
-                        
-                        
-                        <div style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }}>
-
-                            <h2>Add an Event</h2>
-
-                            <form autocomplete="off">
-                                
-                                <div className = 'pair'>
-
-                                    <label>Title:</label>
-                                    <input
-                                        id = "title"
-                                        type = "text"
-                                        name = "title"
-                                        value = { this.state.AddedEvent.title }
-                                        className = 'input'
-                                        placeholder = "Title"
-                                        onChange = { this.changeHandler }
-                                    />
-
-                                    <label>What type of event are you going to?</label>
-                                    <input
-                                        id = "category"
-                                        type = "text"
-                                        name = "category"
-                                        value = { this.state.AddedEvent.category }
-                                        className = 'input'
-                                        placeholder = "Category"
-                                        onChange = { this.changeHandler }
-                                    />
-
-                                    <label>URL</label>
-                                    <input
-                                        id = "URL"
-                                        type = "text"
-                                        name = "URL"
-                                        value = { this.state.AddedEvent.URL }
-                                        className = 'input'
-                                        placeholder = "Link"
-                                        onChange = { this.changeHandler }
-                                    />
-
-                                </div>
-
-
-                                <div className = 'pair'>
-
-                                    <label>What Date is this event?</label>
-                                    <DatePicker
-                                        className = 'Date'
-                                        selected={this.state.CalendarDate}
-                                        onChange={this.handleChange}
-                                    />
-
-                                    <TimePicker
-                                        onChange={this.onChange}
-                                        value={this.state.time}
-                                    />
-                                    
-
-                                </div>
-
-                            </form>
-
-                            
-                            
                         </div>
 
-                    :
-                        null
-                    }
+                        {/* IF YOU SELECT AN EVENT */}
+
+                        { this.state.select === 'Active' && this.state.AddEvent === false ?
+                            
+                            <>
+
+                                { this.state.selected.Event === null ?
+                                
+                                    null
+
+                                :
+                                    <div className = {`EventModal ${this.state.select}`} style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }} wow-duration = '4s'>
+
+                                        <div className = 'EventHeader'>
+
+                                            <h1>{this.state.selected.Event.title}</h1>
+                                            <h1>{this.state.selected.Event.month}/{this.state.selected.Event.day}/{this.state.selected.Event.day}</h1>
+
+                                            <div>
+
+                                                <h2>{this.state.selected.Event.time}</h2>
+                                                <h2 className = 'x' onClick = { () => this.toggleModal( this.state.selected.Event ) }>X</h2>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div className = 'info'>
+
+                                            <h2>{this.state.selected.Event.category}</h2>
+                                            <p>{this.state.selected.Event.notes}</p>
+                                            <h3>{this.state.selected.Event.URL}</h3>
+                                            <button className = 'x' onClick = { () => this.DeleteEvent( this.state.selected.Event ) }>Delete</button>
+
+                                        </div>
+
+                                    </div>
+
+                                }
+
+                            </>
+
+                        :
+                            null
+                        }
+
+                        {/* IF YOU WANT TO ADD AN EVENT */}
+
+                        { this.state.select === 'Active' && this.state.AddEvent === true ?
+                        
+                            <div style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }}>
+
+                                <h2>Add an Event</h2>
+
+                                <form autoComplete="off" onSubmit = { this.SubmitEvent }>
+                                    
+                                    <div className = 'pair'>
+
+                                        <div>
+
+                                            <label>Title:</label>
+
+                                            <input
+                                                id = "title"
+                                                type = "text"
+                                                name = "title"
+                                                value = { this.state.AddedEvent.title }
+                                                className = 'input'
+                                                placeholder = "Title"
+                                                onChange = { this.changeHandler }
+                                            />
+
+                                        </div>
+
+                                        <div>
+
+                                            <label>Event type:</label>
+
+                                            <input
+                                                id = "category"
+                                                type = "text"
+                                                name = "category"
+                                                value = { this.state.AddedEvent.category }
+                                                className = 'input'
+                                                placeholder = "Category"
+                                                onChange = { this.changeHandler }
+                                            />
+
+                                        </div>
+
+                                        <div>
+
+                                            <label>Link to event:</label>
+
+                                            <input
+                                                id = "URL"
+                                                type = "text"
+                                                name = "URL"
+                                                value = { this.state.AddedEvent.URL }
+                                                className = 'input'
+                                                placeholder = "Link"
+                                                onChange = { this.changeHandler }
+                                            />
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div className = 'date'>
+
+                                        <div>
+
+                                            <label>Day:</label>
+
+                                            <input
+                                                id = "day"
+                                                type = "number"
+                                                name = "day"
+                                                value = { this.state.AddedEvent.day }
+                                                className = 'input'
+                                                placeholder = "Day"
+                                                onChange = { this.changeHandler }
+                                            />
+
+                                        </div>
+
+                                        <div>
+
+                                            <label>Month:</label>
+
+                                            <input
+                                                id = "month"
+                                                type = "number"
+                                                name = "month"
+                                                value = { this.state.AddedEvent.month }
+                                                className = 'input'
+                                                placeholder = "Month"
+                                                onChange = { this.changeHandler }
+                                            />
+
+                                        </div>
+
+                                        <div>
+
+                                            <label>Year:</label>
+
+                                            <input
+                                                id = "year"
+                                                type = "number"
+                                                name = "year"
+                                                value = { this.state.AddedEvent.year }
+                                                className = 'input'
+                                                placeholder = "Year"
+                                                onChange = { this.changeHandler }
+                                            />
+
+                                        </div>
+
+                                    </div>
+
+                                    <div className = 'time'>
+
+                                        <label>Time:</label>
+
+                                        <input
+                                            id = "time"
+                                            type = "text"
+                                            name = "time"
+                                            value = { this.state.AddedEvent.time }
+                                            className = 'input'
+                                            placeholder = "ex: 1:00 PM"
+                                            onChange = { this.changeHandler }
+                                        />
+
+                                    </div>
+
+                                    <button type='submit' className='ActionButton'>Add</button>
+
+                                    <button type = 'button' className = 'x' onClick = { () => this.toggleModal( 'AddEvent' ) }>Cancel</button>
+
+                                </form>
+                                
+                            </div>
+
+                        :
+
+                            null
+
+                        }
 
                     </div>
                 }
