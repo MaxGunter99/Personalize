@@ -183,7 +183,7 @@ header a.AddEventButton:hover {
 
 }
 
-/* EVENT MODAL */
+/* SINGLE EVENT MODAL */
 
 .EventModal.Active {
 
@@ -192,19 +192,13 @@ header a.AddEventButton:hover {
     transition: .5s;
     flex-direction: column;
     opacity: 1;
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
-    border-radius: 10px;
+    border-radius: 5px;
     z-index: -1;
     backdrop-filter: blur( 5px );
     opacity: 1;
-    animation: mymove 2.5s 1;
 
-}
-
-@keyframes mymove {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 .EventHeader {
@@ -217,24 +211,71 @@ header a.AddEventButton:hover {
 
 }
 
+.EventHeader h2 {
+
+    font-size: 30px;
+
+}
+
+.EventHeader h1 {
+    font-family: 'Lobster', cursive;
+    margin: 0px;
+    text-decoration: underline;
+}
+
 .EventHeader div {
+
     display: flex;
-    width: 30%;
-    justify-content: space-around;
+    width: 50%;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 115px;
+
+}
+
+.Category {
+    margin: 0px;
+    text-indent: 30px;
+    color: rgb(48, 48, 48);
+    font-family: 'Lobster', cursive;
+}
+
+div.RightHeader {
+
+    flex-direction: row;
+    width: 20%;
+    justify-content: space-evenly;
+    align-items: center;
+
 }
 
 .EventHeader div .x {
+    
     color: red;
+    border: 2px solid red;
+    border-radius: 10px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+
 }
 
 .EventHeader div .x:hover {
     cursor: pointer;
+    color: rgb(255, 255, 255);
+    background-color: red;
+    transition: .5s;
 }
 
 .EventModal .info {
 
     width: 100%;
     margin: 0px;
+    background-color: rgba(0, 0, 0, 0.24);
 
 }
 
@@ -244,11 +285,67 @@ header a.AddEventButton:hover {
 
 }
 
-/* FORM */
+/* MULTIPLE EVENTS */
+.EventModal.Active.Multiple {
+
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: none;
+    background-color: rgba(255, 255, 255, 0);
+    overflow: scroll;
+    width: 80%;
+    margin-bottom: 95px;
+
+}
+
+.EventModal.Active.Multiple .EventContainer {
+
+    margin-bottom: 50px;
+    backdrop-filter: blur( 5px );
+    background-color: none;
+    background-color: rgba(255, 255, 255, 0.658);
+    border-radius: 5px;
+
+}
+
+.EventModal.Active.Multiple .EventHeader {
+
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.596);
+    width: 100%;
+    margin-bottom: 0px;
+    border-radius: 5px 5px 0px 0px;
+
+}
+
+.EventModal.Active.Multiple .EventHeader div {
+    padding: 5px;
+}
+
+.EventModal.Active.Multiple .EventHeader div h1 {
+    padding-left: 10px;
+}
+
+.EventModal.Active.Multiple .EventHeader div .Category {
+    text-indent: 50px;
+}
+
+.EventModal.Active.Multiple .info {
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.24);
+
+}
+
+/* ADD EVENT FORM */
+
 .Calendar form {
 
     background-color: rgba(0, 0, 0, 0.658);
-    width: 90%;
+    width: 75%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -257,37 +354,88 @@ header a.AddEventButton:hover {
 }
 
 form div {
+
     width: 100%;
+    margin: 0 auto;
     justify-content: space-around;
     display: flex;
     flex-direction: row;
     align-items: center;
+
+}
+
+form label {
+
+    color: white;
+
 }
 
 form div div {
+
     display: flex;
     flex-direction: column;
     margin: 10px;
     padding: 10px;
     border: 2px solid white;
+
 }
 
 form .date label {
+
     height: fit-content;
+
 }
 
-form .time {
+form .buttons {
+
     display: flex;
-    width: 30%;
+    justify-content: space-between;
+    width: 100%;
     margin: 0 auto;
-    flex-direction: column;
-    border: 2px solid white;
-    padding: 10px;
+
 }
 
-form button {
-    width: 30%;
-    margin: 0 auto;
-    margin-top: 10px;
+.buttons button {
+
+    width: 20%;
+    transition: .5s;
+
+}
+
+.buttons button:hover {
+
+    color: black;
+    background-color: white;
+    transition: .5s;
+
+}
+
+form input {
+
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    color: white;
+    outline: none;
+    font-size: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0);
+    transition: .5s;
+
+}
+
+form input:focus {
+
+    border-bottom: 2px solid white;
+    transition: .5s;
+    border-bottom-width: auto;
+
+}
+
+.AddEventTitle {
+
+    font-family: 'Lobster', cursive;
+    font-size: 40px;
     margin-bottom: 10px;
+    color: white;
+    text-decoration: underline;
+    
 }

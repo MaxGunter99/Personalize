@@ -7,7 +7,7 @@ import axios from 'axios'
 import DatePicker from "react-datepicker";
 
 import '../css/AddJobForm.css';
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 
 class JobForm extends React.Component {
 
@@ -22,14 +22,14 @@ class JobForm extends React.Component {
             ReplyRecieved: "",
             Details: ""
         },
-
         startDate: new Date()
+        
     }
 
     // Update State When Entering Info
     changeHandler = event => {
         event.preventDefault();
-        console.log( this.state.job )
+        // console.log( this.state.job )
         this.setState({
             job: {
                 ...this.state.job,
@@ -135,10 +135,11 @@ class JobForm extends React.Component {
 
                     <div className = 'section'>
 
-                        <div className = 'pair'>
+                        <div className = 'pairDate'>
                             <label>Date Applied:</label>
                             <DatePicker
-                                className = 'Date'
+                                showPopperArrow={false}
+                                className = 'DatePickerInput'
                                 selected={this.state.startDate}
                                 onChange={this.handleChange}
                             />

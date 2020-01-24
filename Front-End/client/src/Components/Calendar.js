@@ -2,8 +2,6 @@
 import React from 'react';
 import '../css/Calendar.css';
 import WOW from "wow.js";
-import DatePicker from "react-datepicker";
-import TimePicker from 'react-time-picker';
 
 import axios from 'axios'
 
@@ -30,7 +28,7 @@ class Home extends React.Component {
             year: '',
             URL: '',
             notes: '',
-            time: '',
+            time: ''
         }
     }
 
@@ -49,13 +47,13 @@ class Home extends React.Component {
                 console.log(err.message)
             })
 
-    }
+    };
 
     componentDidUpdate = () => {
 
         new WOW().init();
 
-    }
+    };
 
     // Update State When Entering Info
     changeHandler = event => {
@@ -72,30 +70,6 @@ class Home extends React.Component {
         });
 
         console.log( this.state.AddedEvent )
-
-    };
-
-    SubmitEvent = event => {
-
-        event.preventDefault();
-
-        axios.post( 'http://localhost:3000/events' , this.state.AddedEvent )
-        .then( res => {
-            console.log( 'Add event Success!' , res.data )
-            this.setState({ eventSlide: -3000 })
-
-            setTimeout( () => {
-                this.setState({ slide: 30 })
-            } , 250 )
-
-            setTimeout( () => {
-                window.location = 'http://localhost:3001/Schedule'
-            } , 1000 )
-
-        })
-        .catch( err => {
-            console.log( 'Error adding Event!' , err )
-        })
 
     };
 
@@ -129,10 +103,16 @@ class Home extends React.Component {
                     
                 }
 
-                if ( MatchingEvent.length !== 0 ) {
+                if ( MatchingEvent.length === 1 ) {
 
                     thisMonthDates.push( { Day: new Date( thatDay ).toDateString() , Event: MatchingEvent[0] } )
+
                     MatchingEvent.pop()
+
+                } else if ( MatchingEvent.length >= 2 ) {
+
+                    thisMonthDates.push( { Day: new Date( thatDay ).toDateString() , Event: MatchingEvent } )
+                    MatchingEvent = []
 
                 } else {
 
@@ -174,7 +154,7 @@ class Home extends React.Component {
             loading: false 
         })
 
-    }
+    };
 
     activehandler = x => {
 
@@ -198,19 +178,39 @@ class Home extends React.Component {
 
         }
 
-    }
+    };
 
+    // Conditionals to show or hide modals
     toggleModal = event => {
 
-        if ( event.Event !== null && event !== 'AddEvent' ) {
+        // If the event is blank ( white spaces to align week days )
+        if ( event.Day === '' ) {
+
+            console.log( 'No Event' )
+
+        } else if ( event.Event !== null && event !== 'AddEvent' ) {
 
             if ( this.state.select === 'Inactive' ) {
 
-                this.setState({ select: 'Active' , selected: event, slide: 560 })
+                // If there are two events then  it creates more space for them
+                if ( event.Event.length ) {
 
-                setTimeout( () => {
-                    this.setState({ eventSlide: -1000  })
-                } , 250 )
+                    console.log( 'YES' )
+                    this.setState({ select: 'Active' , selected: event, slide: 1500 })
+
+                    setTimeout( () => {
+                        this.setState({ eventSlide: -2000  })
+                    } , 250 )
+
+                } else {
+
+                    this.setState({ select: 'Active' , selected: event, slide: 560 })
+
+                    setTimeout( () => {
+                        this.setState({ eventSlide: -1000  })
+                    } , 250 )
+
+                }
 
             } else {
 
@@ -261,11 +261,38 @@ class Home extends React.Component {
         }
 
     }
+    
+    // AXIOS ACTIONS
+
+    SubmitEvent = event => {
+
+        event.preventDefault();
+
+        axios.post( 'http://localhost:3000/events' , this.state.AddedEvent )
+        .then( res => {
+            console.log( 'Add event Success!' , res.data )
+            this.setState({ eventSlide: -3000 })
+
+            setTimeout( () => {
+                this.setState({ slide: 30 })
+            } , 250 )
+
+            setTimeout( () => {
+                window.location = 'http://localhost:3001/Schedule'
+            } , 1000 )
+
+        })
+        .catch( err => {
+            console.log( 'Error adding Event!' , err )
+        })
+
+    };
 
     DeleteEvent = event => {
 
         axios.delete( `http://localhost:3000/events/${event.id}` )
         .then( res => {
+
             console.log( res )
             this.setState({ eventSlide: -3000  })
 
@@ -301,7 +328,7 @@ class Home extends React.Component {
                 :
                     <div>
 
-                        <header className = 'CalendarHeader' style = {{ marginTop: `${this.state.slide}px` , transition: '1s' }}>
+                        <header className = {`CalendarHeader ${this.state.select}`} style = {{ marginTop: `${this.state.slide}px` , transition: '1s' }}>
 
                             <h1 className = 'HeaderMonth'>{ new Date().toDateString().split(' ')[1] }</h1>
 
@@ -373,18 +400,57 @@ class Home extends React.Component {
                             <>
 
                                 { this.state.selected.Event === null ?
-                                
+
+                                    // IF THERE IS JUST A BANK SPACE
                                     null
 
+                                : this.state.selected.Event.length ?
+
+                                    // MAPPING MULTIPLE EVENTS
+                                    <div className = {`EventModal Active Multiple`} style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }} wow-duration = '4s'>
+
+                                        <>
+                                            { this.state.selected.Event.map(  ( e ) =>
+
+                                                <div className = 'EventContainer'>
+                                                    <div className = 'EventHeader'>
+                                                        <div>
+                                                            <h1>{e.title}</h1>
+                                                            <h2 className = 'Category'>{e.category}</h2>
+                                                        </div>
+
+                                                        <div className = 'RightHeader'>
+                                                            <h2>{e.time}</h2>
+                                                            <h2 className = 'x' onClick = { () => this.toggleModal( this.state.selected.Event ) }>X</h2>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div className = 'info'>
+                                                        <p>{e.notes}</p>
+                                                        <h3>{e.URL}</h3>
+                                                        <button onClick = { () => this.DeleteEvent( this.state.selected.Event ) }>Delete</button>
+                                                    </div>
+
+                                                </div>
+                                            ) }
+                                        </>
+
+                                    </div>
+
                                 :
+                                    // MAPPING JUST ONE EVENT
                                     <div className = {`EventModal ${this.state.select}`} style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }} wow-duration = '4s'>
 
                                         <div className = 'EventHeader'>
 
-                                            <h1>{this.state.selected.Event.title}</h1>
-                                            <h1>{this.state.selected.Event.month}/{this.state.selected.Event.day}/{this.state.selected.Event.day}</h1>
-
+                                            {/* <h2>{this.state.selected.Event.month}/{this.state.selected.Event.day}/{this.state.selected.Event.day}</h2> */}
                                             <div>
+                                                <h1>{this.state.selected.Event.title}</h1>
+                                                <h2 className = 'Category'>{this.state.selected.Event.category}</h2>
+                                            </div>
+
+                                            <div className = 'RightHeader'>
 
                                                 <h2>{this.state.selected.Event.time}</h2>
                                                 <h2 className = 'x' onClick = { () => this.toggleModal( this.state.selected.Event ) }>X</h2>
@@ -395,10 +461,9 @@ class Home extends React.Component {
 
                                         <div className = 'info'>
 
-                                            <h2>{this.state.selected.Event.category}</h2>
                                             <p>{this.state.selected.Event.notes}</p>
                                             <h3>{this.state.selected.Event.URL}</h3>
-                                            <button className = 'x' onClick = { () => this.DeleteEvent( this.state.selected.Event ) }>Delete</button>
+                                            <button onClick = { () => this.DeleteEvent( this.state.selected.Event ) }>Delete</button>
 
                                         </div>
 
@@ -418,7 +483,7 @@ class Home extends React.Component {
                         
                             <div style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }}>
 
-                                <h2>Add an Event</h2>
+                                <h2 className = 'AddEventTitle'>Add an Event</h2>
 
                                 <form autoComplete="off" onSubmit = { this.SubmitEvent }>
                                     
@@ -527,25 +592,48 @@ class Home extends React.Component {
 
                                     </div>
 
-                                    <div className = 'time'>
+                                    <div className = 'pair'>
 
-                                        <label>Time:</label>
+                                        <div>
+                                            <label>Time:</label>
 
-                                        <input
-                                            id = "time"
-                                            type = "text"
-                                            name = "time"
-                                            value = { this.state.AddedEvent.time }
-                                            className = 'input'
-                                            placeholder = "ex: 1:00 PM"
-                                            onChange = { this.changeHandler }
-                                        />
+                                            <input
+                                                id = "time"
+                                                type = "text"
+                                                name = "time"
+                                                value = { this.state.AddedEvent.time }
+                                                className = 'input'
+                                                placeholder = "ex: 1:00 PM"
+                                                onChange = { this.changeHandler }
+                                            />
+
+                                        </div>
+
+
+                                        <div>
+
+                                            <label>Notes:</label>
+
+                                            <input
+                                                id = "notes"
+                                                type = "text"
+                                                name = "notes"
+                                                value = { this.state.AddedEvent.notes }
+                                                className = 'input'
+                                                placeholder = "Notes"
+                                                onChange = { this.changeHandler }
+                                            />
+
+                                        </div>
 
                                     </div>
 
-                                    <button type='submit' className='ActionButton'>Add</button>
+                                    <div className = 'buttons'>
 
-                                    <button type = 'button' className = 'x' onClick = { () => this.toggleModal( 'AddEvent' ) }>Cancel</button>
+                                        <button type='submit' className='ActionButton'>Add</button>
+                                        <button type = 'button' className = 'x' onClick = { () => this.toggleModal( 'AddEvent' ) }>Cancel</button>
+
+                                    </div>
 
                                 </form>
                                 
