@@ -11,3 +11,38 @@
     background-attachment: fixed;
     
 }
+
+.EditJobForm form {
+    margin-top: 100px;
+}
+
+.Process {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    background-color: rgba(0, 0, 0, 0.363);
+    border-radius: 10px;
+    border: 2px solid white;
+    backdrop-filter: blur(5px);
+}
+
+.section {
+    display: flex;
+    flex-direction: row;
+    border: none;
+}
+
+.pair {
+    width: 75%;
+    background-color: rgba(0, 0, 0, 0.493);
+}
+
+.pair label {
+    /* color: black; */
+    /* background-color: white; */
+    margin-bottom: 10px;
+}
+
+.pair input {
+    width: 90%;
+}

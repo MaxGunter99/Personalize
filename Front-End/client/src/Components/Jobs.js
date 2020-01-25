@@ -42,18 +42,20 @@ class Jobs extends React.Component {
     toggleUpdate = () => {
 
         if (this.state.edit === 'Active') {
+
             return this.setState({ edit: 'Inactive' })
 
         } else {
+
             return this.setState({ edit: 'Active' })
 
         }
 
     }
 
-    filter = (content) => {
+    filter = ( content ) => {
 
-        if (content === 'Clear') {
+        if ( content === 'Clear' ) {
 
             this.setState({
                 jobs: [],
@@ -65,6 +67,7 @@ class Jobs extends React.Component {
                 search: '',
                 filteredJobResults: []
             })
+
             this.toggleUpdate()
 
         } else if (this.state.filterJobs === true) {
@@ -119,6 +122,7 @@ class Jobs extends React.Component {
 
 
         } else if (this.state.filter[0] === 'Search') {
+
             for (var z = 0; z < this.props.jobs.length; z++) {
 
                 const temp = this.props.jobs[z].CompanyName.slice( 0 , this.state.search.length )
@@ -127,6 +131,12 @@ class Jobs extends React.Component {
                     this.state.filteredJobResults.push( this.props.jobs[z] )
                 }
 
+            }
+
+            if ( this.state.filteredJobResults.length === 0 ) {
+
+                console.log( 'no results' )
+                
             }
 
         }

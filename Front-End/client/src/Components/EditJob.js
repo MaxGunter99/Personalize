@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import '../css/EditJobForm.css'
+import '../css/EditJobForm.css';
 
 export default class EditJob extends React.Component {
 
@@ -17,6 +16,12 @@ export default class EditJob extends React.Component {
             DateApplied: '',
             ReplyRecieved: "",
             Details: ""
+        },
+
+        date: {
+            day: '',
+            month: '',
+            year: ''
         },
 
         startDate: new Date(),
@@ -35,7 +40,9 @@ export default class EditJob extends React.Component {
                 })
 
                 if ( res.data.DateApplied ) {
-                    this.setState({ startDate: new Date( res.data.DateApplied ) })
+
+                    this.setState({ date: { day: res.data.DateApplied.split('/')[0] , month: res.data.DateApplied.split('/')[1] , year: [res.data.DateApplied.split('/')[2]] } } )
+
                 }
             })
             .catch( error => {
@@ -56,19 +63,32 @@ export default class EditJob extends React.Component {
         console.log( this.state.startDate )
     };
 
-    handleChange = date => {
+    dateHandler = event => {
+
+        event.preventDefault();
 
         this.setState({
-            startDate: date
-        });
 
-        this.setState({
-            job: {
-                DateApplied: date.toLocaleString().split(',')[0]
+            date: {
+                ...this.state.date,
+                [ event.target.name ]: event.target.value
             }
+
         });
 
-    };
+        this.setState({
+
+            job: {
+
+                DateApplied: `${this.state.date.month}/${this.state.date.day}/${this.state.date.year}`
+
+            }
+
+        });
+
+        console.log( this.state.date )
+
+    }
 
     submitDataHandler = event => {
 
@@ -207,14 +227,55 @@ export default class EditJob extends React.Component {
                         </div>
 
                         <div className = 'section'>
+
                             <div className = 'pair'>
-                                <label>Date Applied:</label>
-                                <DatePicker
-                                    className = 'DateApplied'
-                                    selected={this.state.startDate}
-                                    onChange={this.handleChange}
+
+                                <label>Day:</label>
+
+                                    <input
+                                    id = "day"
+                                    type = "number"
+                                    name = "day"
+                                    value = { this.state.date.day }
+                                    className = 'input'
+                                    placeholder = "Day"
+                                    onChange = { this.dateHandler }
                                 />
+
                             </div>
+
+                            <div className = 'pair'>
+
+                                <label>Month:</label>
+
+                                <input
+                                    id = "month"
+                                    type = "number"
+                                    name = "month"
+                                    value = { this.state.date.month }
+                                    className = 'input'
+                                    placeholder = "Month"
+                                    onChange = { this.dateHandler }
+                                />
+
+                            </div>
+
+                            <div className = 'pair'>
+
+                                <label>Year:</label>
+
+                                <input
+                                    id = "year"
+                                    type = "number"
+                                    name = "year"
+                                    value = { this.state.date.year }
+                                    className = 'input'
+                                    placeholder = "Year"
+                                    onChange = { this.dateHandler }
+                                />
+
+                            </div>
+
                         </div>
 
                     </div>

@@ -38,7 +38,7 @@
 
     display: flex;
     justify-content: space-around;
-    width: 100%;
+    width: 90%;
     height: 100px;
     padding: 20px;
     transition: .1s;

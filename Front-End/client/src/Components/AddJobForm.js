@@ -3,8 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { AddJob } from '../Actions/index';
 
-import axios from 'axios'
-import DatePicker from "react-datepicker";
+import axios from 'axios';
 
 import '../css/AddJobForm.css';
 // import "react-datepicker/dist/react-datepicker.css";
@@ -12,42 +11,42 @@ import '../css/AddJobForm.css';
 class JobForm extends React.Component {
 
     state = {
+
         job: {
 
             CompanyName: "",
             AppliedThrough: "",
             Role: "",
             URL: "",
-            DateApplied: '',
+            DateApplied: `${new Date().toLocaleDateString().split('/')[0]}/${new Date().toLocaleDateString().split('/')[1]}/${new Date().toLocaleDateString().split('/')[2]}`,
             ReplyRecieved: "",
             Details: ""
         },
-        startDate: new Date()
+
+        date: {
+
+            day: new Date().toLocaleDateString().split('/')[1],
+            month: new Date().toLocaleDateString().split('/')[0],
+            year: new Date().toLocaleDateString().split('/')[2]
+
+        }
         
     }
 
     // Update State When Entering Info
     changeHandler = event => {
+
         event.preventDefault();
-        // console.log( this.state.job )
+
         this.setState({
+
             job: {
                 ...this.state.job,
                 [ event.target.name ]: event.target.value
             }
+
         });
         console.log( this.state.startDate )
-    };
-
-    handleChange = date => {
-
-        this.setState({
-            startDate: date
-        });
-
-        this.setState({
-            DateApplied: date.toLocaleString().split(',')[0]
-        });
 
     };
 
@@ -64,6 +63,33 @@ class JobForm extends React.Component {
             })
         
     };
+
+    dateHandler = event => {
+
+        event.preventDefault();
+
+        this.setState({
+
+            date: {
+                ...this.state.date,
+                [ event.target.name ]: event.target.value
+            }
+
+        });
+
+        this.setState({
+
+            job: {
+
+                DateApplied: `${this.state.date.month}/${this.state.date.day}/${this.state.date.year}`
+
+            }
+
+        });
+
+        console.log( this.state.date )
+
+    }
 
     render() {
 
@@ -135,17 +161,60 @@ class JobForm extends React.Component {
 
                     <div className = 'section'>
 
-                        <div className = 'pairDate'>
-                            <label>Date Applied:</label>
-                            <DatePicker
-                                showPopperArrow={false}
-                                className = 'DatePickerInput'
-                                selected={this.state.startDate}
-                                onChange={this.handleChange}
+                        <div className = 'pair'>
+
+                            <label>Day:</label>
+
+                                <input
+                                id = "day"
+                                type = "number"
+                                name = "day"
+                                value = { this.state.date.day }
+                                className = 'input'
+                                placeholder = "Day"
+                                onChange = { this.dateHandler }
                             />
+
                         </div>
 
                         <div className = 'pair'>
+
+                            <label>Month:</label>
+
+                            <input
+                                id = "month"
+                                type = "number"
+                                name = "month"
+                                value = { this.state.date.month }
+                                className = 'input'
+                                placeholder = "Month"
+                                onChange = { this.dateHandler }
+                            />
+
+                        </div>
+
+                        <div className = 'pair'>
+
+                            <label>Year:</label>
+
+                            <input
+                                id = "year"
+                                type = "number"
+                                name = "year"
+                                value = { this.state.date.year }
+                                className = 'input'
+                                placeholder = "Year"
+                                onChange = { this.dateHandler }
+                            />
+
+                        </div>
+
+                    </div>
+
+                    <div className = 'section'>
+
+                        <div className = 'pair'>
+                            
                             <label>Reply Recieved:</label>
                             <input
                                 id = "ReplyRecieved"
@@ -156,11 +225,8 @@ class JobForm extends React.Component {
                                 placeholder = "Reply Recieved"
                                 onChange = { this.changeHandler }
                             />
+
                         </div>
-
-                    </div>
-
-                    <div className = 'section'>
 
                         <div className = 'pair'>
                             <label>Details:</label>
