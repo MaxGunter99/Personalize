@@ -1,7 +1,7 @@
 
 .Container {
 
-    min-height: 92vh;
+    min-height: 100vh;
     background-image: url('https://images.pexels.com/photos/2709274/pexels-photo-2709274.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
     background-position: center;
     display: flex;
@@ -18,8 +18,7 @@
 
     display: flex;
     flex-direction: column;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 50px;
     background-color: rgba(255, 255, 255, 0.349);
     width: 100%;
 
@@ -27,10 +26,19 @@
 
 .Container h1 {
 
-    margin: 0px;
+    margin-bottom: 1px;
     text-decoration: underline;
     text-decoration-color: red;
     font-family: 'Lobster', cursive;
+
+}
+
+.Container h4 {
+
+    margin-top: 0px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.616);
+    margin-bottom: 0px;
 
 }
 
@@ -40,13 +48,7 @@
     font-family: 'Lobster', cursive;
     text-decoration: underline;
     text-decoration-color: white;
-
-}
-
-.Container h4 {
-
-    margin: 0px;
-    color: rgb(255, 255, 255);
+    margin-bottom: 1px;
 
 }
 

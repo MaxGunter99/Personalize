@@ -410,9 +410,13 @@ class Home extends React.Component {
                                     <div className = {`EventModal Active Multiple`} style = {{ marginTop: `${this.state.eventSlide}px` , transition: '1s' }} wow-duration = '4s'>
 
                                         <>
+
+                                            <h2 className = 'CloseEvents' onClick = { () => this.toggleModal( this.state.selected.Event ) }>Close</h2>
+
                                             { this.state.selected.Event.map(  ( e ) =>
 
                                                 <div className = 'EventContainer'>
+
                                                     <div className = 'EventHeader'>
                                                         <div>
                                                             <h1>{e.title}</h1>
@@ -421,7 +425,6 @@ class Home extends React.Component {
 
                                                         <div className = 'RightHeader'>
                                                             <h2>{e.time}</h2>
-                                                            <h2 className = 'x' onClick = { () => this.toggleModal( this.state.selected.Event ) }>X</h2>
                                                         </div>
 
                                                     </div>
@@ -429,11 +432,12 @@ class Home extends React.Component {
                                                     <div className = 'info'>
                                                         <p>{e.notes}</p>
                                                         <h3>{e.URL}</h3>
-                                                        <button onClick = { () => this.DeleteEvent( this.state.selected.Event ) }>Delete</button>
+                                                        <button onClick = { () => this.DeleteEvent( e ) }>Delete</button>
                                                     </div>
 
                                                 </div>
                                             ) }
+
                                         </>
 
                                     </div>
@@ -463,7 +467,6 @@ class Home extends React.Component {
 
                                             <p>{this.state.selected.Event.notes}</p>
                                             <h3>{this.state.selected.Event.URL}</h3>
-                                            <button onClick = { () => this.DeleteEvent( this.state.selected.Event ) }>Delete</button>
 
                                         </div>
 

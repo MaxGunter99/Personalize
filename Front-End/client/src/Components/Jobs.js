@@ -163,22 +163,25 @@ class Jobs extends React.Component {
                                 <NavLink exact to='/AddJob' >Add Job</NavLink>
                             </div>
 
+                            <form className = 'SearchInput'>
+                                <div>
+
+                                    <input
+                                        id='Search'
+                                        type='text'
+                                        className='CompanySearch'
+                                        placeholder='Search'
+                                        onChange={this.changeHandler}
+                                        value={this.state.search}>
+                                    </input>
+
+                                    <button type = 'submit' onClick={() => this.filter('Search')}>Search</button>
+
+                                </div>
+                            </form>
+
                             <div>
 
-                                <input
-                                    id='Search'
-                                    type='text'
-                                    className='CompanySearch'
-                                    placeholder='Search'
-                                    onChange={this.changeHandler}
-                                    value={this.state.search}>
-                                </input>
-
-                            </div>
-
-                            <div>
-
-                                <button onClick={() => this.filter('Search')}>Search</button>
                                 {this.state.edit === 'Inactive' ?
                                     <button style = {{minWidth: '50px'}} onClick={() => this.toggleUpdate()}>More</button>
                                 :

@@ -8,8 +8,8 @@ import WOW from "wow.js";
 
 class Stats extends React.Component {
 
-    constructor(props) {
-        super(props);
+    constructor( props ) {
+        super( props );
         this.state = {
             jobs: [ ...props.jobs ],
             appliedThisWeek: 0,

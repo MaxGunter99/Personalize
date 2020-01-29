@@ -330,13 +330,45 @@ div.RightHeader {
     text-indent: 50px;
 }
 
-.EventModal.Active.Multiple .info {
+.Active.Multiple .info {
 
     display: flex;
     flex-direction: column;
     width: 100%;
     margin-bottom: 0px;
     background-color: rgba(0, 0, 0, 0.24);
+
+}
+
+.info h3 {
+    width: auto;
+}
+
+.info button {
+    width: 100px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.CloseEvents {
+    color: rgb(237,56,51);
+    border: 3px solid rgb(237,56,51);
+    background-color: rgba(255, 255, 255, 0.486);
+    border-radius: 10px;
+    width: 125px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    backdrop-filter: blur( 5px );
+    transition: .5s;
+    margin-right: 0px;
+}
+
+.CloseEvents:hover {
+
+    color: white;
+    background-color: rgb(237,56,51);
+    transition: .5s;
+    cursor: pointer;
 
 }
 

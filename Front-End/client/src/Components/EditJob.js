@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-import "react-datepicker/dist/react-datepicker.css";
 import '../css/EditJobForm.css';
 
 export default class EditJob extends React.Component {
