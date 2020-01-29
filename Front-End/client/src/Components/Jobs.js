@@ -12,6 +12,7 @@ class Jobs extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+
             jobs: props.jobs,
             edit: 'Inactive',
             view: '',
@@ -19,12 +20,21 @@ class Jobs extends React.Component {
             filter: [],
             search: '',
             filteredJobResults: []
+
         }
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
+
         this.props.GetAllJobs()
         new WOW().init()
+
+    }
+
+    componentDidUpdate = () => event => {
+
+        event.preventDefault();
+
     }
 
     // Update State When Entering Info

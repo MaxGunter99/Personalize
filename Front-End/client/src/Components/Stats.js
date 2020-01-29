@@ -28,12 +28,14 @@ class Stats extends React.Component {
     }
 
     componentDidMount() {
+
         new WOW().init()
         this.props.GetAllJobs()
         this.loadStats()
+
     }
 
-    componentDidUpdate() {
+    componentDidUpdate = () => {
 
         this.state.jobs = this.props.jobs
         this.loadStats()

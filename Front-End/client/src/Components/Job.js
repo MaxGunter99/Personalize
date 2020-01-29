@@ -8,9 +8,14 @@ import '../css/Job.css';
 
 class Job extends React.Component {
 
-    state = {
-        id: window.location.href.split('/')[4],
-        // job: {}
+    constructor() {
+
+        super();
+        this.state = {
+            id: window.location.href.split('/')[4],
+            // job: {}
+        }
+
     }
 
     componentDidMount() {

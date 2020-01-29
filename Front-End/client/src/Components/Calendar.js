@@ -7,28 +7,31 @@ import axios from 'axios'
 
 class Home extends React.Component {
 
-    state = {
-
-        events: [],
-        today: new Date().toDateString(),
-        thisMonth: [],
-        loading: true,
-        select: 'Inactive',
-        slide: 30,
-        AddEvent: false,
-        eventSlide: -3000,
-        selected: [],
-        CalendarDate: new Date(),
-        time: `${ new Date().toLocaleTimeString().split(':')[0] }:${ new Date().toLocaleTimeString().split(':')[1] }`,
-        AddedEvent: {
-            title: '',
-            category: '',
-            day: '',
-            month: '',
-            year: '',
-            URL: '',
-            notes: '',
-            time: ''
+    constructor() {
+        super();
+        this.state = {
+    
+            events: [],
+            today: new Date().toDateString(),
+            thisMonth: [],
+            loading: true,
+            select: 'Inactive',
+            slide: 30,
+            AddEvent: false,
+            eventSlide: -3000,
+            selected: [],
+            CalendarDate: new Date(),
+            time: `${ new Date().toLocaleTimeString().split(':')[0] }:${ new Date().toLocaleTimeString().split(':')[1] }`,
+            AddedEvent: {
+                title: '',
+                category: '',
+                day: '',
+                month: '',
+                year: '',
+                URL: '',
+                notes: '',
+                time: ''
+            }
         }
     }
 
@@ -49,8 +52,9 @@ class Home extends React.Component {
 
     };
 
-    componentDidUpdate = () => {
-
+    componentDidUpdate = () => event => {
+        
+        event.preventDefault();
         new WOW().init();
 
     };
@@ -413,26 +417,26 @@ class Home extends React.Component {
 
                                             <h2 className = 'CloseEvents' onClick = { () => this.toggleModal( this.state.selected.Event ) }>Close</h2>
 
-                                            { this.state.selected.Event.map(  ( e ) =>
+                                            { this.state.selected.Event.map(  ( event ) =>
 
                                                 <div className = 'EventContainer'>
 
                                                     <div className = 'EventHeader'>
                                                         <div>
-                                                            <h1>{e.title}</h1>
-                                                            <h2 className = 'Category'>{e.category}</h2>
+                                                            <h1>{event.title}</h1>
+                                                            <h2 className = 'Category'>{event.category}</h2>
                                                         </div>
 
                                                         <div className = 'RightHeader'>
-                                                            <h2>{e.time}</h2>
+                                                            <h2>{event.time}</h2>
                                                         </div>
 
                                                     </div>
 
                                                     <div className = 'info'>
-                                                        <p>{e.notes}</p>
-                                                        <h3>{e.URL}</h3>
-                                                        <button onClick = { () => this.DeleteEvent( e ) }>Delete</button>
+                                                        <p>{event.notes}</p>
+                                                        <h3>{event.URL}</h3>
+                                                        <button onClick = { () => this.DeleteEvent( event ) }>Delete</button>
                                                     </div>
 
                                                 </div>
@@ -467,6 +471,7 @@ class Home extends React.Component {
 
                                             <p>{this.state.selected.Event.notes}</p>
                                             <h3>{this.state.selected.Event.URL}</h3>
+                                            <button onClick = { () => this.DeleteEvent( this.state.selected.Event ) }>Delete</button>
 
                                         </div>
 

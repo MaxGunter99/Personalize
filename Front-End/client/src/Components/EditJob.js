@@ -5,28 +5,33 @@ import '../css/EditJobForm.css';
 
 export default class EditJob extends React.Component {
 
-    state = {
-        job: {
+    constructor() {
 
-            CompanyName: "",
-            AppliedThrough: "",
-            Role: "",
-            URL: "",
-            DateApplied: '',
-            ReplyRecieved: "",
-            Details: ""
-        },
+        super();
+        this.state = {
+            job: {
+    
+                CompanyName: "",
+                AppliedThrough: "",
+                Role: "",
+                URL: "",
+                DateApplied: '',
+                ReplyRecieved: "",
+                Details: ""
+            },
+    
+            date: {
+                day: '',
+                month: '',
+                year: ''
+            },
+    
+            startDate: new Date(),
+            id: window.location.href.split('/')[5],
+            PhoneScreen: false,
+            OnSite: false,
+        }
 
-        date: {
-            day: '',
-            month: '',
-            year: ''
-        },
-
-        startDate: new Date(),
-        id: window.location.href.split('/')[5],
-        PhoneScreen: false,
-        OnSite: false,
     }
 
     componentDidMount() {

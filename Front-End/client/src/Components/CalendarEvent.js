@@ -6,12 +6,15 @@ import '../css/Calendar.css'
 
 export default class CalendarEvent extends React.Component {
 
-    state = {
-
-        event: `${window.location.href.split('/')[4]}/${window.location.href.split('/')[5]}/${window.location.href.split('/')[6]}`,
-        today: new Date().toLocaleDateString().split('/'),
-        data: []
-
+    constructor() {
+        super();
+        this.state = {
+    
+            event: `${window.location.href.split('/')[4]}/${window.location.href.split('/')[5]}/${window.location.href.split('/')[6]}`,
+            today: new Date().toLocaleDateString().split('/'),
+            data: []
+    
+        }
     }
 
     componentDidMount = () => {

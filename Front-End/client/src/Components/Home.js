@@ -5,9 +5,14 @@ import axios from 'axios';
 
 class Home extends React.Component {
 
-    state = {
+    constructor() {
 
-        nasa: []
+        super();
+        this.state = {
+    
+            nasa: []
+    
+        }
 
     }
 
