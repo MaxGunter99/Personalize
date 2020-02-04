@@ -65,8 +65,19 @@ header.HomePageHeader {
     background-color: white;
     text-decoration: underline;
     text-decoration-color: red;
+    /* font-family: 'Chomsky'; */
   
 }
+
+/* @font-face {
+
+    font-family: 'Chomsky';
+    font-style: normal;
+    font-weight: normal;
+    src:
+        url(../Fonts/chomsky/Chomsky.otf)
+
+} */
 
 .TimeContainer {
 
@@ -178,7 +189,7 @@ nav.category input {
     background-color: white;
     color: black;
     transition: .1s;
-    
+
 }
 
 .Filters input {

@@ -2,45 +2,47 @@ import React from 'react';
 import '../css/Jobs.css';
 import '../../node_modules/react-vis/dist/style.css';
 import { XYPlot, LineSeries, VerticalGridLines, YAxis, XAxis } from 'react-vis';
-import { GetAllJobs } from '../Actions/index';
-import { connect } from 'react-redux';
 import WOW from "wow.js";
+import Axios from 'axios';
 
-class Stats extends React.Component {
+export default class Stats extends React.Component {
 
-    constructor( props ) {
-        super( props );
-        this.state = {
-            jobs: [ ...props.jobs ],
-            appliedThisWeek: 0,
-            appliedToday: 0,
-            data: [
-                { x: 0, y: 0 },
-                { x: 0, y: 0 },
-                { x: 0, y: 0 },
-                { x: 0, y: 0 },
-                { x: 0, y: 0 },
-                { x: 0, y: 0 },
-                { x: 0, y: 0 },
-                { x: 0, y: 0 },
-            ]
-        }
+    state = {
+
+        jobs: [],
+        appliedThisWeek: 0,
+        appliedToday: 0,
+        data: [
+            { x: 0, y: 0 },
+            { x: 0, y: 0 },
+            { x: 0, y: 0 },
+            { x: 0, y: 0 },
+            { x: 0, y: 0 },
+            { x: 0, y: 0 },
+            { x: 0, y: 0 }
+        ]
+
     }
 
     componentDidMount() {
 
+        Axios
+            .get('http://localhost:3000/jobs')
+            .then(res => {
+                this.setState({ jobs: res.data })
+                this.loadStats()
+            })
+            .catch(err => { console.log('Error in stats getting jobs:', err) })
+
         new WOW().init()
-        this.props.GetAllJobs()
-        this.loadStats()
 
     }
 
-    componentDidUpdate = () => {
+    // componentDidUpdate = () => {
 
-        this.state.jobs = this.props.jobs
-        this.loadStats()
-        
-    }
+    //     this.loadStats()
+
+    // }
 
     // Loads data for activity graph
     loadStats = () => {
@@ -48,17 +50,19 @@ class Stats extends React.Component {
         const accepts = []
         const jobsAppliedToday = []
         const jobsAppliedThisWeek = []
-        const lastWeekDates = []
-        const today = new Date().getDate()
+        const thisWeekDates = []
 
-        // Gets calendar date for last 8 days
-        for (var i = 0; i < 8; i++) {
+        const today = new Date()
+        const Sunday = new Date( today.getTime() - today.getDay() * 24 * 3600 * 1000).toLocaleDateString();
+        let curr = new Date( Sunday )
 
-            const prev = new Date(today) - i
-            const prevDay = new Date().setDate(prev)
-            const thatDay = new Date(prevDay).toLocaleDateString()
-            this.state.data[i].x = Number(thatDay.split('/')[1])
-            lastWeekDates.push(thatDay)
+        // Sets the days of the week to the current starting from sunday
+        for (let i = 0; i < 7; i++) {
+
+            let first = curr.getDate() - curr.getDay() + i
+            let day = new Date(curr.setDate(first)).toLocaleDateString()
+            this.state.data[i].x = Number(day.split('/')[1])
+            thisWeekDates.push( day )
 
         }
 
@@ -68,6 +72,7 @@ class Stats extends React.Component {
             const applied = this.state.jobs[i].DateApplied
 
             if (reply.toLowerCase() === 'yes') {
+
                 accepts.push(1)
 
             }
@@ -75,15 +80,19 @@ class Stats extends React.Component {
             const todayStr = new Date()
 
             // Jobs applied to Today
-            if ( Number( applied.split('/')[0] ) === Number( todayStr.toLocaleDateString().split('/')[0] ) && Number( applied.split('/')[1] ) === Number(todayStr.toLocaleDateString().split('/')[1]) && Number( applied.split('/')[2] ) === Number(todayStr.toLocaleDateString().split('/')[2])) {
+            if ( Number(applied.split('/')[0]) === Number( todayStr.toLocaleDateString().split('/')[0] ) && Number(applied.split('/')[1]) === Number(todayStr.toLocaleDateString().split('/')[1]) && Number(applied.split('/')[2]) === Number(todayStr.toLocaleDateString().split('/')[2])) {
+
                 jobsAppliedToday.push(1)
 
             }
 
             // Finds jobs applied to this past week
-            for (var x = 0; x < lastWeekDates.length; x++) {
+            for (var x = 0; x < thisWeekDates.length; x++) {
 
-                if (lastWeekDates[x] === applied) {
+                if ( thisWeekDates[x] === applied ) {
+
+                    console.log( 'MATCH' )
+
                     jobsAppliedThisWeek.push(applied)
 
                 }
@@ -99,7 +108,8 @@ class Stats extends React.Component {
 
                 const day = jobsAppliedThisWeek[z].split('/')
 
-                if ( Number(day[1]) === this.state.data[q].x) {
+                if ( Number(day[1] ) === this.state.data[q].x ) {
+
                     this.state.data[q].y = this.state.data[q].y + 1
 
                 }
@@ -108,9 +118,11 @@ class Stats extends React.Component {
 
         }
 
-        this.state.replies = accepts.length
-        this.state.appliedToday = jobsAppliedToday.length
-        this.state.appliedThisWeek = jobsAppliedThisWeek.length
+        this.setState({
+            replies: accepts.length,
+            appliedToday: jobsAppliedToday.length,
+            appliedThisWeek: jobsAppliedThisWeek.length
+        });
 
     }
 
@@ -120,16 +132,16 @@ class Stats extends React.Component {
 
             <div className='Stats'>
 
-                <div className = 'wow zoomInRight'>
+                <div>
                     <p>Total: {this.state.jobs.length}</p>
                     <p>{Math.floor(this.state.replies / this.state.jobs.length * 100)}% replied to you. ( {this.state.replies} )</p>
                 </div>
 
 
-                <div className='Graph wow fadeIn'>
+                <div>
                     <XYPlot
-                        height={300} 
-                        width={300} 
+                        height={300}
+                        width={300}
                         stroke="red" >
 
                         {/* <HorizontalGridLines /> */}
@@ -141,7 +153,7 @@ class Stats extends React.Component {
                     </XYPlot>
                 </div>
 
-                <div className = 'wow zoomInLeft'>
+                <div>
                     <p>Today: {this.state.appliedToday}</p>
                     <p>This week: {this.state.appliedThisWeek}</p>
                 </div>
@@ -150,16 +162,3 @@ class Stats extends React.Component {
     }
 
 }
-
-const mapStateToProps = state => {
-
-    return {
-
-        jobs: state.jobReducer.jobs,
-        loading: state.jobReducer.loading
-
-    }
-
-}
-
-export default connect(mapStateToProps, { GetAllJobs })(Stats);
