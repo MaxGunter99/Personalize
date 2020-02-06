@@ -65,19 +65,8 @@ header.HomePageHeader {
     background-color: white;
     text-decoration: underline;
     text-decoration-color: red;
-    /* font-family: 'Chomsky'; */
   
 }
-
-/* @font-face {
-
-    font-family: 'Chomsky';
-    font-style: normal;
-    font-weight: normal;
-    src:
-        url(../Fonts/chomsky/Chomsky.otf)
-
-} */
 
 .TimeContainer {
 
@@ -97,147 +86,69 @@ h3 {
     
 }
 
-nav.category {
+.Actions{
+    background-color: rgba(0, 0, 0, 0.411);
+}
+
+.Actions div {
 
     height: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     display: flex;
-    justify-content: center;
-    border-bottom: 3px solid white;
-
-}
-
-nav.category input {
-
-    width: 150px;
-    border-radius: 5px;
-    border: none;
-    padding: 5px;
-
-}
-
-.FilterNav {
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-    height: 80px;
-    margin: 0 auto;
-    background-color: rgba(235, 235, 235, 0.575);
-    padding: 5px;
-    margin-top: 50px;
+    width: 33%;
 
 }
 
-.FilterNav h2 {
+.Search {
 
-    text-decoration: underline;
-    color: white;
-    text-decoration-color: red;
-    padding: 5px;
-
-}
-
-.FilterNav button {
-
-    padding: 5px;
-    background-color: red;
-    color: white;
-    min-width: 100px;
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
+    width: 30%;
 
 }
 
-.Filters {
-
-    width: 50%;
-    margin: 0 auto;
-
-}
-
-.FiltersContainer {
-
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-
-}
-
-.FiltersContainer div {
-
-    display: flex;
-    justify-content: center;
-
-}
-
-.Filters a {
-
-    font-size: 12px;
-    margin: 10px;
-    background-color: black;
-    color: white;
-    padding: 10px;
-    border: 1px solid white;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: .1s;
-
-}
-
-.Filters a:hover {
-
+.Search input {
     background-color: white;
-    color: black;
-    transition: .1s;
-
-}
-
-.Filters input {
-
-    width: 200px;
-    font-size: 12px;
+    border-radius: 5px;
     height: 20px;
-    padding: 6px;
-    border-radius: 5px;
-    border: 1px solid white;
-    background-color: white;
-    color: black;
-
+    width: 200px;
+    border: none;
+    padding: 3px;
+    outline: none;
 }
 
-.Filters button {
+.Actions div a {
 
-    font-size: 12px;
-    border-radius: 5px;
-
-}
-
-.Filters button:hover {
-
-    color: black;
-    background-color: white;
-
-}
-
-.More {
-
-    height: 40px;
-
-}
-
-.SearchTitle {
-
-    background-color: rgba(0, 0, 0, 0.479);
+    background-color: rgb(24, 24, 24);
     color: white;
-    font-family: 'Lobster' , 'cursive';
-    width: 100%;
-    margin-top: 0px;
+    text-decoration: none;
+    font-size: 20px;
     padding: 5px;
-    
+    border-radius: 5px;
 }
 
-.JobContainer.Search {
+.JobBoards {
 
-    padding-bottom: 50px;
+    display: flex; 
+    justify-content: space-evenly;
+
+}
+
+.JobBoards img {
+
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    /* border: 2px solid black; */
+
+}
+
+.JobBoards img:hover {
+
+    cursor: pointer;
 
 }

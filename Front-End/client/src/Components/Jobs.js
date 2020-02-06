@@ -1,5 +1,5 @@
 
-import React, { Suspense , lazy , useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import '../css/Jobs.css';
 import { NavLink } from 'react-router-dom';
 // import Stats from './Stats';
@@ -18,8 +18,8 @@ export default class Jobs extends React.Component {
     componentDidMount = () => {
 
         Axios
-            .get(  'http://localhost:3000/jobs' )
-            .then( res => {
+            .get('http://localhost:3000/jobs')
+            .then(res => {
                 this.setState({ Jobs: res.data })
             });
     }
@@ -34,6 +34,26 @@ export default class Jobs extends React.Component {
 
     };
 
+    toIndeed = e => {
+        e.preventDefault();
+        window.open('https://www.indeed.com/?from=gnav-jobsearch--jasx')
+    }
+
+    toLinkedIn = e => {
+        e.preventDefault();
+        window.open('https://www.linkedin.com/jobs/')
+    }
+
+    toGlassDoor = e => {
+        e.preventDefault();
+        window.open('https://www.glassdoor.com/Job/Home/recentActivity.htm')
+    }
+
+    toAngelList = e => {
+        e.preventDefault();
+        window.open('https://angel.co/jobs')
+    }
+
     render() {
 
         return (
@@ -44,52 +64,65 @@ export default class Jobs extends React.Component {
                     <h1>Jobs</h1>
                 </nav>
 
-                <div className='Filters wow fadeIn'>
+                <div className='Actions'>
 
-                    <div className='FiltersContainer'>
+                    <div className='JobBoards'>
 
-                        <div className = 'Actions'>
-
-                            <NavLink exact to='/AddJob' >Add Job</NavLink>
-
-                            <input
-                                value = { this.state.search }
-                                placeholder = "Search"
-                                name = 'search'
-                                onChange = { this.handleSearch }
-                            />
-                            
-                        </div>
+                        <img src={'https://techcrunch.com/wp-content/uploads/2014/02/linkedin_logo.png?w=730&crop=1'} onClick={this.toLinkedIn} />
+                        <img src={'https://apprecs.org/ios/images/app-icons/256/f6/309735670.jpg'} onClick={this.toIndeed} />
+                        <img src={'https://mma.prnewswire.com/media/449764/Glassdoor_Logo.jpg?p=twitter'} onClick={this.toGlassDoor} />
+                        <img src={'https://techcrunch.com/wp-content/uploads/2014/03/peace_large.jpg?w=730&crop=1'} onClick={this.toAngelList} />
 
                     </div>
+
+                    <div className = "Search">
+
+                        <input
+                            value={this.state.search}
+                            placeholder="Search"
+                            name='search'
+                            onChange={this.handleSearch}
+                        />
+
+                    </div>
+
+
+                    <div>
+                        <NavLink exact to='/AddJob' >Add Job</NavLink>
+                    </div>
+
 
                 </div>
 
-                <Suspense 
-                    fallback={ <div>
-                        <img src = { Loader }/>
-                    </div>
-                }>
+                {this.state.search === '' ?
 
-                    <Stats />
+                    <Suspense
+                        fallback={<div>
+                            <img src={Loader} />
+                        </div>
+                        }>
 
-                </Suspense>
+                        <Stats />
+
+                    </Suspense>
+
+                    : null}
 
                 <div>
 
-                    <Suspense fallback={ <div>Loading...</div>}>
+                    <Suspense fallback={<div>Loading...</div>}>
 
-                        { this.state.search !== '' ?
+                        {this.state.search !== '' ?
 
                             <div className='JobContainer'>
 
-                                { this.state.Jobs.map( (x) =>
+                                {this.state.Jobs.map((x) =>
 
                                     <>
 
-                                        { x.CompanyName.slice( 0 , this.state.search.length ) === this.state.search ?
+                                        {x.CompanyName.slice(0, this.state.search.length) === this.state.search ?
 
-                                            <div className='Job' key={ x.id } onClick={() => window.location = `/Job/${x.id}`}>
+                                            <div className='Job' key={x.id} onClick={() => window.location = `/Job/${x.id}`}>
 
                                                 <div className='Header'>
 
@@ -111,7 +144,7 @@ export default class Jobs extends React.Component {
 
                                             </div>
 
-                                        :
+                                            :
                                             null
                                         }
 
@@ -120,10 +153,10 @@ export default class Jobs extends React.Component {
                                 )}
 
                             </div>
-                        :
+                            :
                             <div className='JobContainer'>
 
-                                { this.state.Jobs.map( (x) =>
+                                {this.state.Jobs.map((x) =>
 
                                     <div className='Job' key={x.id} onClick={() => window.location = `/Job/${x.id}`}>
 
@@ -140,7 +173,7 @@ export default class Jobs extends React.Component {
 
                                         <div className='Applied'>
 
-                                            <p>{x.AppliedThrough}</p>
+                                            {/* <p>{x.AppliedThrough}</p> */}
                                             <p className="Date">{x.DateApplied}</p>
 
                                         </div>
