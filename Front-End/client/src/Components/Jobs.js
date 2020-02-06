@@ -61,38 +61,39 @@ export default class Jobs extends React.Component {
             <div className='Jobs'>
 
                 <nav>
-                    <h1>Jobs</h1>
+                    {/* <h1>Jobs</h1> */}
+
+                    <div className='Actions'>
+
+                        <div className='JobBoards'>
+
+                            <img src={'https://techcrunch.com/wp-content/uploads/2014/02/linkedin_logo.png?w=730&crop=1'} onClick={this.toLinkedIn} />
+                            <img src={'https://apprecs.org/ios/images/app-icons/256/f6/309735670.jpg'} onClick={this.toIndeed} />
+                            <img src={'https://mma.prnewswire.com/media/449764/Glassdoor_Logo.jpg?p=twitter'} onClick={this.toGlassDoor} />
+                            <img src={'https://techcrunch.com/wp-content/uploads/2014/03/peace_large.jpg?w=730&crop=1'} onClick={this.toAngelList} />
+
+                        </div>
+
+                        <div className = "Search">
+
+                            <input
+                                value={this.state.search}
+                                placeholder="Search"
+                                name='search'
+                                onChange={this.handleSearch}
+                            />
+
+                        </div>
+
+
+                        <div>
+                            <NavLink exact to='/AddJob' >Add Job</NavLink>
+                        </div>
+
+
+                    </div>
+
                 </nav>
-
-                <div className='Actions'>
-
-                    <div className='JobBoards'>
-
-                        <img src={'https://techcrunch.com/wp-content/uploads/2014/02/linkedin_logo.png?w=730&crop=1'} onClick={this.toLinkedIn} />
-                        <img src={'https://apprecs.org/ios/images/app-icons/256/f6/309735670.jpg'} onClick={this.toIndeed} />
-                        <img src={'https://mma.prnewswire.com/media/449764/Glassdoor_Logo.jpg?p=twitter'} onClick={this.toGlassDoor} />
-                        <img src={'https://techcrunch.com/wp-content/uploads/2014/03/peace_large.jpg?w=730&crop=1'} onClick={this.toAngelList} />
-
-                    </div>
-
-                    <div className = "Search">
-
-                        <input
-                            value={this.state.search}
-                            placeholder="Search"
-                            name='search'
-                            onChange={this.handleSearch}
-                        />
-
-                    </div>
-
-
-                    <div>
-                        <NavLink exact to='/AddJob' >Add Job</NavLink>
-                    </div>
-
-
-                </div>
 
                 {this.state.search === '' ?
 

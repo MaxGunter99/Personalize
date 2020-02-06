@@ -25,13 +25,14 @@ export default class App extends React.Component {
         <header className = 'HomePageHeader'>
 
           <h1 className = 'Title' >Personalize</h1>
+          <div className = 'Pages'>
+            <NavLink exact to = '/' >Home</NavLink>
+            <NavLink exact to = '/Jobs' >Jobs</NavLink>
+            {/* <NavLink exact to = '/ToDos' >To-Do's</NavLink> */}
+            <NavLink exact to = '/Schedule' >Schedule</NavLink>
+          </div>
 
-          <NavLink exact to = '/' >Home</NavLink>
-          <NavLink exact to = '/Jobs' >Jobs</NavLink>
-          {/* <NavLink exact to = '/ToDos' >To-Do's</NavLink> */}
-          <NavLink exact to = '/Schedule' >Schedule</NavLink>
-
-          <Time/>
+          {/* <Time/> */}
 
         </header>
 

@@ -6,22 +6,25 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: url('https://images.pexels.com/photos/963278/pexels-photo-963278.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
-    background-position: center;
+    background-image: url('https://images.pexels.com/photos/1525041/pexels-photo-1525041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    background-position: center top;
+    background-size: 100%;
+    background-attachment: fixed;
 
 }
 
 .AddJobForm form {
 
-    /* margin-top: 50px; */
-    background-color: rgba(255, 255, 255, 0.61);
+    background-color: rgba(0, 0, 0, 0.61);
     background-attachment: blur( 10px );
     align-items: center;
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
     width: 80%;
     margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    padding: 10px;
 
 }
 
@@ -42,6 +45,7 @@
     height: 100px;
     padding: 20px;
     transition: .1s;
+    margin: 10px;
 
 }
 

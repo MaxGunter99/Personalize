@@ -22,10 +22,18 @@ header.HomePageHeader {
     display: flex;
     justify-content: space-between;
     font-family: 'Lobster', cursive;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.219);
     z-index: 1;
     width: 100%;
     position: absolute;
+    backdrop-filter: blur( 5px );
+}
+
+.HomePageHeader .Pages {
+
+    display: flex;
+    margin-right: 30px;
+
 }
   
 .HomePageHeader a {
@@ -34,7 +42,6 @@ header.HomePageHeader {
     align-items: center;
     color: black;
     text-decoration: none;
-    background-color: white;
     padding: 5px;
     align-self: center;
     border-radius: 10px;
@@ -62,7 +69,6 @@ header.HomePageHeader {
     align-items: center;
     justify-content: center;
     margin: 0px;
-    background-color: white;
     text-decoration: underline;
     text-decoration-color: red;
   
@@ -76,7 +82,6 @@ header.HomePageHeader {
     height: 50px;
     align-items: center;
     justify-content: space-evenly;
-    background-color: white;
 
 }
 
@@ -86,24 +91,70 @@ h3 {
     
 }
 
+.Jobs nav {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.123);
+    margin-bottom: 10px;
+    backdrop-filter: blur(5px);
+
+}
+
+.Jobs nav a {
+
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    background-color: rgb(0, 0, 0);
+
+}
+
+.Jobs nav p {
+
+    color: white;
+    width: 175px;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: 2px solid white;
+    background-color: rgb(0, 0, 0);
+
+}
+
+.Jobs nav h1 {
+
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    font-size: 60px;
+    margin: 0 auto;
+    text-decoration: underline;
+    text-decoration-color: red;
+
+}
+
 .Actions{
-    background-color: rgba(0, 0, 0, 0.411);
+
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    /* border-bottom :  3px solid rgb(0, 0, 0); */
+    /* padding-bottom: 10px; */
+    /* margin-bottom: 10px; */
 }
 
 .Actions div {
 
     height: 50px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 33%;
-
-}
-
-.Search {
-
+    padding-top: 5px;
+    padding-bottom: 5px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -112,6 +163,7 @@ h3 {
 }
 
 .Search input {
+
     background-color: white;
     border-radius: 5px;
     height: 20px;
@@ -119,6 +171,7 @@ h3 {
     border: none;
     padding: 3px;
     outline: none;
+
 }
 
 .Actions div a {
@@ -129,6 +182,7 @@ h3 {
     font-size: 20px;
     padding: 5px;
     border-radius: 5px;
+    /* width: auto; */
 }
 
 .JobBoards {
@@ -140,8 +194,8 @@ h3 {
 
 .JobBoards img {
 
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     border-radius: 10px;
     /* border: 2px solid black; */
 
