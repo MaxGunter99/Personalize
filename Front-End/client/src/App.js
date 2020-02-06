@@ -1,19 +1,21 @@
-import React from 'react';
+import React , { Suspense , lazy } from 'react';
 import './css/Nav.css';
 import { Route , NavLink , withRouter } from 'react-router-dom';
+import { Loading } from './Loading.gif'
 
 //Imported Components
 import Time from './Components/DateTime';
-import Home from './Components/Home';
+
+import EditJob from  './Components/EditJob';
 import Jobs from './Components/Jobs';
-import ToDos from './Components/ToDos';
+import Job from './Components/Job';
 import Calendar from './Components/Calendar';
 import AddJobForm from './Components/AddJobForm';
-import Job from './Components/Job';
-import EditJob from './Components/EditJob';
+import Home from './Components/Home';
 import CalendarEvent from './Components/CalendarEvent';
 
-class App extends React.Component {
+
+export default class App extends React.Component {
 
   render() {
     return (
@@ -33,14 +35,18 @@ class App extends React.Component {
 
         </header>
 
-        <Route exact path = '/' component = { Home } />
-        <Route exact path = '/Jobs' component = { Jobs } />
-        {/* <Route exact path = '/Todos' component = { ToDos } /> */}
-        <Route exact path = '/Schedule' component = { Calendar } />
-        <Route exact path = '/AddJob' component = { AddJobForm } />
-        <Route exact path = '/Job/:id' component = { Job } />
-        <Route exact path = '/Job/Edit/:id' component = { EditJob } />
-        <Route exact path = '/Schedule/:id/:id/:id' component = { CalendarEvent} />
+        {/* <Suspense fallback={ <img src = { Loading }/> }> */}
+
+          <Route exact path = '/' component = { Home } />
+          <Route exact path = '/Jobs' component = { Jobs } />
+          <Route exact path = '/Schedule' component = { Calendar } />
+          <Route exact path = '/AddJob' component = { AddJobForm } />
+          <Route exact path = '/Job/:id' component = { Job } />
+          <Route exact path = '/Job/Edit/:id' component = { EditJob } />
+          <Route exact path = '/Schedule/:id/:id/:id' component = { CalendarEvent} />
+
+        {/* </Suspense> */}
+
 
       </div>
 
@@ -48,4 +54,4 @@ class App extends React.Component {
   }
 }
 
-export default withRouter( App );
+// export default withRouter( App );

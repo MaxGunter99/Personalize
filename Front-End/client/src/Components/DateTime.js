@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { TimeUpdated } from '../Actions/index';
 import '../css/Nav.css';
 
-class Time extends React.Component {
+export default class Time extends React.Component {
 
     constructor() {
 
@@ -26,11 +24,6 @@ class Time extends React.Component {
                 reduxUpdate: 0
     
             });
-
-            // Update Redux Time State
-            const newTime = { time: this.state.time.toLocaleTimeString() }
-            const newDate = { date: this.state.time.toLocaleDateString() }
-            this.props.TimeUpdated( newTime , newDate )
 
         } else {
 
@@ -63,13 +56,3 @@ class Time extends React.Component {
         )
     };
 };
-
-const mapStateToProps = state => {
-
-    return {
-        time: state.timeReducer.time
-    }
-
-}
-
-export default connect( mapStateToProps , { TimeUpdated } ) ( Time );

@@ -22,6 +22,7 @@ class Home extends React.Component {
             selected: [],
             CalendarDate: new Date(),
             time: `${ new Date().toLocaleTimeString().split(':')[0] }:${ new Date().toLocaleTimeString().split(':')[1] }`,
+            
             AddedEvent: {
                 title: '',
                 category: '',
@@ -323,11 +324,7 @@ class Home extends React.Component {
 
                 {this.state.loading === true ?
 
-                    <div>
-
-                        <h1>Loading</h1>
-
-                    </div>
+                    null
 
                 :
                     <div>

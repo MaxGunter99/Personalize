@@ -8,7 +8,7 @@ import axios from 'axios';
 import '../css/AddJobForm.css';
 // import "react-datepicker/dist/react-datepicker.css";
 
-class JobForm extends React.Component {
+export default class JobForm extends React.Component {
 
     state = {
 
@@ -253,8 +253,3 @@ class JobForm extends React.Component {
     }
 
 }
-
-export default connect(
-    null,
-    { AddJob }
-)(JobForm)

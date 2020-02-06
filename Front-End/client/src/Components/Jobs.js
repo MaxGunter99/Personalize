@@ -4,6 +4,7 @@ import '../css/Jobs.css';
 import { NavLink } from 'react-router-dom';
 // import Stats from './Stats';
 import WOW from "wow.js";
+import { Loader } from '../Loading.gif'
 import Axios from 'axios';
 const Stats = React.lazy(() => import('./Stats'));
 
@@ -28,7 +29,7 @@ export default class Jobs extends React.Component {
         e.preventDefault()
 
         this.setState({
-            search: e.target.value
+            search: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)
         });
 
     };
@@ -64,7 +65,11 @@ export default class Jobs extends React.Component {
 
                 </div>
 
-                <Suspense fallback={ <div>Loading...</div>}>
+                <Suspense 
+                    fallback={ <div>
+                        <img src = { Loader }/>
+                    </div>
+                }>
 
                     <Stats />
 
