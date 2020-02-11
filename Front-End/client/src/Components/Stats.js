@@ -134,19 +134,19 @@ export default class Stats extends React.Component {
 
                 <div>
                     <p>Total: {this.state.jobs.length}</p>
-                    <p>{Math.floor(this.state.replies / this.state.jobs.length * 100)}% replied to you. ( {this.state.replies} )</p>
+                    <p>{ Math.floor( this.state.replies / this.state.jobs.length * 100 ) }% replied to you. ( { this.state.replies } )</p>
                 </div>
 
 
                 <div>
                     <XYPlot
-                        height={300}
-                        width={300}
-                        stroke="red" >
+                        height = { 300 }
+                        width = { 300 }
+                        stroke = 'red' >
 
                         {/* <HorizontalGridLines /> */}
                         <VerticalGridLines />
-                        <XAxis color="red" />
+                        <XAxis color = 'red' />
                         <YAxis />
                         <LineSeries data={this.state.data} />
 

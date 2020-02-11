@@ -12,6 +12,7 @@
     "react-vis": "^1.11.7",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
+    "styled-components": "^5.0.1",
     "wow.js": "^1.2.2"
   },
   "scripts": {

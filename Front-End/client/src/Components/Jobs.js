@@ -1,11 +1,10 @@
 
-import React, { Suspense, lazy, useState } from 'react';
+import React, { Suspense } from 'react';
 import '../css/Jobs.css';
 import { NavLink } from 'react-router-dom';
-// import Stats from './Stats';
-import WOW from "wow.js";
-import { Loader } from '../Loading.gif'
+import { Loader } from '../Loading.gif';
 import Axios from 'axios';
+import styled from 'styled-components';
 const Stats = React.lazy(() => import('./Stats'));
 
 export default class Jobs extends React.Component {
@@ -29,65 +28,115 @@ export default class Jobs extends React.Component {
         e.preventDefault()
 
         this.setState({
-            search: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)
+            search: e.target.value.charAt( 0 ).toUpperCase() + e.target.value.slice( 1 )
         });
 
     };
 
     toIndeed = e => {
+
         e.preventDefault();
-        window.open('https://www.indeed.com/?from=gnav-jobsearch--jasx')
+        window.open('https://www.indeed.com/?from=gnav-jobsearch--jasx');
+
     }
 
     toLinkedIn = e => {
+
         e.preventDefault();
-        window.open('https://www.linkedin.com/jobs/')
+        window.open('https://www.linkedin.com/jobs/');
+
     }
 
     toGlassDoor = e => {
+
         e.preventDefault();
-        window.open('https://www.glassdoor.com/Job/Home/recentActivity.htm')
+        window.open('https://www.glassdoor.com/Job/Home/recentActivity.htm');
+
     }
 
     toAngelList = e => {
+
         e.preventDefault();
-        window.open('https://angel.co/jobs')
+        window.open('https://angel.co/jobs');
+
     }
 
     render() {
 
+        // STYLED COMPONENTS
+
+        const JobsContainer = styled.div`
+
+            background-color: white;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            border-top: 3px solid black;
+            background: url('https://images.pexels.com/photos/2733862/pexels-photo-2733862.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+            background-attachment: fixed;
+            background-position: center;
+            background-size: 100%;
+            padding-top: 67px;
+
+        `;
+
+        const IndividualJob = styled.div`
+
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+            padding: 10px;
+            width: 21%;
+            border: 3px solid black;
+            background-color: rgba(255, 255, 255, 0.411);
+            backdrop-filter: blur(4px);
+            transition: .2s;
+
+            &:hover {
+
+                border: 3px solid white;
+                transition: .2s;
+                cursor: pointer;
+
+            };
+
+        `;
+
         return (
 
-            <div className='Jobs'>
+            <JobsContainer>
 
                 <nav>
+
                     {/* <h1>Jobs</h1> */}
 
-                    <div className='Actions'>
+                    <div className = 'Actions'>
 
-                        <div className='JobBoards'>
+                        <div className = 'JobBoards'>
 
-                            <img src={'https://techcrunch.com/wp-content/uploads/2014/02/linkedin_logo.png?w=730&crop=1'} onClick={this.toLinkedIn} />
-                            <img src={'https://apprecs.org/ios/images/app-icons/256/f6/309735670.jpg'} onClick={this.toIndeed} />
-                            <img src={'https://mma.prnewswire.com/media/449764/Glassdoor_Logo.jpg?p=twitter'} onClick={this.toGlassDoor} />
-                            <img src={'https://techcrunch.com/wp-content/uploads/2014/03/peace_large.jpg?w=730&crop=1'} onClick={this.toAngelList} />
+                            <img src = { 'https://techcrunch.com/wp-content/uploads/2014/02/linkedin_logo.png?w=730&crop=1' } onClick = { this.toLinkedIn } />
+                            <img src = { 'https://apprecs.org/ios/images/app-icons/256/f6/309735670.jpg'} onClick = { this.toIndeed } />
+                            <img src = { 'https://mma.prnewswire.com/media/449764/Glassdoor_Logo.jpg?p=twitter'} onClick = { this.toGlassDoor } />
+                            <img src = { 'https://techcrunch.com/wp-content/uploads/2014/03/peace_large.jpg?w=730&crop=1'} onClick = { this.toAngelList } />
 
                         </div>
 
-                        <div className = "Search">
+                        <div className = 'Search'>
 
                             <input
-                                value={this.state.search}
-                                placeholder="Search"
-                                name='search'
-                                onChange={this.handleSearch}
+                                value = { this.state.search }
+                                placeholder = 'Search'
+                                name = 'search'
+                                onChange = { this.handleSearch }
                             />
 
                         </div>
 
 
                         <div>
+
                             <NavLink exact to='/AddJob' >Add Job</NavLink>
+
                         </div>
 
 
@@ -95,71 +144,67 @@ export default class Jobs extends React.Component {
 
                 </nav>
 
-                {this.state.search === '' ?
+                { this.state.search === '' ?
 
-                    <Suspense
-                        fallback={<div>
-                            <img src={Loader} />
-                        </div>
-                        }>
+                    <Suspense fallback = { <div> Loading... </div> }>
 
                         <Stats />
 
                     </Suspense>
 
-                    : null}
+                : null }
 
                 <div>
 
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback = { <div> Loading... </div>}>
 
-                        {this.state.search !== '' ?
+                        { this.state.search !== '' ?
 
-                            <div className='JobContainer'>
+                            <div className = 'JobContainer'>
 
-                                {this.state.Jobs.map((x) =>
+                                { this.state.Jobs.map( ( x ) =>
 
                                     <>
 
-                                        {x.CompanyName.slice(0, this.state.search.length) === this.state.search ?
+                                        { x.CompanyName.slice( 0, this.state.search.length ) === this.state.search ?
 
-                                            <div className='Job' key={x.id} onClick={() => window.location = `/Job/${x.id}`}>
+                                            <IndividualJob key = { x.id } onClick={ () => window.location = `/Job/${ x.id }` }>
 
-                                                <div className='Header'>
+                                                <div className = 'Header' >
 
                                                     <div>
 
-                                                        <h2 className='CompanyName'>{x.CompanyName}</h2>
-                                                        <h4 className='Role'>{x.Role}</h4>
+                                                        <h2 className = 'CompanyName'>{ x.CompanyName }</h2>
+                                                        <h4 className = 'Role'>{ x.Role }</h4>
 
                                                     </div>
 
                                                 </div>
 
-                                                <div className='Applied'>
+                                                <div className = 'Applied'>
 
-                                                    <p>{x.AppliedThrough}</p>
+                                                    <p>{ x.AppliedThrough }</p>
                                                     <p className="Date">{x.DateApplied}</p>
 
                                                 </div>
 
-                                            </div>
+                                            </IndividualJob>
 
-                                            :
-                                            null
-                                        }
+                                        : null }
 
                                     </>
 
                                 )}
 
                             </div>
-                            :
+
+                        :
+
                             <div className='JobContainer'>
 
                                 {this.state.Jobs.map((x) =>
 
-                                    <div className='Job' key={x.id} onClick={() => window.location = `/Job/${x.id}`}>
+                                    <IndividualJob key={x.id} onClick={() => window.location = `/Job/${x.id}`}>
 
                                         <div className='Header'>
 
@@ -179,7 +224,7 @@ export default class Jobs extends React.Component {
 
                                         </div>
 
-                                    </div>
+                                    </IndividualJob>
 
                                 )}
 
@@ -190,7 +235,7 @@ export default class Jobs extends React.Component {
 
                 </div>
 
-            </div>
+            </JobsContainer>
 
         )
 

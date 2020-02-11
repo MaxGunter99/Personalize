@@ -1,4 +1,4 @@
-.Home {
+/* .Home {
     
     background-color: rgb(0, 0, 0);
     min-height: 80vh;
@@ -11,18 +11,18 @@
     background-attachment: fixed;
     padding-top: 65px;
     
-}
+} */
 
-.Info {
+/* .Info {
 
     margin-top: 75vh;
     display: flex;
     flex-direction: column;
     color: white;
 
-}
+} */
 
-.Info h1 {
+/* .Info h1 {
 
     align-self: flex-start;
     margin-left: 20px;
@@ -30,9 +30,9 @@
     padding-left: 10px;
     padding-right: 10px;
 
-}
+} */
 
-.Info p {
+/* .Info p {
     
     background-color: rgba(0, 0, 0, 0.671);
     padding: 20px;
@@ -40,4 +40,4 @@
     width: 80%;
     margin: 0 auto;
 
-}
+} */

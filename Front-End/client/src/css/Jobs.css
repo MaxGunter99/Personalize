@@ -1,4 +1,4 @@
-.Jobs {
+/* .Jobs {
 
     background-color: white;
     min-height: 90vh;
@@ -11,7 +11,7 @@
     background-size: 100%;
     padding-top: 67px;
 
-}
+} */
 
 .Statistics {
 
@@ -94,7 +94,7 @@ a.updateInactive {
     
 }
 
-.Job {
+/* .Job {
 
     display: flex;
     flex-direction: column;
@@ -106,15 +106,15 @@ a.updateInactive {
     backdrop-filter: blur(4px);
     transition: .2s;
 
-}
+} */
 
-.Job:hover {
+/* .Job:hover {
 
     border: 3px solid white;
     transition: .2s;
     cursor: pointer;
 
-}
+} */
 
 .Job .Header{
 
