@@ -2,7 +2,6 @@
 import React, { Suspense } from 'react';
 import '../css/Jobs.css';
 import { NavLink } from 'react-router-dom';
-import { Loader } from '../Loading.gif';
 import Axios from 'axios';
 import styled from 'styled-components';
 const Stats = React.lazy(() => import('./Stats'));
@@ -10,25 +9,28 @@ const Stats = React.lazy(() => import('./Stats'));
 export default class Jobs extends React.Component {
 
     state = {
+
         Jobs: [],
         search: ''
+
     }
 
     componentDidMount = () => {
 
         Axios
             .get('http://localhost:3000/jobs')
-            .then(res => {
+            .then( res => {
                 this.setState({ Jobs: res.data })
             });
+
     }
 
-    handleSearch = e => {
+    handleSearch = ( e ) => {
 
         e.preventDefault()
 
         this.setState({
-            search: e.target.value.charAt( 0 ).toUpperCase() + e.target.value.slice( 1 )
+            search: e.target.value
         });
 
     };
@@ -61,24 +63,16 @@ export default class Jobs extends React.Component {
 
     }
 
+    toCreddle = e => {
+
+        e.preventDefault();
+        window.open( 'https://content.creddle.io/persons/sign_in' );
+
+    }
+
     render() {
 
         // STYLED COMPONENTS
-
-        const JobsContainer = styled.div`
-
-            background-color: white;
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            border-top: 3px solid black;
-            background: url('https://images.pexels.com/photos/2733862/pexels-photo-2733862.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
-            background-attachment: fixed;
-            background-position: center;
-            background-size: 100%;
-            padding-top: 67px;
-
-        `;
 
         const IndividualJob = styled.div`
 
@@ -104,11 +98,9 @@ export default class Jobs extends React.Component {
 
         return (
 
-            <JobsContainer>
+            <div className = 'Jobs'>
 
                 <nav>
-
-                    {/* <h1>Jobs</h1> */}
 
                     <div className = 'Actions'>
 
@@ -124,10 +116,12 @@ export default class Jobs extends React.Component {
                         <div className = 'Search'>
 
                             <input
+
                                 value = { this.state.search }
                                 placeholder = 'Search'
                                 name = 'search'
                                 onChange = { this.handleSearch }
+
                             />
 
                         </div>
@@ -136,6 +130,7 @@ export default class Jobs extends React.Component {
                         <div>
 
                             <NavLink exact to='/AddJob' >Add Job</NavLink>
+                            <a onClick = { this.toCreddle }>Edit Resume</a>
 
                         </div>
 
@@ -235,7 +230,7 @@ export default class Jobs extends React.Component {
 
                 </div>
 
-            </JobsContainer>
+            </div>
 
         )
 
