@@ -81,22 +81,36 @@
 
 } */
 
-.AddJobForm form .ActionButton {
+button.x {
 
-    width: 100px;
-    margin: 10px;
+    width: auto;
     align-self: center;
-    height: 40px;
     background-color: black;
-    transition: .1s;
+    transition: .5s;
     color: white;
-    font-size: 20px;
 
 }
 
-.AddJobForm form .ActionButton:hover {
+button.x:hover {
 
-    width: 150px;
-    transition: .1s;
+    transition: .5s;
+    background-color: rgb(209, 40, 40);
+    
+}
+
+button.ActionButton {
+
+    width: auto;
+    align-self: center;
+    background-color: black;
+    transition: .5s;
+    color: white;
+
+}
+
+button.ActionButton:hover {
+
+    transition: .5s;
+    background-color: rgb(37, 189, 37);
     
 }

@@ -4,6 +4,7 @@ import '../css/Jobs.css';
 import { NavLink } from 'react-router-dom';
 import Axios from 'axios';
 import styled from 'styled-components';
+import FeatherIcon from 'feather-icons-react';
 const Stats = React.lazy(() => import('./Stats'));
 
 export default class Jobs extends React.Component {

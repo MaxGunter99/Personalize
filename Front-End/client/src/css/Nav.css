@@ -42,11 +42,11 @@ header.HomePageHeader {
     align-items: center;
     color: black;
     text-decoration: none;
-    padding: 5px;
+    padding: 10px;
     align-self: center;
     border-radius: 10px;
     margin-bottom: -10px;
-    width: 110px;
+    width: auto;
     justify-content: center;
 
 }
@@ -56,7 +56,6 @@ header.HomePageHeader {
     background-color: red;
     color: white;
     transition: .5s;
-    width: 110px;
   
 }
   
@@ -204,5 +203,64 @@ h3 {
 .JobBoards img:hover {
 
     cursor: pointer;
+
+}
+
+
+.Weather {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    background-color: black;
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+    transition: .5s;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+.Weather p {
+    margin: 10px;
+}
+
+.Weather header {
+    display: flex;
+    /* flex-direction: row; */
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 30%;
+}
+
+.Weather .Description {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+
+} 
+
+.Weather .Description div p {
+    margin: 0px;
+}
+
+.Weather img {
+    height: 50px;
+    width: 50px;
+}
+
+.Weather footer {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 30%;
 
 }

@@ -2,7 +2,7 @@
 import React from 'react';
 import '../css/Calendar.css';
 import WOW from "wow.js";
-
+import FeatherIcon from 'feather-icons-react';
 import axios from 'axios'
 
 class Home extends React.Component {
@@ -332,8 +332,7 @@ class Home extends React.Component {
                         <header className = {`CalendarHeader ${this.state.select}`} style = {{ marginTop: `${this.state.slide}px` , transition: '1s' }}>
 
                             <h1 className = 'HeaderMonth'>{ new Date().toDateString().split(' ')[1] }</h1>
-
-                            <button className = 'AddEventButton' onClick ={ () => this.toggleModal( 'AddEvent' ) }>Going to an Event?</button>
+                            <button className = 'AddEventButton' onClick ={ () => this.toggleModal( 'AddEvent' ) }><FeatherIcon icon="plus" size="30" /></button>
 
                         </header>
 
@@ -458,7 +457,7 @@ class Home extends React.Component {
                                             <div className = 'RightHeader'>
 
                                                 <h2>{this.state.selected.Event.time}</h2>
-                                                <h2 className = 'x' onClick = { () => this.toggleModal( this.state.selected.Event ) }>X</h2>
+                                                <h2 className = 'x' onClick = { () => this.toggleModal( this.state.selected.Event ) }><FeatherIcon icon="x" size="30" /></h2>
 
                                             </div>
 
@@ -635,8 +634,8 @@ class Home extends React.Component {
 
                                     <div className = 'buttons'>
 
-                                        <button type='submit' className='ActionButton'>Add</button>
-                                        <button type = 'button' className = 'x' onClick = { () => this.toggleModal( 'AddEvent' ) }>Cancel</button>
+                                        <button type = 'button' className = 'x' onClick = { () => this.toggleModal( 'AddEvent' ) }><FeatherIcon icon="x" size="30" /></button>
+                                        <button type='submit' className='ActionButton'><FeatherIcon icon="check" size="30" /></button>
 
                                     </div>
 
