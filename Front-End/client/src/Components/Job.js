@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Axios from 'axios';
-
+import FeatherIcon from 'feather-icons-react';
 import '../css/Job.css';
 
 export default class Job extends React.Component {
@@ -59,7 +59,6 @@ export default class Job extends React.Component {
                         <p><strong>Applied Through:</strong> {this.state.job.AppliedThrough}</p>
                         {this.state.job.ReplyRecieved === 'Yes' ? <p><strong>Reply Recieved:</strong> {this.state.job.ReplyRecieved}</p> : <p><strong>. . . No Reply yet . . .</strong></p>}
                         {this.state.job.Details !== '' ? <p><strong>Details:</strong> {this.state.job.Details}</p> : null}
-                        <button onClick={() => window.open(`${this.state.job.URL}`)}>Job Description</button>
 
                     </div>
 
@@ -91,13 +90,15 @@ export default class Job extends React.Component {
 
                         </div>
 
-                        : null}
+                    : null}
 
-                    <div calssName='buttons'>
-                        <button onClick={() => this.back()}>Back</button>
-                        <NavLink className='Edit' exact to={`/Job/Edit/${this.state.id}`}>Edit</NavLink>
-                        <button onClick={() => this.deleteJob(this.state.id)}>Delete Job</button>
+                    <div className='BottomButtons'>
+                        <button className = 'ActButton' onClick={() => this.back()}><FeatherIcon icon="arrow-left" size="30" /></button>
+                        <NavLink className = 'ActButton' exact to={`/Job/Edit/${this.state.id}`}><FeatherIcon icon="edit" size="30" /></NavLink>
+                        <button className = 'ActButton' onClick={() => window.open(`${this.state.job.URL}`)}><FeatherIcon icon="link" size="30" /></button>
+                        <button className = 'ActButton' onClick={() => this.deleteJob(this.state.id)}><FeatherIcon icon="trash" size="30" /></button>
                     </div>
+
                 </div>
 
             </div>

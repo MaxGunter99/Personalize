@@ -12,7 +12,8 @@ export default class Jobs extends React.Component {
     state = {
 
         Jobs: [],
-        search: ''
+        search: '',
+        zoom: 20
 
     }
 
@@ -71,6 +72,23 @@ export default class Jobs extends React.Component {
 
     }
 
+    zoom = ( e , size ) => {
+
+        e.preventDefault();
+        if ( size === 'in' & this.state.zoom <= 40 ) {
+
+            let currentSize = this.state.zoom
+            this.setState({ zoom: currentSize + 10 })
+
+        } else if ( size === 'out' & this.state.zoom >= 30 ) {
+
+            let currentSize = this.state.zoom
+            this.setState({ zoom: currentSize - 10 })
+
+        }
+
+    }
+
     render() {
 
         // STYLED COMPONENTS
@@ -81,7 +99,7 @@ export default class Jobs extends React.Component {
             flex-direction: column;
             margin: 10px;
             padding: 10px;
-            width: 21%;
+            width: ${this.state.zoom}%;
             border: 3px solid black;
             background-color: rgba(255, 255, 255, 0.411);
             backdrop-filter: blur(4px);
@@ -149,6 +167,11 @@ export default class Jobs extends React.Component {
                     </Suspense>
 
                 : null }
+
+                <div className = 'ZoomControls'>
+                    <FeatherIcon icon="zoom-in" size="35" className = 'Zoom' onClick = { (e) => this.zoom( e ,'in' ) }/>
+                    <FeatherIcon icon="zoom-out" size="35" className = 'Zoom' onClick = { (e) => this.zoom( e , 'out' ) }/>
+                </div>
 
                 <div>
 

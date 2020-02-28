@@ -1,11 +1,11 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import './css/Nav.css';
-import { Route, NavLink, withRouter } from 'react-router-dom';
-import { Loading } from './Loading.gif'
+import './css/Weather.css'
+import { Route, NavLink } from 'react-router-dom';
+import Axios from 'axios';
+import FeatherIcon from 'feather-icons-react';
 
 //Imported Components
-import Time from './Components/DateTime';
-
 import EditJob from './Components/EditJob';
 import Jobs from './Components/Jobs';
 import Job from './Components/Job';
@@ -13,23 +13,31 @@ import Calendar from './Components/Calendar';
 import AddJobForm from './Components/AddJobForm';
 import Home from './Components/Home';
 import CalendarEvent from './Components/CalendarEvent';
-import Axios from 'axios';
-import FeatherIcon from 'feather-icons-react';
+import Settings from './Components/Settings';
+
+
 
 export default class App extends React.Component {
 
-  state = {
+  constructor() {
+    super();
+    this.toggleWeather = this.toggleWeather.bind(this);
+    this.state = {
+  
+      // For weather Component
+      location: '',
+      temp: '',
+      feelsLike: '',
+      description: '',
+      descriptionImg: '',
+      sunrise: '',
+      sunset: '',
 
-    location: '',
-    temp: '',
-    feelsLike: '',
-    description: '',
-    descriptionImg: '',
-    sunrise: '',
-    sunset: '',
-    dropdown: false,
-    shift: -50
+      // For settings
+      stats: true,
+      weather: true
 
+    }
   }
 
   componentDidMount() {
@@ -37,7 +45,6 @@ export default class App extends React.Component {
     Axios
       .get('http://api.openweathermap.org/data/2.5/weather?q=Austin&APPID=31d108f3bb32d9ddb53203d1fc57ca6b')
       .then(res => {
-        console.log(res.data)
 
         // Kelvin to Fahrenheit
         let currentWeatherInF = (res.data.main.temp - 273.15) * 9 / 5 + 32
@@ -75,12 +82,23 @@ export default class App extends React.Component {
       })
   }
 
-  toggleDropdown = (e) => {
+  toggleWeather = ( e ) => {
     e.preventDefault();
-    if (this.state.dropdown === true) {
-      this.setState({ dropdown: false, shift: -50 })
+
+    if ( this.state.weather === true ) {
+      this.setState({ weather: false })
     } else {
-      this.setState({ dropdown: true, shift: 9 })
+      this.setState({ weather: true })
+    }
+  }
+
+  toggleStats = ( e ) => {
+    e.preventDefault();
+
+    if ( this.state.stats === true ) {
+      this.setState({ stats: false })
+    } else {
+      this.setState({ stats: true })
     }
   }
 
@@ -93,16 +111,44 @@ export default class App extends React.Component {
 
           <h1 className='Title' >Personalize</h1>
 
+
+          { this.state.weather === true ?
+
+            <div className='Weather'>
+
+              <div>
+                <p><FeatherIcon icon="map-pin" size="24" /> {this.state.location}</p>
+              </div>
+
+              <div>
+                {/* <img src={this.state.descriptionImg} /> */}
+                <p>{this.state.description}</p>
+              </div>
+
+              <div>
+                <p>{this.state.temp}℉</p>
+              </div>
+
+              <div>
+                <FeatherIcon icon="sunrise" size="20" />
+                <p>{this.state.sunrise}</p>
+              </div>
+
+              <div>
+                <FeatherIcon icon="sunset" size="20" />
+                <p>{this.state.sunset}</p>
+              </div>
+
+            </div>
+
+          : null }
+
           <div className='Pages'>
 
             <NavLink exact to='/' ><FeatherIcon icon="home" size="30" /></NavLink>
             <NavLink exact to='/Jobs' ><FeatherIcon icon="briefcase" size="30" /></NavLink>
             <NavLink exact to='/Schedule' ><FeatherIcon icon="calendar" size="30" /></NavLink>
-            {this.state.dropdown === true ?
-              <a style={{ backgroundColor: 'white', color: 'black', transition: '.5s' }}><FeatherIcon icon="menu" size="30" onClick={(event) => this.toggleDropdown(event)} /></a>
-              :
-              <a style={{ transition: '.5s' }}><FeatherIcon icon="menu" size="30" onClick={(event) => this.toggleDropdown(event)} /></a>
-            }
+            <NavLink exact to='/Settings' ><FeatherIcon icon="settings" size="30"/></NavLink>
 
           </div>
 
@@ -117,35 +163,7 @@ export default class App extends React.Component {
         <Route exact path='/Job/:id' component={Job} />
         <Route exact path='/Job/Edit/:id' component={EditJob} />
         <Route exact path='/Schedule/:id/:id/:id' component={CalendarEvent} />
-
-        {/* </Suspense> */}
-
-        <div className='Weather' style = {{ top: `${this.state.shift}%` }}>
-
-          <header>
-            <p><FeatherIcon icon="map-pin" size="24" /> {this.state.location}</p>
-          </header>
-
-          {/* <p>{this.state.feelsLike}℉</p> */}
-          <div className='Description'>
-            <img src={this.state.descriptionImg} />
-            <p>{this.state.description}</p>
-            <p>{this.state.temp}℉</p>
-          </div>
-
-
-          <footer>
-            <div>
-              <FeatherIcon icon="sunrise" size="24" />
-              <p>{this.state.sunrise}</p>
-            </div>
-            <div>
-              <FeatherIcon icon="sunset" size="24" />
-              <p>{this.state.sunset}</p>
-            </div>
-          </footer>
-
-        </div>
+        <Route exact path='/Settings' component={() => (<Settings {...this.state} toggleWeather = { this.toggleWeather } toggleStats = { this.toggleStats } />) } />
 
 
       </div>

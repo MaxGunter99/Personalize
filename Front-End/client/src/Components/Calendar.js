@@ -269,9 +269,9 @@ class Home extends React.Component {
     
     // AXIOS ACTIONS
 
-    SubmitEvent = event => {
+    SubmitEvent = ( e , event ) => {
 
-        event.preventDefault();
+        e.preventDefault();
 
         axios.post( 'http://localhost:3000/events' , this.state.AddedEvent )
         .then( res => {
@@ -293,8 +293,9 @@ class Home extends React.Component {
 
     };
 
-    DeleteEvent = event => {
-
+    DeleteEvent = ( e , event ) => {
+        
+        e.preventDefault();
         axios.delete( `http://localhost:3000/events/${event.id}` )
         .then( res => {
 
@@ -332,7 +333,7 @@ class Home extends React.Component {
                         <header className = {`CalendarHeader ${this.state.select}`} style = {{ marginTop: `${this.state.slide}px` , transition: '1s' }}>
 
                             <h1 className = 'HeaderMonth'>{ new Date().toDateString().split(' ')[1] }</h1>
-                            <button className = 'AddEventButton' onClick ={ () => this.toggleModal( 'AddEvent' ) }><FeatherIcon icon="plus" size="30" /></button>
+                            <button className = 'Action' onClick ={ () => this.toggleModal( 'AddEvent' ) }><FeatherIcon icon="plus" size="30" /></button>
 
                         </header>
 
@@ -432,7 +433,7 @@ class Home extends React.Component {
                                                     <div className = 'info'>
                                                         <p>{event.notes}</p>
                                                         <h3>{event.URL}</h3>
-                                                        <button onClick = { () => this.DeleteEvent( event ) }>Delete</button>
+                                                        <button onClick = { (e) => this.DeleteEvent( e , event ) }>Delete</button>
                                                     </div>
 
                                                 </div>
@@ -467,7 +468,7 @@ class Home extends React.Component {
 
                                             <p>{this.state.selected.Event.notes}</p>
                                             <h3>{this.state.selected.Event.URL}</h3>
-                                            <button onClick = { () => this.DeleteEvent( this.state.selected.Event ) }>Delete</button>
+                                            <button onClick = { (e) => this.DeleteEvent( e , this.state.selected.Event ) }>Delete</button>
 
                                         </div>
 
@@ -634,8 +635,8 @@ class Home extends React.Component {
 
                                     <div className = 'buttons'>
 
-                                        <button type = 'button' className = 'x' onClick = { () => this.toggleModal( 'AddEvent' ) }><FeatherIcon icon="x" size="30" /></button>
-                                        <button type='submit' className='ActionButton'><FeatherIcon icon="check" size="30" /></button>
+                                        <button type = 'button' className='Action x' onClick = { ( e ) => this.toggleModal( e , 'AddEvent' ) }><FeatherIcon icon="x" size="30" /></button>
+                                        <button type='submit' className='Action Check'><FeatherIcon icon="check" size="30" /></button>
 
                                     </div>
 

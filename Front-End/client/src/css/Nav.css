@@ -27,12 +27,14 @@ header.HomePageHeader {
     width: 100%;
     position: absolute;
     backdrop-filter: blur( 5px );
+    align-items: center;
 }
 
 .HomePageHeader .Pages {
 
     display: flex;
-    margin-right: 30px;
+    margin-right: 20px;
+    align-items: center;
 
 }
   
@@ -64,7 +66,6 @@ header.HomePageHeader {
     display: flex;
     padding: 10px;
     height: 50px;
-    width: 350px;
     align-items: center;
     justify-content: center;
     margin: 0px;
@@ -203,64 +204,5 @@ h3 {
 .JobBoards img:hover {
 
     cursor: pointer;
-
-}
-
-
-.Weather {
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    background-color: black;
-    color: white;
-    width: 100%;
-    margin: 0 auto;
-    transition: .5s;
-    padding-top: 5px;
-    padding-bottom: 5px;
-
-}
-
-.Weather p {
-    margin: 10px;
-}
-
-.Weather header {
-    display: flex;
-    /* flex-direction: row; */
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    width: 30%;
-}
-
-.Weather .Description {
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-
-} 
-
-.Weather .Description div p {
-    margin: 0px;
-}
-
-.Weather img {
-    height: 50px;
-    width: 50px;
-}
-
-.Weather footer {
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 30%;
 
 }

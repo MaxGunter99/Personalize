@@ -418,30 +418,6 @@ form .date label {
 
 }
 
-form .buttons {
-
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin: 0 auto;
-
-}
-
-.buttons button {
-
-    width: 20%;
-    transition: .5s;
-
-}
-
-.buttons button:hover {
-
-    color: black;
-    background-color: white;
-    transition: .5s;
-
-}
-
 form input {
 
     background-color: rgba(255, 255, 255, 0);
@@ -469,5 +445,40 @@ form input:focus {
     margin-bottom: 10px;
     color: white;
     text-decoration: underline;
+    
+}
+
+div.buttons {
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+button.Action {
+
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    border-radius: 5px;
+    transition: .5s;
+    color: white;
+
+}
+
+button.Action.x:hover {
+
+    transition: .5s;
+    background-color: rgb(209, 40, 40);
+    
+}
+
+button.Action.Check:hover {
+
+    transition: .5s;
+    background-color: rgb(37, 189, 37);
     
 }

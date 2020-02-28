@@ -1,9 +1,7 @@
 import React from 'react';
-
-import { connect } from 'react-redux';
-import { AddJob } from '../Actions/index';
-
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import FeatherIcon from 'feather-icons-react';
 
 import '../css/AddJobForm.css';
 // import "react-datepicker/dist/react-datepicker.css";
@@ -243,7 +241,10 @@ export default class JobForm extends React.Component {
 
                     </div>
 
-                    <button type='submit' className='ActionButton'>Add</button>
+                    <div>
+                        <NavLink to = '/Jobs' className = 'Action'><FeatherIcon icon="x" size="30" /></NavLink>
+                        <button type='submit' className='Action'><FeatherIcon icon="check" size="30" /></button>
+                    </div>
 
                 </form>
             </div>

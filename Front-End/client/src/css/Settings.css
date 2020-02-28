@@ -1,0 +1,20 @@
+.SettingsContainer {
+    background-color: rgb(128, 128, 128);
+    min-height: 100vh;
+}
+
+h1 {
+    padding-top: 100px;
+    margin-top: 0px;
+}
+
+.Settings {
+
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    border: 1px solid black;
+    align-items: center;
+
+}

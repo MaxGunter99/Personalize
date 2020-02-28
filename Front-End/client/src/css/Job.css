@@ -7,7 +7,6 @@
     display: flex;
     background-size: 100%;
     flex-direction: column;
-    justify-content: space-between;
     background-attachment: fixed;
     align-items: center;
     margin: 0 auto;
@@ -90,34 +89,25 @@
 
 }
 
-.buttons {
+.BottomButtons {
 
-    width: 100%;
     display: flex;
-    justify-content: flex-end;
+    width: auto;
+    justify-content: space-between;
 
 }
 
-button {
+.ActButton {
 
     color: white;
     background-color: black;
+    display: flex;
+    justify-content: center;
     margin: 10px;
     padding: 10px;
+    width: 50px; 
     font-size: 15px;
     border-radius: 5px;
-
-}
-
-.Edit {
-
-    color: white;
-    background-color: black;
-    margin: 10px;
-    padding: 10px;
-    font-size: 15px;
-    border-radius: 5px;
-    text-decoration: none;
     border: 1px solid white;
 
 }
