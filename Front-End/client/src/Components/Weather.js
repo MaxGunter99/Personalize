@@ -76,36 +76,49 @@ export default class Weather extends Component {
     render() {
         return (
 
-            <div className='Weather'>
+            <>
 
-                <div>
-                    {this.state.weatherSettings.location === true ? 
-                        <p><FeatherIcon icon="map-pin" size="24" /> {this.state.location}</p>
-                    : null }
-                </div>
+                { this.props.weather === true ?
 
-                <div>
-                    {/* <img src={this.state.descriptionImg} /> */}
-                    <p>{this.state.description}</p>
-                </div>
+                    <div className='Weather'>
 
-                <div>
-                    <p>{this.state.temp}℉</p>
-                </div>
+                        { this.props.weatherSettings.location === true ? 
+                            <div>
+                                <p><FeatherIcon icon="map-pin" size="24" /> {this.state.location}</p>
+                            </div>
+                        : null }
 
-                <div>
-                    <FeatherIcon icon="sunrise" size="20" />
-                    <p>{this.state.sunrise}</p>
-                </div>
+                        { this.props.weatherSettings.description === true ? 
+                            <div>
+                                <p>{this.state.description}</p>
+                            </div>
+                        : null }
 
-                <div>
-                    <FeatherIcon icon="sunset" size="20" />
-                    <p>{this.state.sunset}</p>
-                </div>
+                        { this.props.weatherSettings.temp === true ? 
+                            <div>
+                                <p>{this.state.temp}℉</p>
+                            </div>
+                        : null }
 
-                <button onClick = { () => console.log( this.state ) }>Hi</button>
+                        { this.props.weatherSettings.sunrise === true ? 
+                            <div>
+                                <FeatherIcon icon="sunrise" size="20" />
+                                <p>{this.state.sunrise}</p>
+                            </div>
+                        : null }
 
-            </div>
+                        { this.props.weatherSettings.sunset === true ? 
+                            <div>
+                                <FeatherIcon icon="sunset" size="20" />
+                                <p>{this.state.sunset}</p>
+                            </div>
+                        : null }
+
+                    </div>
+
+                : null }
+
+            </>
 
         )
     }

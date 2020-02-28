@@ -35,15 +35,19 @@ export default class Settings extends Component{
 
                     <div className='Settings'>
 
-                        <div>
+                        <div className = 'Section'>
 
-                            <h2>Weather</h2>
-                            { this.state.weather === true ? 
+                            <div>
 
-                                <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'weather' , false ) }/>
-                            : 
-                                <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'weather' , true ) }/> 
-                            }
+                                <h2>All Weather</h2>
+                                { this.state.weather === true ? 
+
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'weather' , false ) }/>
+                                : 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'weather' , true ) }/> 
+                                }
+
+                            </div>
 
                             <div>
 
@@ -57,22 +61,73 @@ export default class Settings extends Component{
 
                             </div>
 
+                            <div>
+
+                                <h2>Description</h2>
+                                { this.state.weatherSettings.description === true ? 
+
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'description' , false ) }/>
+                                : 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'description' , true ) }/> 
+                                }
+
+                            </div>
+
+                            <div>
+
+                                <h2>Temperature</h2>
+                                { this.state.weatherSettings.temp === true ? 
+
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'temp' , false ) }/>
+                                : 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'temp' , true ) }/> 
+                                }
+
+                            </div>
+
+                            <div>
+
+                                <h2>Sunrise</h2>
+                                { this.state.weatherSettings.sunrise === true ? 
+
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'sunrise' , false ) }/>
+                                : 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'sunrise' , true ) }/> 
+                                }
+
+                            </div>
+
+                            <div>
+
+                                <h2>Sunset</h2>
+                                { this.state.weatherSettings.sunset === true ? 
+
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'sunset' , false ) }/>
+                                : 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'sunset' , true ) }/> 
+                                }
+
+                            </div>
+
 
                         </div>
-                        <div>
-                            <h2>Stats</h2>
-                            { this.state.stats === true ? 
 
-                                <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e ,'stats' , false ) }/>
-                            : 
-                                <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'stats' , true ) }/> 
+                        <div className = 'Section'>
+                            <div>
+                                <h2>Stats</h2>
+                                { this.state.stats === true ? 
 
-                            }
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e ,'stats' , false ) }/>
+                                : 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'stats' , true ) }/> 
+
+                                }
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
-
 
             </Suspense>
     

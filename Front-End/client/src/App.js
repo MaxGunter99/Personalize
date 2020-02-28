@@ -56,6 +56,7 @@ export default class App extends React.Component {
     } else {
 
       this.setState({
+        ...this.state,
         weatherSettings: {
           ...this.state.weatherSettings,
           [item]: bool
