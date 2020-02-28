@@ -19,10 +19,10 @@
 .Settings {
 
     display: flex;
-    width: 60%;
+    width: 90%;
     margin: 0 auto;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     border-radius: 5px;
     backdrop-filter: blur( 4px );
     padding: 20px;
@@ -30,29 +30,39 @@
 }
 
 .Settings .Section {
-    /* border: 1px solid white; */
-    /* background-color: rgba(255, 255, 255, 0.473); */
     width: 50%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
+    /* float: left; */
+    /* margin-top: 0px; */
+    flex: 1
 }
-
-/* .Section  */
 
 .Settings div div {
 
-    width: 40%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-color: rgba(255, 255, 255, 0.534);
     border-radius: 5px;
-    padding: 0px 10px 0px 10px;
+    padding: 10px;
     margin: 10px;
 
 }
 
 .Settings div h2 {
 
-    font-size: 25px;
+    width: 100%;
+    color: white;
+
+}
+
+.Settings div h3 {
+
+    font-size: 22px;
     margin-bottom: 5px;
 
 }

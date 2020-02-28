@@ -14,12 +14,15 @@ export default class Settings extends Component{
                 location: props.weatherSettings.location,
                 description: props.weatherSettings.description,
                 temp: props.weatherSettings.temp,
+                feelsLike: props.weatherSettings.feelsLike,
                 sunrise: props.weatherSettings.sunrise,
                 sunset: props.weatherSettings.sunset
             
             },
 
-            stats: props.stats,
+            statsDisplay: props.statsDisplay,
+            jobBoardIcons: props.jobBoardIcons,
+            editResumeButton: props.editResumeButton,
         }
     }
 
@@ -37,9 +40,11 @@ export default class Settings extends Component{
 
                         <div className = 'Section'>
 
+                            <h2>Weather</h2>
+
                             <div>
 
-                                <h2>All Weather</h2>
+                                <h3>All Weather</h3>
                                 { this.state.weather === true ? 
 
                                     <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'weather' , false ) }/>
@@ -51,7 +56,7 @@ export default class Settings extends Component{
 
                             <div>
 
-                                <h2>Location</h2>
+                                <h3>Location</h3>
                                 { this.state.weatherSettings.location === true ? 
 
                                     <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'location' , false ) }/>
@@ -63,7 +68,7 @@ export default class Settings extends Component{
 
                             <div>
 
-                                <h2>Description</h2>
+                                <h3>Description</h3>
                                 { this.state.weatherSettings.description === true ? 
 
                                     <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'description' , false ) }/>
@@ -75,7 +80,7 @@ export default class Settings extends Component{
 
                             <div>
 
-                                <h2>Temperature</h2>
+                                <h3>Temperature</h3>
                                 { this.state.weatherSettings.temp === true ? 
 
                                     <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'temp' , false ) }/>
@@ -87,7 +92,19 @@ export default class Settings extends Component{
 
                             <div>
 
-                                <h2>Sunrise</h2>
+                                <h3>Feels Like</h3>
+                                { this.state.weatherSettings.feelsLike === true ? 
+
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'feelsLike' , false ) }/>
+                                : 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'feelsLike' , true ) }/> 
+                                }
+
+                            </div>
+
+                            <div>
+
+                                <h3>Sunrise</h3>
                                 { this.state.weatherSettings.sunrise === true ? 
 
                                     <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'sunrise' , false ) }/>
@@ -99,7 +116,7 @@ export default class Settings extends Component{
 
                             <div>
 
-                                <h2>Sunset</h2>
+                                <h3>Sunset</h3>
                                 { this.state.weatherSettings.sunset === true ? 
 
                                     <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'sunset' , false ) }/>
@@ -113,13 +130,38 @@ export default class Settings extends Component{
                         </div>
 
                         <div className = 'Section'>
-                            <div>
-                                <h2>Stats</h2>
-                                { this.state.stats === true ? 
 
-                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e ,'stats' , false ) }/>
+                            <h2>Job Board</h2>
+
+                            <div>
+                                <h3>All Job Stats</h3>
+                                { this.state.statsDisplay === true ? 
+
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e ,'statsDisplay' , false ) }/>
                                 : 
-                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'stats' , true ) }/> 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'statsDisplay' , true ) }/> 
+
+                                }
+                            </div>
+
+                            <div>
+                                <h3>Job Board Icons</h3>
+                                { this.state.jobBoardIcons === true ? 
+
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e ,'jobBoardIcons' , false ) }/>
+                                : 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'jobBoardIcons' , true ) }/> 
+
+                                }
+                            </div>
+                            
+                            <div>
+                                <h3>Edit Resume</h3>
+                                { this.state.editResumeButton === true ? 
+
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e ,'editResumeButton' , false ) }/>
+                                : 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'editResumeButton' , true ) }/> 
 
                                 }
                             </div>

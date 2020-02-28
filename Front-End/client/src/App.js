@@ -22,6 +22,7 @@ export default class App extends React.Component {
 
   constructor() {
     super();
+    this.toggle = this.toggle.bind(this);
     this.state = {
 
       // For settings
@@ -31,27 +32,64 @@ export default class App extends React.Component {
         location: true,
         description: true,
         temp: true,
+        feelsLike: true,
         sunrise: true,
         sunset: true
 
       },
 
-      stats: true,
+      statsDisplay: true,
+      jobBoardIcons: true,
+      editResumeButton: true,
 
     }
+  }
+
+  componentDidMount = () => {
+
+    if ( localStorage.getItem( 'Settings' ) ) {
+      let preSettings = localStorage.getItem( 'Settings' )
+      let parsedPreSettings = JSON.parse( preSettings )
+
+      this.setState({
+        ...parsedPreSettings
+      })
+
+    } else {
+      localStorage.clear();
+    }
+
+  }
+
+  componentDidUpdate = () => {
+    localStorage.setItem( 'Settings' , JSON.stringify( this.state ) )
   }
 
   toggle = ( e, item , bool ) => {
 
     e.preventDefault();
 
-    if ( item === 'weather' || item === 'stats' ) {
+    if ( item === 'weather' || item === 'statsDisplay' ) {
 
       if ( item === 'weather' ) {
         this.setState({ weather: bool })
       } else {
-        this.setState({ stats: bool })
+        this.setState({ statsDisplay: bool })
       }
+
+    } else if ( item === 'jobBoardIcons' ) {
+
+      this.setState({
+        ...this.state,
+        [item]: bool
+      })
+
+    } else if ( item === 'editResumeButton' ) {
+
+      this.setState({ 
+        ...this.state,
+        [item]: bool
+      })
 
     } else {
 
@@ -62,7 +100,6 @@ export default class App extends React.Component {
           [item]: bool
         }
       })
-      console.log( this.state.weatherSettings )
     }
 
   }
@@ -90,7 +127,7 @@ export default class App extends React.Component {
         </header>
 
         <Route exact path='/' component={Home} />
-        <Route exact path='/Jobs' component={Jobs} />
+        <Route exact path='/Jobs' component={() => ( <Jobs {...this.state} /> ) }  />
         <Route exact path='/Schedule' component={Calendar} />
         <Route exact path='/AddJob' component={AddJobForm} />
         <Route exact path='/Job/:id' component={Job} />

@@ -9,12 +9,18 @@ const Stats = React.lazy(() => import('./Stats'));
 
 export default class Jobs extends React.Component {
 
-    state = {
-
-        Jobs: [],
-        search: '',
-        zoom: 20
-
+    constructor( props ) {
+        super( props );
+        this.state = {
+    
+            Jobs: [],
+            search: '',
+            zoom: 20,
+            statsDisplay: props.statsDisplay,
+            jobBoardIcons: props.jobBoardIcons,
+            editResumeButton: props.editResumeButton
+    
+        }
     }
 
     componentDidMount = () => {
@@ -124,13 +130,17 @@ export default class Jobs extends React.Component {
                     <div className = 'Actions'>
 
                         <div className = 'JobBoards'>
+                            { this.state.jobBoardIcons === true ? 
+                                <>
+                                    <img src = { 'https://techcrunch.com/wp-content/uploads/2014/02/linkedin_logo.png?w=730&crop=1' } onClick = { this.toLinkedIn } />
+                                    <img src = { 'https://apprecs.org/ios/images/app-icons/256/f6/309735670.jpg'} onClick = { this.toIndeed } />
+                                    <img src = { 'https://mma.prnewswire.com/media/449764/Glassdoor_Logo.jpg?p=twitter'} onClick = { this.toGlassDoor } />
+                                    <img src = { 'https://techcrunch.com/wp-content/uploads/2014/03/peace_large.jpg?w=730&crop=1'} onClick = { this.toAngelList } />
+                                </>
 
-                            <img src = { 'https://techcrunch.com/wp-content/uploads/2014/02/linkedin_logo.png?w=730&crop=1' } onClick = { this.toLinkedIn } />
-                            <img src = { 'https://apprecs.org/ios/images/app-icons/256/f6/309735670.jpg'} onClick = { this.toIndeed } />
-                            <img src = { 'https://mma.prnewswire.com/media/449764/Glassdoor_Logo.jpg?p=twitter'} onClick = { this.toGlassDoor } />
-                            <img src = { 'https://techcrunch.com/wp-content/uploads/2014/03/peace_large.jpg?w=730&crop=1'} onClick = { this.toAngelList } />
-
+                            : null }
                         </div>
+
 
                         <div className = 'Search'>
 
@@ -149,7 +159,9 @@ export default class Jobs extends React.Component {
                         <div>
 
                             <NavLink exact to='/AddJob' >Add Job</NavLink>
-                            <a onClick = { this.toCreddle }>Edit Resume</a>
+                            { this.state.editResumeButton === true ?
+                                <a onClick = { this.toCreddle }>Edit Resume</a>
+                            : null }
 
                         </div>
 
@@ -161,8 +173,9 @@ export default class Jobs extends React.Component {
                 { this.state.search === '' ?
 
                     <Suspense fallback = { <div> Loading... </div> }>
-
-                        <Stats />
+                        { this.state.statsDisplay === true ?
+                            <Stats />
+                        : null }
 
                     </Suspense>
 

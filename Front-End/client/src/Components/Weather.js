@@ -16,8 +16,9 @@ export default class Weather extends Component {
                 location: '',
                 description: '',
                 temp: '',
+                feelsLike: '',
                 sunrise: '',
-                sunset: ''
+                sunset: '',
             },
 
             weatherSettings: {
@@ -25,6 +26,7 @@ export default class Weather extends Component {
                 location: props.weatherSettings.location,
                 description: props.weatherSettings.description,
                 temp: props.weatherSettings.temp,
+                feelsLike: props.weatherSettings.feelsLike,
                 sunrise: props.weatherSettings.sunrise,
                 sunset: props.weatherSettings.sunset
         
@@ -58,6 +60,7 @@ export default class Weather extends Component {
                 let sunset = new Date(newSunsetTime).toLocaleTimeString();
 
                 this.setState({
+                    ...this.state,
                     location: res.data.name,
                     temp: Math.floor(currentWeatherInF),
                     feelsLike: Math.floor(feelsLikeWeatherInF),
@@ -97,6 +100,12 @@ export default class Weather extends Component {
                         { this.props.weatherSettings.temp === true ? 
                             <div>
                                 <p>{this.state.temp}℉</p>
+                            </div>
+                        : null }
+
+                        { this.props.weatherSettings.feelsLike === true ? 
+                            <div>
+                                <p> Feels: {this.state.feelsLike}℉</p>
                             </div>
                         : null }
 
