@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Suspense , lazy } from 'react';
 import './css/Nav.css';
-import './css/Weather.css'
 import { Route, NavLink } from 'react-router-dom';
 import Axios from 'axios';
 import FeatherIcon from 'feather-icons-react';
@@ -14,6 +13,8 @@ import AddJobForm from './Components/AddJobForm';
 import Home from './Components/Home';
 import CalendarEvent from './Components/CalendarEvent';
 import Settings from './Components/Settings';
+// const Weather = React.lazy(() => import('./Components/Weather'));
+import Weather from './Components/Weather';
 
 
 
@@ -21,85 +22,48 @@ export default class App extends React.Component {
 
   constructor() {
     super();
-    this.toggleWeather = this.toggleWeather.bind(this);
     this.state = {
-  
-      // For weather Component
-      location: '',
-      temp: '',
-      feelsLike: '',
-      description: '',
-      descriptionImg: '',
-      sunrise: '',
-      sunset: '',
 
       // For settings
+      weather: true,
+
+      weatherSettings: {
+        location: true,
+        description: true,
+        temp: true,
+        sunrise: true,
+        sunset: true
+
+      },
+
       stats: true,
-      weather: true
 
     }
   }
 
-  componentDidMount() {
+  toggle = ( e, item , bool ) => {
 
-    Axios
-      .get('http://api.openweathermap.org/data/2.5/weather?q=Austin&APPID=31d108f3bb32d9ddb53203d1fc57ca6b')
-      .then(res => {
-
-        // Kelvin to Fahrenheit
-        let currentWeatherInF = (res.data.main.temp - 273.15) * 9 / 5 + 32
-        let feelsLikeWeatherInF = (res.data.main.feels_like - 273.15) * 9 / 5 + 32
-
-        // Unix to regular time
-
-        // Sunrise
-        let sunriseUnix = res.data.sys.sunrise
-        let SRTime = new Date(sunriseUnix * 1000);
-        let newSunriseTime = SRTime.toUTCString();
-        let sunrise = new Date(newSunriseTime).toLocaleTimeString();
-
-        // Sunset
-        let sunsetUnix = res.data.sys.sunset
-        let SSTime = new Date(sunsetUnix * 1000);
-        let newSunsetTime = SSTime.toUTCString();
-        let sunset = new Date(newSunsetTime).toLocaleTimeString();
-
-        this.setState(
-          {
-            location: res.data.name,
-            temp: Math.floor(currentWeatherInF),
-            feelsLike: Math.floor(feelsLikeWeatherInF),
-            description: res.data.weather[0].description,
-            sunrise,
-            sunset,
-            descriptionImg: `http://openweathermap.org/img/wn/${res.data.weather[0].icon}@2x.png`
-          }
-        );
-
-      })
-      .catch(err => {
-        console.log('ERROR', err)
-      })
-  }
-
-  toggleWeather = ( e ) => {
     e.preventDefault();
 
-    if ( this.state.weather === true ) {
-      this.setState({ weather: false })
-    } else {
-      this.setState({ weather: true })
-    }
-  }
+    if ( item === 'weather' || item === 'stats' ) {
 
-  toggleStats = ( e ) => {
-    e.preventDefault();
+      if ( item === 'weather' ) {
+        this.setState({ weather: bool })
+      } else {
+        this.setState({ stats: bool })
+      }
 
-    if ( this.state.stats === true ) {
-      this.setState({ stats: false })
     } else {
-      this.setState({ stats: true })
+
+      this.setState({
+        weatherSettings: {
+          ...this.state.weatherSettings,
+          [item]: bool
+        }
+      })
+      console.log( this.state.weatherSettings )
     }
+
   }
 
   render() {
@@ -111,37 +75,7 @@ export default class App extends React.Component {
 
           <h1 className='Title' >Personalize</h1>
 
-
-          { this.state.weather === true ?
-
-            <div className='Weather'>
-
-              <div>
-                <p><FeatherIcon icon="map-pin" size="24" /> {this.state.location}</p>
-              </div>
-
-              <div>
-                {/* <img src={this.state.descriptionImg} /> */}
-                <p>{this.state.description}</p>
-              </div>
-
-              <div>
-                <p>{this.state.temp}℉</p>
-              </div>
-
-              <div>
-                <FeatherIcon icon="sunrise" size="20" />
-                <p>{this.state.sunrise}</p>
-              </div>
-
-              <div>
-                <FeatherIcon icon="sunset" size="20" />
-                <p>{this.state.sunset}</p>
-              </div>
-
-            </div>
-
-          : null }
+            <Weather {...this.state}/>
 
           <div className='Pages'>
 
@@ -154,8 +88,6 @@ export default class App extends React.Component {
 
         </header>
 
-        {/* <Suspense fallback={ <img src = { Loading }/> }> */}
-
         <Route exact path='/' component={Home} />
         <Route exact path='/Jobs' component={Jobs} />
         <Route exact path='/Schedule' component={Calendar} />
@@ -163,7 +95,7 @@ export default class App extends React.Component {
         <Route exact path='/Job/:id' component={Job} />
         <Route exact path='/Job/Edit/:id' component={EditJob} />
         <Route exact path='/Schedule/:id/:id/:id' component={CalendarEvent} />
-        <Route exact path='/Settings' component={() => (<Settings {...this.state} toggleWeather = { this.toggleWeather } toggleStats = { this.toggleStats } />) } />
+        <Route exact path='/Settings' component={() => ( <Settings {...this.state} toggle = { this.toggle }/> ) } />
 
 
       </div>
