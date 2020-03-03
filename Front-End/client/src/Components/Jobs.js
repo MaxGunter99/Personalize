@@ -17,8 +17,14 @@ export default class Jobs extends React.Component {
             search: '',
             zoom: 20,
             statsDisplay: props.statsDisplay,
-            jobBoardIcons: props.jobBoardIcons,
-            editResumeButton: props.editResumeButton
+            editResumeButton: props.editResumeButton,
+            jobBoardIcons: {
+                LinkedIn: props.jobBoardIcons.LinkedIn,
+                Indeed: props.jobBoardIcons.Indeed,
+                GlassDoor: props.jobBoardIcons.GlassDoor,
+                AngelList: props.jobBoardIcons.AngelList,
+                email: props.jobBoardIcons.email
+            },
     
         }
     }
@@ -78,6 +84,13 @@ export default class Jobs extends React.Component {
 
     }
 
+    toEmail = e => {
+
+        e.preventDefault();
+        window.open( 'https://mail.google.com/mail/u/1/#inbox' );
+
+    }
+
     zoom = ( e , size ) => {
 
         e.preventDefault();
@@ -130,14 +143,20 @@ export default class Jobs extends React.Component {
                     <div className = 'Actions'>
 
                         <div className = 'JobBoards'>
-                            { this.state.jobBoardIcons === true ? 
-                                <>
-                                    <img src = { 'https://techcrunch.com/wp-content/uploads/2014/02/linkedin_logo.png?w=730&crop=1' } onClick = { this.toLinkedIn } />
-                                    <img src = { 'https://apprecs.org/ios/images/app-icons/256/f6/309735670.jpg'} onClick = { this.toIndeed } />
-                                    <img src = { 'https://mma.prnewswire.com/media/449764/Glassdoor_Logo.jpg?p=twitter'} onClick = { this.toGlassDoor } />
-                                    <img src = { 'https://techcrunch.com/wp-content/uploads/2014/03/peace_large.jpg?w=730&crop=1'} onClick = { this.toAngelList } />
-                                </>
-
+                            { this.state.jobBoardIcons.email === true ?
+                                <img src = { 'https://icons-for-free.com/iconfiles/png/512/email+gmail+mail+service+mailing+online+service+icon-1320194987766966945.png'} onClick = { this.toEmail } />
+                            : null }
+                            { this.state.jobBoardIcons.LinkedIn === true ?
+                                <img src = { 'https://techcrunch.com/wp-content/uploads/2014/02/linkedin_logo.png?w=730&crop=1' } onClick = { this.toLinkedIn } />
+                            : null }
+                            { this.state.jobBoardIcons.Indeed === true ?
+                                <img src = { 'https://apprecs.org/ios/images/app-icons/256/f6/309735670.jpg'} onClick = { this.toIndeed } />
+                            : null }
+                            { this.state.jobBoardIcons.GlassDoor === true ?
+                                <img src = { 'https://mma.prnewswire.com/media/449764/Glassdoor_Logo.jpg?p=twitter'} onClick = { this.toGlassDoor } />
+                            : null }
+                            { this.state.jobBoardIcons.AngelList === true ?
+                                <img src = { 'https://techcrunch.com/wp-content/uploads/2014/03/peace_large.jpg?w=730&crop=1'} onClick = { this.toAngelList } />
                             : null }
                         </div>
 

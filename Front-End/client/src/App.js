@@ -39,7 +39,15 @@ export default class App extends React.Component {
       },
 
       statsDisplay: true,
-      jobBoardIcons: true,
+
+      jobBoardIcons: {
+        LinkedIn: true,
+        Indeed: true,
+        GlassDoor: true,
+        AngelList: true,
+        email: true
+      },
+
       editResumeButton: true,
 
     }
@@ -77,18 +85,24 @@ export default class App extends React.Component {
         this.setState({ statsDisplay: bool })
       }
 
-    } else if ( item === 'jobBoardIcons' ) {
+    } else if ( item === 'Indeed' || item === 'LinkedIn' || item === 'GlassDoor' || item === 'AngelList' || item === 'email' ) {
 
       this.setState({
         ...this.state,
-        [item]: bool
+        jobBoardIcons: {
+          ...this.state.jobBoardIcons,
+          [item]: bool
+        }
       })
 
     } else if ( item === 'editResumeButton' ) {
 
       this.setState({ 
         ...this.state,
-        [item]: bool
+        jobBoardIcons: {
+          ...this.state.jobBoardIcons,
+          [item]: bool
+        }
       })
 
     } else {
