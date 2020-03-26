@@ -34,7 +34,8 @@ export default class Jobs extends React.Component {
         Axios
             .get('http://localhost:3000/jobs')
             .then( res => {
-                this.setState({ Jobs: res.data })
+                let sorted = res.data.sort( (a, b) => (a.CompanyName > b.CompanyName) ? 1 : -1)
+                this.setState({ Jobs: sorted })
             });
 
     }
@@ -87,7 +88,7 @@ export default class Jobs extends React.Component {
     toEmail = e => {
 
         e.preventDefault();
-        window.open( 'https://mail.google.com/mail/u/1/#inbox' );
+        window.open( 'https://mail.google.com/mail/u/1/#inbox`' );
 
     }
 

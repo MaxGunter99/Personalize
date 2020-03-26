@@ -6,9 +6,8 @@ import '../css/Job.css';
 
 export default class Job extends React.Component {
 
-    constructor() {
-
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             id: window.location.href.split('/')[4],
             job: {}
@@ -28,11 +27,13 @@ export default class Job extends React.Component {
 
     deleteJob = (id) => {
 
-        this.props.DeleteJob(id)
+        Axios
+            .delete(`http://localhost:3000/jobs/${this.state.id}`)
+            .then(res => {
 
-        if (this.props.error !== null) {
-            console.log('Error!')
-        }
+                console.log()
+                this.props.history.push( '/Jobs' )
+            });
 
     }
 
@@ -57,7 +58,7 @@ export default class Job extends React.Component {
 
                         <h2>-= Outreach =-</h2>
                         <p><strong>Applied Through:</strong> {this.state.job.AppliedThrough}</p>
-                        {this.state.job.ReplyRecieved === 'Yes' ? <p><strong>Reply Recieved:</strong> {this.state.job.ReplyRecieved}</p> : <p><strong>. . . No Reply yet . . .</strong></p>}
+                        {this.state.job.ReplyRecieved === 'Yes' ? <p><strong>Reply Received:</strong> {this.state.job.ReplyRecieved}</p> : <p><strong>. . . No Reply yet . . .</strong></p>}
                         {this.state.job.Details !== '' ? <p><strong>Details:</strong> {this.state.job.Details}</p> : null}
 
                     </div>
