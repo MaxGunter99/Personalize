@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom';
 import Axios from 'axios';
 import styled from 'styled-components';
 import FeatherIcon from 'feather-icons-react';
+import Confetti from 'react-confetti';
+// import useWindowSize from 'react-use/lib/useWindowSize'
 const Stats = React.lazy(() => import('./Stats'));
 
 export default class Jobs extends React.Component {
@@ -18,6 +20,7 @@ export default class Jobs extends React.Component {
             zoom: 20,
             statsDisplay: props.statsDisplay,
             editResumeButton: props.editResumeButton,
+
             jobBoardIcons: {
                 LinkedIn: props.jobBoardIcons.LinkedIn,
                 Indeed: props.jobBoardIcons.Indeed,
@@ -25,6 +28,15 @@ export default class Jobs extends React.Component {
                 AngelList: props.jobBoardIcons.AngelList,
                 email: props.jobBoardIcons.email
             },
+
+            todaysJobsActive: props.todaysJobsActive,
+            jobsAppliedToday: [],
+
+            thisWeeksJobsActive: props.thisWeeksJobsActive,
+            jobsAppliedThisWeek: [],
+
+            onSchedule: true,
+            catchUpNumber: 0,
     
         }
     }
@@ -109,6 +121,47 @@ export default class Jobs extends React.Component {
 
     }
 
+    handleJobs = ( jobs, time ) => {
+
+        if ( time === 'Week' ) {
+
+            this.setState({ ...this.state, jobsAppliedThisWeek: jobs })
+            this.statusCheck()
+
+        } else {
+
+            this.setState({ ...this.state, jobsAppliedToday: jobs })
+
+        }
+
+    }
+
+    renderConfetti = () => {
+        return (
+            <Confetti
+                width={ window.width }
+                height={ window.height }
+            />
+        )
+    }
+
+    statusCheck = () => {
+
+        var d = new Date();
+        var n = d.getDay();
+        const dailyGoal = n * 2
+        const onSchedule = dailyGoal - this.state.jobsAppliedThisWeek.length
+
+        if ( 0 < n < 6 ) {
+            if ( this.state.jobsAppliedThisWeek.length < dailyGoal ) {
+                this.setState({ onSchedule: false , catchUpNumber: onSchedule })
+            } else {
+                this.setState({ onSchedule: true })
+            }
+        }
+
+    }
+
     render() {
 
         // STYLED COMPONENTS
@@ -122,12 +175,11 @@ export default class Jobs extends React.Component {
             width: ${this.state.zoom}%;
             border: 3px solid black;
             background-color: rgba(255, 255, 255, 0.411);
-            backdrop-filter: blur(4px);
             transition: .2s;
 
             &:hover {
 
-                border: 3px solid white;
+                border: 3px solid rgb(185, 50, 50);
                 transition: .2s;
                 cursor: pointer;
 
@@ -190,29 +242,126 @@ export default class Jobs extends React.Component {
 
                 </nav>
 
+                { this.state.onSchedule === false ? (
+                    <>
+                        { this.state.catchUpNumber >= 2 ? (
+                            <p style = {{ color: 'rgb(185, 50, 50)' }}>You are { this.state.catchUpNumber } jobs away from your weekly goal!</p>
+                        ) : (
+                            <p style = {{ color: 'rgb(185, 50, 50)' }}>You are { this.state.catchUpNumber } job away from your weekly goal!</p>
+                        ) }
+                    </>
+                ) : ( 
+                    <p>{ this.renderConfetti() }</p> 
+                )}
+
                 { this.state.search === '' ?
 
                     <Suspense fallback = { <div> Loading... </div> }>
-                        { this.state.statsDisplay === true ?
-                            <Stats />
-                        : null }
+
+                        { this.state.statsDisplay === true ? (
+                            <Stats { ...this.state } handleJobs = { this.handleJobs } />
+                        ) : null }
 
                     </Suspense>
 
                 : null }
 
-                <div className = 'ZoomControls'>
-                    <FeatherIcon icon="zoom-in" size="35" className = 'Zoom' onClick = { (e) => this.zoom( e ,'in' ) }/>
-                    <FeatherIcon icon="zoom-out" size="35" className = 'Zoom' onClick = { (e) => this.zoom( e , 'out' ) }/>
-                </div>
-
                 <div>
 
                     <Suspense fallback = { <div> Loading... </div>}>
 
+                        { this.state.search === '' ? (
+
+                            <div className = 'indView'>
+
+                                { this.state.todaysJobsActive === true && this.state.jobsAppliedToday.length > 0 ? (
+                                    
+                                    <div className = 'individual'>
+
+                                        <h2>Applied Today</h2>
+
+                                        <div className = 'JobContainer' style = {{ backgroundColor: 'white' }}>
+
+                                            {this.state.jobsAppliedToday.map((x) =>
+
+                                                <IndividualJob key={x.id} onClick={() => window.location = `/Job/${x.id}`}>
+
+                                                    <div className='Header'>
+
+                                                        <div>
+
+                                                            <h2 className='CompanyName'>{x.CompanyName}</h2>
+                                                            <h4 className='Role'>{x.Role}</h4>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div className='Applied'>
+
+                                                        {/* <p>{x.AppliedThrough}</p> */}
+                                                        <p className="Date">{x.DateApplied}</p>
+
+                                                    </div>
+
+                                                </IndividualJob>
+
+                                            )}
+
+                                        </div>
+                                    </div>
+
+                                ) : null }
+
+                                { this.state.thisWeeksJobsActive === true && this.state.jobsAppliedThisWeek.length > 0 ? (
+
+                                    <div className = 'individual'>
+
+                                        <h2>Applied This Week</h2>
+
+                                        <div className = 'JobContainer' style = {{ backgroundColor: 'white' }}>
+
+                                            {this.state.jobsAppliedThisWeek.map((x) =>
+
+                                                <IndividualJob key={x.id} onClick={() => window.location = `/Job/${x.id}`}>
+
+                                                    <div className='Header'>
+
+                                                        <div>
+
+                                                            <h2 className='CompanyName'>{x.CompanyName}</h2>
+                                                            <h4 className='Role'>{x.Role}</h4>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div className='Applied'>
+
+                                                        {/* <p>{x.AppliedThrough}</p> */}
+                                                        <p className="Date">{x.DateApplied}</p>
+
+                                                    </div>
+
+                                                </IndividualJob>
+
+                                            )}
+
+                                        </div>
+                                    </div>
+
+                                ) : null }
+                            </div>
+                        ) : null }
+
                         { this.state.search !== '' ?
 
                             <div className = 'JobContainer'>
+
+                                <div className = 'ZoomControls'>
+                                    <FeatherIcon icon="zoom-in" size="35" className = 'Zoom' onClick = { (e) => this.zoom( e ,'in' ) }/>
+                                    <FeatherIcon icon="zoom-out" size="35" className = 'Zoom' onClick = { (e) => this.zoom( e , 'out' ) }/>
+                                </div>
 
                                 { this.state.Jobs.map( ( x ) =>
 
@@ -253,6 +402,11 @@ export default class Jobs extends React.Component {
                         :
 
                             <div className='JobContainer'>
+
+                                <div className = 'ZoomControls'>
+                                    <FeatherIcon icon="zoom-in" size="35" className = 'Zoom' onClick = { (e) => this.zoom( e ,'in' ) }/>
+                                    <FeatherIcon icon="zoom-out" size="35" className = 'Zoom' onClick = { (e) => this.zoom( e , 'out' ) }/>
+                                </div>
 
                                 {this.state.Jobs.map((x) =>
 

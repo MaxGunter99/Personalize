@@ -29,6 +29,9 @@ export default class Settings extends Component {
                 email: props.jobBoardIcons.email
             },
             editResumeButton: props.editResumeButton,
+
+            todaysJobsActive: props.todaysJobsActive,
+            thisWeeksJobsActive: props.thisWeeksJobsActive
         }
     }
 
@@ -150,6 +153,28 @@ export default class Settings extends Component {
                                     <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'editResumeButton' , true ) }/> 
 
                                 }
+                            </div>
+
+                            <div className = 'Single'>
+
+                                <h3>Todays Jobs</h3>
+                                { this.state.todaysJobsActive === true ? 
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'TodaysJobs' , false ) }/>
+                                : 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'TodaysJobs' , true ) }/> 
+                                }
+
+                            </div>
+
+                            <div className = 'Single'>
+
+                                <h3>This Weeks Jobs</h3>
+                                { this.state.thisWeeksJobsActive === true ? 
+                                    <FeatherIcon icon="toggle-left" size="30" color='green' onClick = { (e) => this.props.toggle( e , 'ThisWeeksJobs' , false ) }/>
+                                : 
+                                    <FeatherIcon icon="toggle-right" size="30" color='red' onClick = { (e) => this.props.toggle( e , 'ThisWeeksJobs' , true ) }/> 
+                                }
+
                             </div>
 
                             <div className = 'JobBoardContainer'>

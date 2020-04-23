@@ -7,21 +7,27 @@ import Axios from 'axios';
 
 export default class Stats extends React.Component {
 
-    state = {
+    constructor( props ) {
+        super( props )
+        this.state = {
+    
+            jobs: [],
+            appliedThisWeek: 0,
+            appliedToday: 0,
+            data: [
+                { x: 0, y: 0 },
+                { x: 0, y: 0 },
+                { x: 0, y: 0 },
+                { x: 0, y: 0 },
+                { x: 0, y: 0 },
+                { x: 0, y: 0 },
+                { x: 0, y: 0 }
+            ],
 
-        jobs: [],
-        appliedThisWeek: 0,
-        appliedToday: 0,
-        data: [
-            { x: 0, y: 0 },
-            { x: 0, y: 0 },
-            { x: 0, y: 0 },
-            { x: 0, y: 0 },
-            { x: 0, y: 0 },
-            { x: 0, y: 0 },
-            { x: 0, y: 0 }
-        ]
-
+            jobsAppliedToday: props.jobsAppliedToday,
+            jobsAppliedThisWeek: props.jobsAppliedThisWeek,
+    
+        }
     }
 
     componentDidMount() {
@@ -38,12 +44,6 @@ export default class Stats extends React.Component {
 
     }
 
-    // componentDidUpdate = () => {
-
-    //     this.loadStats()
-
-    // }
-
     // Loads data for activity graph
     loadStats = () => {
 
@@ -51,6 +51,8 @@ export default class Stats extends React.Component {
         const jobsAppliedToday = []
         const jobsAppliedThisWeek = []
         const thisWeekDates = []
+        const thisWeeksJobs = []
+        const todaysJobs = []
 
         const today = new Date()
         const Sunday = new Date( today.getTime() - today.getDay() * 24 * 3600 * 1000).toLocaleDateString();
@@ -80,9 +82,13 @@ export default class Stats extends React.Component {
             const todayStr = new Date()
 
             // Jobs applied to Today
-            if ( Number(applied.split('/')[0]) === Number( todayStr.toLocaleDateString().split('/')[0] ) && Number(applied.split('/')[1]) === Number(todayStr.toLocaleDateString().split('/')[1]) && Number(applied.split('/')[2]) === Number(todayStr.toLocaleDateString().split('/')[2])) {
+            if ( Number( applied.split('/')[0] ) === Number( todayStr.toLocaleDateString().split('/')[0] ) 
+                && Number( applied.split('/')[1] ) === Number( todayStr.toLocaleDateString().split('/')[1] ) 
+                && Number( applied.split('/')[2] ) === Number( todayStr.toLocaleDateString().split('/')[2] )
+            ) {
 
                 jobsAppliedToday.push(1)
+                todaysJobs.push( this.state.jobs[i] )
 
             }
 
@@ -91,9 +97,8 @@ export default class Stats extends React.Component {
 
                 if ( thisWeekDates[x] === applied ) {
 
-                    console.log( 'MATCH' )
-
                     jobsAppliedThisWeek.push(applied)
+                    thisWeeksJobs.push( this.state.jobs[i] )
 
                 }
 
@@ -118,10 +123,15 @@ export default class Stats extends React.Component {
 
         }
 
+        this.props.handleJobs( todaysJobs , 'Day' )
+        this.props.handleJobs( thisWeeksJobs , 'Week' )
+
         this.setState({
             replies: accepts.length,
             appliedToday: jobsAppliedToday.length,
-            appliedThisWeek: jobsAppliedThisWeek.length
+            appliedThisWeek: jobsAppliedThisWeek.length,
+            jobsAppliedThisWeek: thisWeeksJobs,
+            jobsAppliedToday: todaysJobs
         });
 
     }
@@ -142,7 +152,7 @@ export default class Stats extends React.Component {
                     <XYPlot
                         height = { 300 }
                         width = { 300 }
-                        stroke = 'red' >
+                        stroke = 'rgb(185, 50, 50)' >
 
                         {/* <HorizontalGridLines /> */}
                         <VerticalGridLines />
@@ -154,8 +164,8 @@ export default class Stats extends React.Component {
                 </div>
 
                 <div>
-                    <p>Today: {this.state.appliedToday}</p>
-                    <p>This week: {this.state.appliedThisWeek}</p>
+                    <p onClick = { () => console.log( this.state.jobsAppliedToday ) }>Today: {this.state.appliedToday}</p>
+                    <p onClick = { () => console.log( this.state.jobsAppliedThisWeek ) }>This week: {this.state.appliedThisWeek}</p>
                 </div>
             </div>
         )

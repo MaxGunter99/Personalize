@@ -49,6 +49,8 @@ export default class App extends React.Component {
       },
 
       editResumeButton: true,
+      todaysJobsActive: true,
+      thisWeeksJobsActive: true,
 
     }
   }
@@ -77,7 +79,15 @@ export default class App extends React.Component {
 
     e.preventDefault();
 
-    if ( item === 'weather' || item === 'statsDisplay' ) {
+    if ( item === 'TodaysJobs' || item === 'ThisWeeksJobs' ) {
+
+      if ( item === 'TodaysJobs' ) {
+        this.setState({ todaysJobsActive: bool })
+      } else {
+        this.setState({ thisWeeksJobsActive: bool })
+      }
+
+    } else if ( item === 'weather' || item === 'statsDisplay' ) {
 
       if ( item === 'weather' ) {
         this.setState({ weather: bool })

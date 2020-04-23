@@ -22,7 +22,7 @@ header.HomePageHeader {
     display: flex;
     justify-content: space-between;
     font-family: 'Lobster', cursive;
-    background-color: rgba(255, 255, 255, 0.219);
+    background-color: rgb(46, 46, 46);
     z-index: 1;
     width: 100%;
     position: absolute;
@@ -42,7 +42,7 @@ header.HomePageHeader {
 
     display: flex;
     align-items: center;
-    color: black;
+    color: rgb(133, 133, 133);
     text-decoration: none;
     padding: 10px;
     align-self: center;
@@ -55,7 +55,7 @@ header.HomePageHeader {
   
 .HomePageHeader a.active {
   
-    background-color: red;
+    background-color: rgb(185, 50, 50);
     color: white;
     transition: .5s;
   
@@ -69,8 +69,9 @@ header.HomePageHeader {
     align-items: center;
     justify-content: center;
     margin: 0px;
+    color: white;
     text-decoration: underline;
-    text-decoration-color: red;
+    text-decoration-color: rgb(185, 50, 50);
   
 }
 
@@ -96,12 +97,14 @@ h3 {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    width: 100%;
+    width: 95%;
+    margin: 0 auto;
+    /* margin: 20px; */
     align-items: center;
     color: white;
-    background-color: rgba(0, 0, 0, 0.123);
-    margin-bottom: 10px;
-    backdrop-filter: blur(5px);
+    background-color: rgb(185, 50, 50);
+    padding: 10px;
+    border-radius: 0px 0px 10px 10px;
 
 }
 
@@ -135,7 +138,7 @@ h3 {
     font-size: 60px;
     margin: 0 auto;
     text-decoration: underline;
-    text-decoration-color: red;
+    text-decoration-color: rgb(185, 50, 50);
 
 }
 
