@@ -2,8 +2,10 @@
 .Container {
 
     min-height: 100vh;
-    background-image: url('https://images.pexels.com/photos/2709274/pexels-photo-2709274.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
-    background-position: center;
+    background-image: url('https://images.pexels.com/photos/114820/pexels-photo-114820.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+    /* background-image: url('https://images.pexels.com/photos/383568/pexels-photo-383568.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'); */
+    /* background-image: url('https://images.pexels.com/photos/716834/pexels-photo-716834.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'); */
+    background-position: top;
     display: flex;
     background-size: 100%;
     flex-direction: column;
@@ -17,27 +19,31 @@
 
     display: flex;
     flex-direction: column;
-    padding-top: 50px;
-    background-color: rgba(255, 255, 255, 0.349);
+    justify-content: center;
+    padding-top: 20px;
+    background-color: rgb(185, 50, 50);
     width: 100%;
+    border-bottom: 3px solid black;
 
 }
 
 .Container h1 {
 
     margin-bottom: 1px;
-    text-decoration: underline;
-    text-decoration-color: red;
+    color: white;
     font-family: 'Lobster', cursive;
 
 }
 
 .Container h4 {
 
-    margin-top: 0px;
-    color: rgb(255, 255, 255);
-    background-color: rgba(0, 0, 0, 0.616);
-    margin-bottom: 0px;
+    width: fit-content;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
 
 }
 
@@ -85,29 +91,43 @@
 
     font-family: 'Lobster', cursive;
     text-decoration: underline;
-    text-decoration-color: red;
+    text-decoration-color: rgb(185, 50, 50);
 
 }
 
 .BottomButtons {
 
     display: flex;
-    width: auto;
-    justify-content: space-between;
+    width: 50%;
+    justify-content: space-evenly;
+    background-color: rgba(255, 255, 255, 0.226);
+    backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    margin: 50px;
+    /* border: 3px solid rgb(0, 0, 0); */
 
 }
 
-.ActButton {
+.AButton {
 
-    color: white;
-    background-color: black;
+    color: black;
+    background-color: rgba(255, 0, 0, 0);
     display: flex;
-    justify-content: center;
-    margin: 10px;
-    padding: 10px;
-    width: 50px; 
+    justify-content: space-evenly;
+    align-items: center;
     font-size: 15px;
-    border-radius: 5px;
-    border: 1px solid white;
 
+}
+
+.AButton p {
+    width: auto;
+    text-decoration: none;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.AButton:hover {
+    color: rgb(185, 50, 50);
+    transition: .3s;
+    cursor: pointer;
 }

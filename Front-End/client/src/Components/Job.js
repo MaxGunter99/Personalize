@@ -94,10 +94,10 @@ export default class Job extends React.Component {
                     : null}
 
                     <div className='BottomButtons'>
-                        <button className = 'ActButton' onClick={() => this.back()}><FeatherIcon icon="arrow-left" size="30" /></button>
-                        <NavLink className = 'ActButton' exact to={`/Job/Edit/${this.state.id}`}><FeatherIcon icon="edit" size="30" /></NavLink>
-                        <button className = 'ActButton' onClick={() => window.open(`${this.state.job.URL}`)}><FeatherIcon icon="link" size="30" /></button>
-                        <button className = 'ActButton' onClick={() => this.deleteJob(this.state.id)}><FeatherIcon icon="trash" size="30" /></button>
+                        <button className = 'AButton' onClick={() => this.back()}><FeatherIcon icon="arrow-left" size="30" /><p>back</p></button>
+                        <button className = 'AButton' onClick={() => window.open(`${this.state.job.URL}`)}><FeatherIcon icon="external-link" size="30" /><p>Job Description</p></button>
+                        <NavLink type = 'button' className = 'AButton' exact to={`/Job/Edit/${this.state.id}`}><FeatherIcon icon="edit-2" size="30" /><p>Edit</p></NavLink>
+                        <button className = 'AButton' onClick={() => this.deleteJob(this.state.id)}><FeatherIcon icon="trash" size="30" /><p>Delete</p></button>
                     </div>
 
                 </div>

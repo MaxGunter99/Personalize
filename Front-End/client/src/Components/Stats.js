@@ -73,7 +73,7 @@ export default class Stats extends React.Component {
             const reply = this.state.jobs[i].ReplyRecieved
             const applied = this.state.jobs[i].DateApplied
 
-            if (reply.toLowerCase() === 'yes') {
+            if ( reply.toLowerCase() === 'yes' ) {
 
                 accepts.push(1)
 

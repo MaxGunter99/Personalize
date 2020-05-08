@@ -1,7 +1,17 @@
 import React from 'react';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
+import FeatherIcon from 'feather-icons-react';
 
 import '../css/EditJobForm.css';
+
+async function wait(ms) {
+
+    return new Promise( resolve => {
+      setTimeout(resolve, ms);
+    });
+
+}
 
 export default class EditJob extends React.Component {
 
@@ -27,6 +37,9 @@ export default class EditJob extends React.Component {
         id: window.location.href.split('/')[5],
         PhoneScreen: false,
         OnSite: false,
+
+        PhoneScreenHeight: '0',
+        OnSiteHeight: '0'
     }
 
 
@@ -105,23 +118,60 @@ export default class EditJob extends React.Component {
 
     };
 
-    toggle = (data) => {
-        console.log(data)
+    toggle = async function(data) {
+
         if (data === 'PhoneScreen') {
             if (this.state.PhoneScreen === false) {
-                return this.setState({ PhoneScreen: true })
+
+                this.setState({ PhoneScreen: true })
+
+                for ( var x = 0; x < 700; x += 50 ) {
+                    await wait( 0 )
+                    this.setState({ PhoneScreenHeight: x })
+                    // window.scrollTo(0,document.body.scrollHeight);
+                }
+
+                this.setState({ PhoneScreenHeight: 700 })
 
             } else if (this.state.PhoneScreen === true) {
-                return this.setState({ PhoneScreen: false })
+
+                for ( var x = 700; x > 0; x -= 50 ) {
+                    await wait( 0 )
+                    this.setState({ PhoneScreenHeight: x })
+                    // window.scrollTo(0,document.body.scrollHeight);
+                }
+
+                this.setState({ PhoneScreen: false , PhoneScreenHeight: 0 })
             }
+
         } else if (data === 'OnSite') {
             if (this.state.OnSite === false) {
-                return this.setState({ OnSite: true })
+
+                this.setState({ OnSite: true })
+
+                for ( var x = 0; x < 600; x += 50 ) {
+                    await wait( 0 )
+                    this.setState({ OnSiteHeight: x })
+                    // window.scrollTo(0,document.body.scrollHeight);
+                }
+
+                this.setState({ OnSiteHeight: 600 })
 
             } else if (this.state.OnSite === true) {
-                return this.setState({ OnSite: false })
+
+                for ( var x = 600; x > 0; x -= 50 ) {
+                    await wait( 0 )
+                    this.setState({ OnSiteHeight: x })
+                    // window.scrollTo(0,document.body.scrollHeight);
+                }
+
+                this.setState({ OnSite: false , OnSiteHeight: 0 })
             }
         }
+    }
+
+    back = () => {
+        this.props.history.push(`/Job/${this.state.id}`)
     }
 
     render() {
@@ -134,7 +184,7 @@ export default class EditJob extends React.Component {
 
                     <div className='Process'>
 
-                        <h1>Out Reach</h1>
+                        <h1>Outreach</h1>
 
                         <div className='section'>
 
@@ -279,9 +329,10 @@ export default class EditJob extends React.Component {
                         </div>
 
                     </div>
-
-                    {this.state.job.PhoneScreen === 'Yes' || this.state.PhoneScreen === true ?
-                        <div className='Process'>
+                    
+                    {/* { this.state.job.PhoneScreen === 'Yes' || this.state.PhoneScreen === true ? */}
+                    
+                        <div className='Process' style = {{ height: `${this.state.PhoneScreenHeight}px` , overflow: 'hidden', transition: '1s' }}>
 
                             <h1>Phone Screen</h1>
 
@@ -377,16 +428,15 @@ export default class EditJob extends React.Component {
                                     />
                                 </div>
                             </div>
-                            <button className='toggle' type='button' onClick={() => this.toggle('PhoneScreen')}>X</button>
-                        </div>
-                        :
-                        <div>
-                            <button className='toggle' type='button' onClick={() => this.toggle('PhoneScreen')}>Show Phone Screen</button>
-                        </div>
-                    }
 
-                    {this.state.job.OnSite === 'Yes' || this.state.OnSite === true ?
-                        <div className='Process'>
+                        </div>
+                    {/* :
+                        null
+                    } */}
+
+                    {/* {this.state.job.OnSite === 'Yes' || this.state.OnSite === true ? */}
+
+                        <div className='Process' style = {{ height: `${this.state.OnSiteHeight}px` , overflow: 'hidden', transition: '1s' }}>
 
                             <h1>On Site</h1>
 
@@ -480,17 +530,30 @@ export default class EditJob extends React.Component {
 
                             </div>
 
-                            <button className='toggle' type='button' onClick={() => this.toggle('OnSite')}>X</button>
-
                         </div>
+                    {/* :
+                        null
+                    } */}
 
-                        :
-                        <div>
-                            <button className='toggle' type='button' onClick={() => this.toggle('OnSite')}>Show On Site</button>
-                        </div>
-                    }
+                    <div className = 'ToggleButtonsContainer'>
 
-                    <button type='submit' className='ActionButton'>Update</button>
+                        <button className = 'AButton' onClick = { () => this.back() }><FeatherIcon icon="arrow-left" size="30"/><p>Back</p></button>
+
+                        { this.state.job.PhoneScreen === 'No' || this.state.PhoneScreen === false ?
+                            <button className='AButton' type='button' onClick={() => this.toggle('PhoneScreen')}><FeatherIcon icon="eye" size="30" /><p>Show Phone Screen</p></button>
+                        : 
+                            <button className='AButton' type='button' onClick={() => this.toggle('PhoneScreen')}><FeatherIcon icon="eye-off" size="30" /><p>Hide Phone Screen</p></button>
+                        }
+
+                        { this.state.job.OnSite === 'No' || this.state.OnSite === false ?
+                            <button className='AButton' type='button' onClick={() => this.toggle('OnSite')}><FeatherIcon icon="eye" size="30" /><p>Show On Site</p></button>
+                        : 
+                            <button className='AButton' type='button' onClick={() => this.toggle('OnSite')}><FeatherIcon icon="eye-off" size="30" /><p>Hide On Site</p></button> 
+                        }
+
+                        <button type='submit' className='AButton'><FeatherIcon icon="check" size="30" /><p>Submit</p></button>
+
+                    </div>
 
                 </form>
             </div>

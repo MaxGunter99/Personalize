@@ -170,8 +170,9 @@ export default class Jobs extends React.Component {
 
             display: flex;
             flex-direction: column;
+            justify-content: space-evenly;
             margin: 10px;
-            padding: 10px;
+            padding: 5px;
             width: ${this.state.zoom}%;
             border: 3px solid black;
             background-color: rgba(255, 255, 255, 0.411);
@@ -228,14 +229,11 @@ export default class Jobs extends React.Component {
                         </div>
 
 
-                        <div>
 
-                            <NavLink exact to='/AddJob' >Add Job</NavLink>
-                            { this.state.editResumeButton === true ?
-                                <a onClick = { this.toCreddle }>Edit Resume</a>
-                            : null }
-
-                        </div>
+                        <NavLink className = 'ActionButton' exact to='/AddJob' >Add Job</NavLink>
+                        { this.state.editResumeButton === true ?
+                            <a onClick = { this.toCreddle }>Edit Resume</a>
+                        : null }
 
 
                     </div>
@@ -338,7 +336,7 @@ export default class Jobs extends React.Component {
 
                                                     <div className='Applied'>
 
-                                                        {/* <p>{x.AppliedThrough}</p> */}
+                                                        <p>{x.AppliedThrough}</p>
                                                         <p className="Date">{x.DateApplied}</p>
 
                                                     </div>
@@ -425,7 +423,7 @@ export default class Jobs extends React.Component {
 
                                         <div className='Applied'>
 
-                                            {/* <p>{x.AppliedThrough}</p> */}
+                                            <p>{x.AppliedThrough}</p>
                                             <p className="Date">{x.DateApplied}</p>
 
                                         </div>
